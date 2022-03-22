@@ -111,6 +111,28 @@ class ClienteDAO extends Conexao
         }
 
     }
+
+    public function ExcluirCliente($id_client){
+
+        if ($id_client=='') {
+            return 0;
+        }
+
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'delete from tb_cliente where id_cliente = ? and id_funcionario = ?';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $id_client);
+        $sql->bindValue(2, UtilDAO::CodigoLogado());
+
+        try {
+            $sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+           return -2;
+        }
+
+    }
+
     
 }
 ?>

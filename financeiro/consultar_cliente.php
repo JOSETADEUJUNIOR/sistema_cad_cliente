@@ -37,7 +37,7 @@ $clientes = $objCliente->ConsultarCliente();
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             CLientes cadastrados <span> <a style="color:white;" href="novo_cliente.php"><i title="Criar Novo Cliente" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                             Clientes cadastrados <span> <a style="color:white;" href="novo_cliente.php"><i title="Criar Novo Cliente" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -69,7 +69,7 @@ $clientes = $objCliente->ConsultarCliente();
                                             <td><?= $clientes[$i]['obs_cliente']?></td>
                                             <td style="padding: 3px 1px 3px 3px;"> 
                                                 <a href="alterar_cliente.php?cod=<?= $clientes[$i]['id_cliente']?>"><i title="Alterar Cargo" style=" color:#c09046; font-size:18px; margin-right:10px" class="fa fa-pencil"></i></a>
-                                                <a href="excluir_cliente.php"><i title="Excluir Cargo" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
+                                                <!--<a href="excluir_cliente.php"><i title="Excluir Cargo" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>-->
                                             </td>
                                             
                                             
