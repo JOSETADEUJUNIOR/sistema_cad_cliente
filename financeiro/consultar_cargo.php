@@ -38,7 +38,7 @@ $cargos = $objCargo->ConsultarCargo();
                     <div class="panel panel-default">
                      
                     <div class="panel-heading">
-                             Cargos cadastrados <span> <a style="color:white;" href="novo_cargo.php"><i title="Criar Novo Cargo" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                             Cargos cadastrados  <span> <a style="color:white;" href="pdfCargo.php" target="_blank"><i title="Emitir Relatorio de Cargo" style="font-size: 22px;float: right; padding:0px 10px" class="fa fa-print"></i></a></span>   <span> <a style="color:white;" href="novo_cargo.php"><i title="Criar Novo Cargo" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                             
                         </div>
                         <div class="panel-body">

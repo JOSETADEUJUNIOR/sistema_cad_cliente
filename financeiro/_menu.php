@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav" id="main-menu">
             <li class="text-center">
-                <img src="assets/img/logo.png" class="user-image img-responsive" />
+                <img style="width: 500px; height:120px;" src="assets/img/rondon.jpeg" class="user-image img-responsive" />
             </li>
 
 

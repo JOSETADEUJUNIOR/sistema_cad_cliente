@@ -1,14 +1,9 @@
 <?php
 
 if (isset($_GET['ret'])) {
-    
     $ret = $_GET['ret'];
 }
-
-
 if (isset($ret)) {
-
-
     switch ($ret) {
         case '-2':
             //echo '<div class="alert alert-success">
@@ -22,7 +17,7 @@ if (isset($ret)) {
                   width: 'auto',
                   html: '<h3>Não foi possível excluir o registro, pois o mesmo esta em uso!</h3>',
                   showConfirmButton: false,
-                  timer: 4000,
+                  timer: 5000,
               })
 
               setTimeout(function(){
