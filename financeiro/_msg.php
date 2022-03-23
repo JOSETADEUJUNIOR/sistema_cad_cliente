@@ -46,7 +46,7 @@ if (isset($ret)) {
                   icon: 'success',
                   title: 'Sucesso',
                   width: 'auto',
-                  html: '<h3>Dados Salvos com sucesso!</h3>',
+                  html: '<h3>Ação realizada com sucesso!</h3>',
                   showConfirmButton: false,
                   timer: 4000,
               })
