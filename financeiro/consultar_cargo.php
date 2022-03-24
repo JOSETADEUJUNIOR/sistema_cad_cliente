@@ -47,7 +47,7 @@ $cargos = $objCargo->ConsultarCargo();
                                     
                                     <thead>
                                         <tr>
-                                            <th>Nome Cargo</th>
+                                            <th>Nome do Cargo</th>
                                             <th>Descrição do Cargo</th>
                                             <th >Ação</th>
                                             
