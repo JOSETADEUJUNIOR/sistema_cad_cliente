@@ -49,7 +49,7 @@ $retEmpresa = $objResult->GetEmpresa();
                     <!-- /. ROW  -->
                     <hr />
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 col-xs-6">           
+                        <div class="col-md-4 col-sm-6 col-xs-6">   
                             <div id="PainelAdmin" class="panel panel-back noti-box">
                                     <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
                                     <i class="fa fa-list"></i>

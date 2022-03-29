@@ -1,13 +1,23 @@
 <?php
 
 require_once '../DAO/CategoriaDAO.php';
+$pag_ret = 'consultar_categoria.php';
+$objCategoria = new CategoriaDAO();
 
-if (isset($_POST['btn_gravar'])) {
 
-    $nome_categoria = trim($_POST['nome']);
+if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
+   
+    $id_cat = $_GET['cod'];
+    $dados = $objCategoria->DetalharCategoria($id_cat);
+}else if (isset($_POST['btn_gravar'])) {
 
-    $objCategoria = new CategoriaDAO();
-    $ret = $objCategoria->EditarCategoria($nome_categoria);
+    $nome_cat = trim($_POST['nome']);
+    $id_cat = trim($_POST['cod']);
+
+    $ret = $objCategoria->EditarCategoria($nome_cat, $id_cat);
+} else{
+    header('location: consultar_categoria.php');
+    exit;
 }
 
 
@@ -28,6 +38,7 @@ if (isset($_POST['btn_gravar'])) {
                 <div class="row">
                     <div class="col-md-12">
                         <?php include_once('_msg.php') ?>
+                       
                         <h2>Alterar Categoria</h2>
                         <h5>Aqui você poderá alterar todas as suas categorias. </h5>
 
@@ -36,9 +47,10 @@ if (isset($_POST['btn_gravar'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="alterar_categoria.php" method="post">
+                <input type="hidden" name="cod" value="<?= $dados[0]['id_categoria']?>">
                     <div class="form-group" id="divCatNome">
                         <label>Nome da Categoria</label>
-                        <input name="nome" id="nomeCat" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divCatNome','nomeCat')">
+                        <input name="nome" value="<?= $dados[0]['nome_categoria']?>" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divCatNome','nomeCategoria')">
                     </div>
                     <button name="btn_gravar" class="btn btn-success" onclick="return ValidarCategoria()">Gravar</button>
                     <button class="btn btn-danger">Excluir</button>

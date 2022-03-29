@@ -45,6 +45,80 @@ function ValidarLogin(){
 }
 
 
+function ValidarCategoria(){
+
+    if ($("#nomeCategoria").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o Nome Corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }else{
+        Swal.fire({
+            
+            icon: 'success',
+            title: 'Sucesso',
+            width: 'auto',
+            html: '<h3>Dados Salvos com sucesso!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+          })
+          return true;
+    }
+
+
+}
+
+function ValidarSubCat(){
+    if ($("#SubNome").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o Nome Corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }if ($("#cat").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Selecione a Categoria!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }else{
+        Swal.fire({
+            
+            icon: 'success',
+            title: 'Sucesso',
+            width: 'auto',
+            html: '<h3>Dados Salvos com sucesso!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+          })
+          return true;
+    }
+
+}
+
+
 function ValidarMeusDados(){
 
     if ($("#dadosNome").val().trim() == ""){
@@ -522,6 +596,110 @@ function ValidarConta(){
 
 
 
+function ValidarProduto(){
+
+    if ($("#codBarras").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo codigo do produto corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    if ($("#nomeProduto").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo nome do produto corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    if ($("#dataCad").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo data do cadastro corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    if ($("#descProd").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo descrição do produto corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+
+    if ($("#valor").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo valor do produto corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    if ($("#fornecedor").val().trim() == "") {
+       
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Selecione o fornecedor corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    
+    
+    else{
+        Swal.fire({
+            
+            icon: 'success',
+            title: 'Sucesso',
+            width: 'auto',
+            html: '<h3>Dados Salvos com sucesso!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+          })
+          return true;
+    }
+
+
+}
 
 function SinalizaCampo(div,nome){
     console.log(nome);//dadosNome

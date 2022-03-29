@@ -54,6 +54,54 @@ class FuncionarioDAO extends Conexao{
 
     }
 
+    public function MeusDados(){
+
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'Select id_funcionario, nome_funcionario, funcionario_login, funcionario_senha from tb_funcionario where id_funcionario = ? ';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, UtilDAO::CodigoLogado());
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function DetalhaDados($id_func){
+
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'Select id_funcionario, nome_funcionario, funcionario_login, funcionario_senha from tb_funcionario where id_funcionario = ? ';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $id_func);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    public function AlterarDados($id_func, $nome, $login, $senha){
+
+        if ($id_func =='' || $nome=='' || $login=='' || $senha=='') {
+           
+            return 0;
+        }
+
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'update tb_funcionario set nome_funcionario = ?, funcionario_login = ?, funcionario_senha = ?
+                                    where id_funcionario = ?';
+
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $nome);
+        $sql->bindValue(2, $login);
+        $sql->bindValue(3, $senha);
+        $sql->bindValue(4, $id_func);
+
+        try {
+            $sql->execute();
+            return 1;
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+            return -1;
+        }
+
+    }
     public function DetalharFuncionario($id_func){
 
         $conexao = parent::retornaConexao();

@@ -1,15 +1,15 @@
 <?php
-require_once '../DAO/CategoriaDAO.php';
-$pag_ret = 'consultar_categoria.php';
+require_once '../DAO/SubCategoriaDAO.php';
+$pag_ret = 'consultar_sub_categoria.php';
 
-$objCat = new CategoriaDAO();
-$categorias = $objCat->ConsultarCategoria();
+$objSubCat = new SubCategoriaDAO();
+$subCat = $objSubCat->ConsultarSubCategoria();
 
-if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])){
+if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
 
     $idCat = $_GET['idExcluir'];
-    $ret = $objCat->ExcluirCategoria($idCat);
-    $categorias = $objCat->ConsultarCategoria();
+    $ret = $objSubCat->ExcluirSubCat($idCat);
+    $subCat = $objSubCat->ConsultarSubCategoria();
 }
 
 ?>
@@ -30,8 +30,8 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])){
                 <div class="row">
                     <div class="col-md-12">
                     <?php include_once('_msg.php'); ?>
-                        <h2>Consultar Categoria</h2>
-                        <h5>Aqui você poderá consultar suas categorias. </h5>
+                        <h2>Consultar Sub Categoria</h2>
+                        <h5>Aqui você poderá consultar suas sub categorias. </h5>
 
                     </div>
                 </div>
@@ -43,27 +43,29 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])){
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Categorias Cadastradas <span> <a style="color:white;" href="pdfCategoria.php" target="_blank"><i title="Emitir Relatorio de Categorias" style="font-size: 22px;float: right; padding:0px 10px" class="fa fa-print"></i></a></span> <span> <a style="color:white;" href="nova_categoria.php"><i title="Criar nova categoria" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                                Sub Categorias Cadastradas <span> <a style="color:white;" href="pdfSubCategoria.php" target="_blank"><i title="Emitir Relatorio de Sub Categorias" style="font-size: 22px;float: right; padding:0px 10px" class="fa fa-print"></i></a></span> <span> <a style="color:white;" href="nova_sub_categoria.php"><i title="Criar nova sub categoria" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th>Nome Categoria</th>
+                                                <th>Nome Sub Categoria</th>
+                                                <th>Categoria</th>
                                                 <th>Ação</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($categorias as $cat) { ?>
+                                            <?php foreach ($subCat as $subCat) { ?>
 
                                                 <tr class="odd gradeX">
-                                                    <td><?= $cat['nome_categoria'] ?></td>
+                                                    <td><?= $subCat['nome_subcategoria'] ?></td>
+                                                    <td><?= $subCat['nome_categoria'] ?></td>
                                                     <td style="padding: 3px 1px 3px 3px;">
-                                                        <a href="alterar_categoria.php?cod=<?= $cat['id_categoria'] ?>"><i title="Alterar Categoria" style=" color:#c09046; font-size:18px;margin-left:20px; margin-right:5px" class="fa fa-pencil"></i></a>
-                                                        <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $cat['id_categoria'] ?>"><i title="Excluir Categoria" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
-                                                        <div class="modal fade" id="modalExcluir<?= $cat['id_categoria'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <a href="alterar_sub_categoria.php?cod=<?= $subCat['id_subCategoria'] ?>"><i title="Alterar Sub Categoria" style=" color:#c09046; font-size:18px;margin-left:20px; margin-right:5px" class="fa fa-pencil"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $subCat['id_subCategoria'] ?>"><i title="Excluir Sub Categoria" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
+                                                        <div class="modal fade" id="modalExcluir<?= $subCat['id_subCategoria'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -71,12 +73,12 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])){
                                                                         <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Deseja excluir a categoria: <br>
-                                                                        <label>Nome da Categoria: <?= $cat['nome_categoria'] ?></label><br>
+                                                                        Deseja excluir a Sub Categoria: <br>
+                                                                        <label>Sub Categoria: <?= $subCat['nome_subcategoria'] ?></label><br>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                                        <a href="consultar_categoria.php?idExcluir=<?= $cat['id_categoria'] ?>" class="btn btn-primary">Sim</a>
+                                                                        <a href="consultar_sub_categoria.php?idExcluir=<?= $subCat['id_subCategoria'] ?>" class="btn btn-primary">Sim</a>
                                                                     </div>
                                                                 </div>
                                                             </div>

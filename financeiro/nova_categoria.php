@@ -1,20 +1,17 @@
 <?php
-
 require_once '../DAO/CategoriaDAO.php';
-$pag_ret= "consultar_categoria.php";
-if (isset($_POST['btn_cadastrar'])) {
+$pag_ret = 'consultar_categoria.php';
 
-    $nome_categoria = trim($_POST['nomeCategoria']);
+if (isset($_POST['btn_gravar'])) {
 
-    $objCategoria = new CategoriaDAO();
-    $ret = $objCategoria->CadastrarCategoria($nome_categoria);
-   
-    
+    $nome_categoria = trim($_POST['nome']);
+
+    $objCat = new CategoriaDAO();
+    $ret = $objCat->CadastrarCategoria($nome_categoria);
 }
 
 
 ?>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -29,21 +26,24 @@ if (isset($_POST['btn_cadastrar'])) {
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <?php include_once('_msg.php') ?>
-                        <h2>Nova Categoria</h2>
-                        <h5>Aqui você poderá cadastrar todas as suas categorias. </h5>
+                        <?php include('_msg.php') ?>
+                        <h2>Categorias</h2>
+                        <h5>Aqui você poderá Cadastrar as categorias dos produtos. </h5>
 
                     </div>
                 </div>
                 <!-- /. ROW  -->
                 <hr />
                 <form action="nova_categoria.php" method="post">
-                    <div class="form-group" id="divNomeCat">
-                        <label>Nome da Categoria</label>
-                        <input name="nomeCategoria" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divNomeCat','nomeCategoria')">
-                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group" id="divDadosNome">
+                            <label>Nome</label>
+                            <input name="nome" id="dadosNome" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divDadosNome','dadosNome')">
+                        </div>
 
-                    <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarCategoria()">Cadastrar</button>
+                        <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarMeusDados()">Cadastrar</button>
+                        <a href="consultar_categoria.php" class="btn btn-warning">Voltar</a>
+                    </div>
                 </form>
             </div>
             <!-- /. PAGE INNER  -->
@@ -53,7 +53,8 @@ if (isset($_POST['btn_cadastrar'])) {
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    
+
+
 </body>
 
 </html>

@@ -1,7 +1,8 @@
 <?php
 
+require_once 'DAO/UsuarioDAO.php';
 
-class UsuarioDAO{
+class UsuarioDAO extends Conexao{
 
     public function Logar($email,$senha){
 
@@ -27,6 +28,8 @@ class UsuarioDAO{
             return 0;
         }
     }
+
+    
 
 
 

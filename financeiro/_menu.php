@@ -14,6 +14,24 @@
             </li>
 
             <li>
+                <a href="#"><i class="fa fa-archive fa-2x"></i> Produto<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="consultar_categoria.php">Consultar Categorias</a>
+                    </li>
+                    <li>
+                        <a href="consultar_sub_categoria.php">Consultar Sub Categoria</a>
+                    </li>
+                    <li>
+                        <a href="novo_produto.php">Cadastrar Produto</a>
+                    </li>
+                    <li>
+                        <a href="novo_estoque.php">Ajustar Estoque</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
                 <a href="#"><i class="fa fa-list fa-2x"></i> Clientes<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
