@@ -22,6 +22,39 @@ public function GetCargos(){
 
 }
 
+public function GetProduto(){
+
+    $conexao = parent::retornaConexao();
+
+    $comando_sql = ("Select 
+                        count(id_produto) as id_produto from tb_produto");
+
+    $sql = $conexao->prepare($comando_sql);
+
+    $sql->execute();
+
+    $ret = $sql->fetchAll();
+
+    return $ret;
+
+}
+public function GetFornecedor(){
+
+    $conexao = parent::retornaConexao();
+
+    $comando_sql = ("Select 
+                        count(id_fornecedor) as id_fornecedor from tb_fornecedor");
+
+    $sql = $conexao->prepare($comando_sql);
+
+    $sql->execute();
+
+    $ret = $sql->fetchAll();
+
+    return $ret;
+
+}
+
 public function GetEmpresa(){
 
     $conexao = parent::retornaConexao();

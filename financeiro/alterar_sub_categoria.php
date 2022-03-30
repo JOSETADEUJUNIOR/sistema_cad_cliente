@@ -56,7 +56,7 @@ else {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="alterar_sub_categoria.php" method="post">
-                    <input type="text" name="cod" value="<?= $dados[0]['id_subCategoria']?>">
+                    <input type="hidden" name="cod" value="<?= $dados[0]['id_subCategoria']?>">
                     <div class="col-md-6">
                         <div class="form-group" id="divSubNome">
                             <label>Nome</label>

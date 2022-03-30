@@ -1,17 +1,16 @@
 <?php
 
-require_once '../DAO/ProdutoDAO.php';
-require_once '../DAO/UtilDAO.php';
-$pag_ret = 'consultar_produto.php';
+require_once '../DAO/FornecedorDAO.php';
+$pag_ret = 'consultar_fornecedor.php';
 
-$objProd = new ProdutoDAO();
-$produtos = $objProd->ConsultarProduto();
+$objForn = new FornecedorDAO();
+$fornecedores = $objForn->ConsultarFornecedor();
 
 if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
-    
-    $idProd = trim($_GET['idExcluir']);
-    $ret = $objProd->ExcluirProduto($idProd);
-    $produtos = $objProd->ConsultarProduto();
+
+    $idForn = trim($_GET['idExcluir']);
+    $ret = $objForn->ExcluirFornecedor($idForn);
+    $produtos = $objForn->ConsultarFornecedor();
 }
 
 
@@ -31,9 +30,9 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                    <?php include_once('_msg.php'); ?>
-                        <h2>Consultar Produto</h2>
-                        <h5>Aqui você poderá consultar seus produtos. </h5>
+                        <?php include_once('_msg.php'); ?>
+                        <h2>Consultar Fornecedor</h2>
+                        <h5>Aqui você poderá consultar seus fornecedores. </h5>
 
                     </div>
                 </div>
@@ -45,38 +44,32 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Produtos cadastrados <span> <a style="color:white;" href="novo_produto.php"><i title="Criar Novo Produto" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                                Fornecedor cadastrados <span> <a style="color:white;" href="novo_fornecedor.php"><i title="Criar Novo Fornecedor" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th>Codigo</th>
-                                                <th>Produto</th>
-                                                <th>Estoque</th>
-                                                <th>Valor</th>
-                                                <th>Dt Cadastro</th>
-                                                <th>Fornecedor</th>
+                                                <th>Cnpj</th>
+                                                <th>Nome Fornecedor</th>
+                                                <th>Telefone</th>
+                                                <th>E-mail</th>
                                                 <th>Ação</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($produtos as $prod) {?>
-                                            
-                                         
+                                            <?php foreach ($fornecedores as $forn) { ?>
                                                 <tr class="odd gradeX">
-                                                    <td><?= $prod['cod_produto'] ?></td>
-                                                    <td><?= $prod['nome_produto'] ?></td>
-                                                    <td><?= $prod['estoque'] ?></td>
-                                                    <td><?= $prod['valor_produto'] ?></td>
-                                                    <td><?= UtilDAO::ExibirDataBr($prod['data_cadastro']) ?></td>
-                                                    <td><?= $prod['nome_fornecedor'] ?></td>
-                                                    <td style="padding: 2px 1px 2px 2px;">
-                                                        <a href="alterar_produto.php?cod=<?= $prod['id_produto'] ?>"><i title="Alterar Produto" style=" color:#c09046; font-size:16px;margin-left:5px; margin-right:5px" class="fa fa-pencil"></i></a>
-                                                        <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $prod['id_produto'] ?>"><i title="Excluir Produto" style=" color:red; font-size:16px; margin-left:1px" class="fa fa-trash"></i></a>
-                                                        <div class="modal fade" id="modalExcluir<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <td><?= $forn['cnpj_fornecedor'] ?></td>
+                                                    <td><?= $forn['nome_fornecedor'] ?></td>
+                                                    <td><?= $forn['telefone_fornecedor'] ?></td>
+                                                    <td><?= $forn['email_fornecedor'] ?></td>
+                                                    <td style="padding: 3px 1px 3px 3px;">
+                                                        <a href="alterar_fornecedor.php?cod=<?= $forn['id_fornecedor'] ?>"><i title="Alterar Fornecedor" style=" color:#c09046; font-size:18px;margin-left:20px; margin-right:5px" class="fa fa-pencil"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $forn['id_fornecedor'] ?>"><i title="Excluir Categoria" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
+                                                        <div class="modal fade" id="modalExcluir<?= $forn['id_fornecedor'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -84,42 +77,45 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                                         <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        Deseja excluir o produto: <br>
-                                                                        <label>Codigo: <?= $prod['cod_produto'] ?></label><br>
-                                                                        <label>Nome do produto: <?= $prod['nome_produto'] ?></label>
-                                                                        <label>Valor do produto: <?= $prod['valor_produto'] ?></label>
+                                                                        Deseja excluir o Fornecedor: <br>
+                                                                        <label>Nome do fornecedor: <?= $forn['nome_fornecedor'] ?></label><br>
+                                                                        <label>Cnpj do fornecedor: <?= $forn['cnpj_fornecedor'] ?></label>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                                        <a href="consultar_produto.php?idExcluir=<?= $prod['id_produto'] ?>" class="btn btn-primary">Sim</a>
+                                                                        <a href="consultar_fornecedor.php?idExcluir=<?= $forn['id_fornecedor'] ?>" class="btn btn-primary">Sim</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a href="#" data-toggle="modal" data-target="#modalDetalhes<?= $prod['id_produto'] ?>"><i title="Detalhes do Produto" style=" color:blue; font-size:18px; margin-left:15px" class="fa fa-chevron-down"></i></a>
-                                                        <div class="modal fade" id="modalDetalhes<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <a href="#" data-toggle="modal" data-target="#modalDetalhes<?= $forn['id_fornecedor'] ?>"><i title="Detalhes do Fornecedor" style=" color:blue; font-size:18px; margin-left:15px" class="fa fa-chevron-down"></i></a>
+                                                        <div class="modal fade" id="modalDetalhes<?= $forn['id_fornecedor'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                        <h4 class="modal-title" id="myModalLabel">Detalhes do Produto</h4>
+                                                                        <h4 class="modal-title" id="myModalLabel">Detalhes do Fornecedor</h4>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <div class="table-responsive">
                                                                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Categoria</th>
-                                                                                        <th>SubCategoria</th>
-                                                                                        <th>Descrição</th>
-                                                                                        
+                                                                                        <th>Rua</th>
+                                                                                        <th>CEP</th>
+                                                                                        <th>Bairro</th>
+                                                                                        <th>Cidade</th>
+                                                                                        <th>Estado</th>
+
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr class="odd gradeX">
-                                                                                        <td><?= $prod['nome_categoria'] ?></td>
-                                                                                        <td><?= $prod['nome_subcategoria'] ?></td>
-                                                                                        <td><?= $prod['descricao_produto'] ?></td>
+                                                                                        <td><?= $forn['rua_fornecedor'] ?></td>
+                                                                                        <td><?= $forn['cep_fornecedor'] ?></td>
+                                                                                        <td><?= $forn['bairro_fornecedor'] ?></td>
+                                                                                        <td><?= $forn['cidade_fornecedor'] ?></td>
+                                                                                        <td><?= $forn['estado_fornecedor'] ?></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>

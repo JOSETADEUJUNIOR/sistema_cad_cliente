@@ -41,10 +41,11 @@ class SubCategoriaDAO extends Conexao{
 
     }
 
+
     public function ConsultarSubCategoria(){
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select id_subCategoria, nome_subcategoria, nome_categoria
+        $comando_sql = 'Select id_subCategoria, nome_subcategoria, nome_categoria, tb_sub_categoria.id_categoria as id_categoria
                                 from tb_sub_categoria
                                     inner join tb_categoria on
                                       tb_sub_categoria.id_categoria = tb_categoria.id_categoria';

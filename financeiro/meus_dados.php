@@ -9,6 +9,16 @@ $usuario = $objFunc->MeusDados();
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <?php include_once('_head.php'); ?>
+<style>
+a:hover{
+        text-decoration: none;
+    }
+h4:hover{
+    
+    color:yellowgreen;
+    text-decoration: none;
+}
+</style>
 
 <body>
     <div id="wrapper">

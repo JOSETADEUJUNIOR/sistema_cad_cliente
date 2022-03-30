@@ -53,7 +53,6 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                         <input name="nome" value="<?= $dados[0]['nome_categoria']?>" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divCatNome','nomeCategoria')">
                     </div>
                     <button name="btn_gravar" class="btn btn-success" onclick="return ValidarCategoria()">Gravar</button>
-                    <button class="btn btn-danger">Excluir</button>
                     <a href="consultar_categoria.php" class="btn btn-warning">Voltar</a>
                 </form>
             </div>

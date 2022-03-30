@@ -1,8 +1,11 @@
 <?php
 
 require_once '../DAO/ProdutoDAO.php';
+require_once '../DAO/FornecedorDAO.php';
 $pag_ret = 'consultar_produto.php';
 $objProd = new ProdutoDAO();
+$objForn = new FornecedorDAO();
+$fornecedores = $objForn->ConsultarFornecedor();
 
 if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
   
@@ -42,8 +45,8 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 <div class="row">
                     <div class="col-md-12">
                         <?php include_once('_msg.php') ?>
-                        <h2>Novo Produto</h2>
-                        <h5>Aqui você poderá cadastrar todos os Produtos. </h5>
+                        <h2>Alterar Produto</h2>
+                        <h5>Aqui você poderá alterar o produto. </h5>
 
                     </div>
                 </div>
@@ -89,16 +92,17 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                          <label>Selecione o Fornecedor</label>
                          
                         <select name="fornecedor" id="fornecedor" class="form-control" onfocusout="SinalizaCampo('divProdForn','fornecedor')">
-                        <option value="<?= $dados[0]['id_produto']?>">Selecione</option>
-                        <?php for ($i=0; $i<count($cargos) ; $i++) { ?>
-                            <option value="<?= $cargos[$i]['id_cargo']?>"><?= $cargos[$i]['nome_cargo']?></option>
+                        <option value="<?= $dados[0]['id_fornecedor']?>"><?= $dados[0]['nome_fornecedor']?></option>
+                        <?php for ($i=0; $i<count($fornecedores) ; $i++) { ?>
+                            <option value="<?= $fornecedores[$i]['id_fornecedor']?>"><?= $fornecedores[$i]['nome_fornecedor']?></option>
                             <?php } ?>  
                             </select>
                         </div>
                      
                     </div>
                     <div class="col-md-12">
-                        <button name="btn_alterar" class="btn btn-success " onclick="return ValidarProduto()">Cadastrar</button>
+                        <button name="btn_alterar" class="btn btn-success " onclick="return ValidarProduto()">Alterar</button>
+                        <a href="consultar_produto.php" class="btn btn-warning " >Voltar</a>
                     </div>
                 </form>
             </div>

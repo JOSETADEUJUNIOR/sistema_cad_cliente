@@ -5,23 +5,21 @@ require_once 'UtilDAO.php';
 
 
 class FornecedorDAO extends Conexao
-{
-    public function CadastrarFornecedor($nomeFornecedor, $telefoneFonecedor, $emailFornecedor, $ruaFornecedor,
-                                             $bairro, $cidade, $estado, $dataNascimento, $obs){
+{                                      
+    public function CadastrarFornecedor($nome, $telefone, $email, $rua, $cep, $bairro, $cidade, $estado, $cnpj){
 
-        if (trim($nomeCliente)=='' || trim($rua)=='' || trim($bairro)=='' || trim($cep)=='' || trim($cidade)=='' ||
-            trim($estado)=='' || trim($dataNascimento)=='') {
+        if (trim($nome)=='' || trim($telefone)=='' || trim($email)=='' || trim($rua)=='' ||
+            trim($cep)=='' || trim($bairro)=='' || trim($cidade)=='' || trim($estado)=='' || trim($cnpj)=='') {
            
                 return 0;
         }
 
         //Passo 1 = Variavel de conexão
         $conexao = parent::retornaConexao();
-
         //Passo 2 = Comando SQL
-        $comando_sql = ('Insert into tb_cliente (nome_cliente, rua_cliente, bairro_cliente, 
-                         cep_cliente, cidade_cliente, estado_cliente, data_nascimento, obs_cliente,
-                          id_funcionario) values (?,?,?,?,?,?,?,?,?)');
+        $comando_sql = 'Insert into tb_fornecedor (nome_fornecedor, telefone_fornecedor, email_fornecedor, 
+                          rua_fornecedor, cep_fornecedor, bairro_fornecedor, cidade_fornecedor, estado_fornecedor,
+                          cnpj_fornecedor, id_funcionario) values (?,?,?,?,?,?,?,?,?,?)';
 
         
         //Passo 3 = sql recebe preparando a conexao
@@ -29,15 +27,16 @@ class FornecedorDAO extends Conexao
         
         //Passo 4 = Verifica se no comando sql tem ?. caso tiver configura as informações
        
-        $sql->bindValue(1,$nomeCliente);
-        $sql->bindValue(2,$rua);
-        $sql->bindValue(3,$bairro);
-        $sql->bindValue(4,$cep);
-        $sql->bindValue(5,$cidade);
-        $sql->bindValue(6,$estado);
-        $sql->bindValue(7,$dataNascimento);
-        $sql->bindValue(8,$obs);
-        $sql->bindValue(9,UtilDao::CodigoLogado());
+        $sql->bindValue(1,$nome);
+        $sql->bindValue(2,$telefone);
+        $sql->bindValue(3,$email);
+        $sql->bindValue(4,$rua);
+        $sql->bindValue(5,$cep);
+        $sql->bindValue(6,$bairro);
+        $sql->bindValue(7,$cidade);
+        $sql->bindValue(8,$estado);
+        $sql->bindValue(9,$cnpj);
+        $sql->bindValue(10,UtilDao::CodigoLogado());
 
         //Passo 5 Tentar executar
         try {
@@ -50,62 +49,53 @@ class FornecedorDAO extends Conexao
     }
 
 
-    public function ConsultarCliente(){
+    public function ConsultarFornecedor(){
 
         $conexao = parent::retornaConexao();
 
         $comando_sql = 'Select 
-                          id_cliente
-                          ,nome_cliente
-                          ,rua_cliente
-                          ,bairro_cliente
-                          ,cep_cliente
-                          ,cidade_cliente
-                          ,estado_cliente
-                          ,data_nascimento      
-                          ,obs_cliente  
-                             from tb_cliente where id_funcionario = ? ';
+                            id_fornecedor, nome_fornecedor, telefone_fornecedor, email_fornecedor, 
+                            rua_fornecedor, cep_fornecedor, bairro_fornecedor, cidade_fornecedor, estado_fornecedor,
+                            cnpj_fornecedor
+                        from tb_fornecedor ';
     
         $sql = $conexao->prepare($comando_sql);
-        $sql->bindValue(1, UtilDAO::CodigoLogado());
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function DetalharCliente($id_cliente){
+    public function DetalharFornecedor($idForn){
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select id_cliente, nome_cliente, rua_cliente, bairro_cliente,
-                               cep_cliente, cidade_cliente, estado_cliente, data_nascimento,
-                               obs_cliente from tb_cliente where id_cliente = ? and id_funcionario = ? ';
+        $comando_sql = 'Select id_fornecedor, nome_fornecedor, telefone_fornecedor, email_fornecedor, 
+                                rua_fornecedor, cep_fornecedor, bairro_fornecedor, cidade_fornecedor, estado_fornecedor,
+                                cnpj_fornecedor from tb_fornecedor where id_fornecedor = ?';
         $sql = $conexao->prepare($comando_sql);
-        $sql->bindValue(1, $id_cliente);
-        $sql->bindValue(2, UtilDAO::CodigoLogado());
+        $sql->bindValue(1, $idForn);
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
 
     }
-
-    public function AlterarCliente($nomeCliente, $clienteRua, $clienteBairro, $clienteCep, $clienteCidade, $clienteEstado, $clienteNascimento, $clienteObs, $cod){
+                                    
+    public function AlterarFornecedor($nome, $telefone, $email, $rua, $cep, $bairro, $cidade, $estado, $cnpj, $cod){
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'update tb_cliente set nome_cliente = ?, rua_cliente = ?,  bairro_cliente = ?, cep_cliente = ?, cidade_cliente = ?,
-                                                estado_cliente = ?, data_nascimento = ?, obs_cliente = ? where id_funcionario = ? and id_cliente = ? ';
+        $comando_sql = 'update tb_fornecedor set nome_fornecedor = ?, telefone_fornecedor = ?, email_fornecedor = ?, rua_fornecedor = ?, cep_fornecedor = ?,
+                        bairro_fornecedor = ?, cidade_fornecedor = ?, estado_fornecedor = ?, cnpj_fornecedor = ? where id_fornecedor = ? ';
         $sql = $conexao->prepare($comando_sql);
-        $sql->bindValue(1, $nomeCliente);
-        $sql->bindValue(2, $clienteRua);
-        $sql->bindValue(3, $clienteBairro);
-        $sql->bindValue(4, $clienteCep);
-        $sql->bindValue(5, $clienteCidade);
-        $sql->bindValue(6, $clienteEstado);
-        $sql->bindValue(7, $clienteNascimento);
-        $sql->bindValue(8, $clienteObs);
-        $sql->bindValue(9, UtilDAO::CodigoLogado());
+        $sql->bindValue(1, $nome);
+        $sql->bindValue(2, $telefone);
+        $sql->bindValue(3, $email);
+        $sql->bindValue(4, $rua);
+        $sql->bindValue(5, $cep);
+        $sql->bindValue(6, $bairro);
+        $sql->bindValue(7, $cidade);
+        $sql->bindValue(8, $estado);
+        $sql->bindValue(9, $cnpj);
         $sql->bindValue(10, $cod);
 
         try {
             $sql->execute();
-            echo 'passou';
             return 1;
         } catch (Exception $ex) {
             return -1;
@@ -113,18 +103,17 @@ class FornecedorDAO extends Conexao
 
     }
 
-    public function ExcluirCliente($id_client){
+    public function ExcluirFornecedor($idForn){
 
-        if ($id_client=='') {
+        if ($idForn=='') {
             return 0;
         }
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'delete from tb_cliente where id_cliente = ? and id_funcionario = ?';
+        $comando_sql = 'delete from tb_fornecedor where id_fornecedor = ? ';
         $sql = $conexao->prepare($comando_sql);
-        $sql->bindValue(1, $id_client);
-        $sql->bindValue(2, UtilDAO::CodigoLogado());
-
+        $sql->bindValue(1, $idForn);
+        
         try {
             $sql->execute();
             return 1;

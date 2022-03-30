@@ -23,7 +23,7 @@
                         <a href="consultar_sub_categoria.php">Consultar Sub Categoria</a>
                     </li>
                     <li>
-                        <a href="novo_produto.php">Cadastrar Produto</a>
+                        <a href="consultar_produto.php">Consultar Produto</a>
                     </li>
                     <li>
                         <a href="novo_estoque.php">Ajustar Estoque</a>
