@@ -1,16 +1,18 @@
 <?php
+require_once './DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 
-require_once '../DAO/PrincipalDAO.php';
-require_once '../DAO/UtilDAO.php';
-require_once '../DAO/ProdutoDAO.php';
+require_once './DAO/PrincipalDAO.php';
 $objResult = new PrincipalDAO();
-$objProd = new ProdutoDAO();
 
-$retCliente = $objResult->GetClientes();
+
+
+$retCargo = $objResult->GetCargos();
+$retFuncionario = $objResult->GetFuncionario();
 $retEmpresa = $objResult->GetEmpresa();
-$produto = $objResult->GetProduto();
-$fornecedores = $objResult->GetFornecedor();
-$produtos = $objProd->ConsultarProduto();
+
+
+
 
 ?>
 
@@ -113,46 +115,29 @@ $produtos = $objProd->ConsultarProduto();
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
+                            <span style="background-color: green;" class="icon-box bg-color-green set-icon">
+                                <i class="fa fa-users"></i>
                             </span>
                             <div class="text-box">
-                                <?php foreach ($retCliente as $key => $value) { ?>
-                                    <a style="color:black;text-decoration-line: none;" href="consultar_cliente.php">
-                                        <p class="main-text"><?= $value['total'] . " Cliente(s)" ?></p>
+                                <?php foreach ($retFuncionario as $key => $value) { ?>
+                                    <a style="color:black;text-decoration-line: none;" href="consultar_funcionario.php">
+                                        <p class="main-text"><?= $value['total'] . " Funcionário(s)" ?></p>
                                         <p class="text-muted">Cadastrados</p>
                                     </a>
                                 <?php } ?>
-                            </div>
-                        </div>
-                    </div>
 
-                    
-                    
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
-                            </span>
-                            <div class="text-box">
-                                <?php foreach ($produto as $prod) { ?>
-                                    <a style="color:black;text-decoration-line: none;" href="consultar_produto.php">
-                                        <p class="main-text"><?= $prod['id_produto'] . " Produto(s)" ?></p>
-                                        <p class="text-muted">Cadastrados</p>
-                                    </a>
-                                <?php } ?>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
+                            <span style="background-color: blue;" class="icon-box bg-color-blue set-icon">
+                                <i class="fa fa-briefcase"></i>
                             </span>
                             <div class="text-box">
-                                <?php foreach ($fornecedores as $forn) { ?>
-                                    <a style="color:black;text-decoration-line: none;" href="consultar_fornecedor.php">
-                                        <p style="font-size:23px" class="main-text"><?= $forn['id_fornecedor'] . " Fornecedor(es)" ?></p>
+                                <?php foreach ($retCargo as $key => $value) { ?>
+                                    <a style="color:black;text-decoration-line: none;" href="consultar_cargo.php">
+                                        <p class="main-text"><?= $value['total'] . " Cargo(s)" ?></p>
                                         <p class="text-muted">Cadastrados</p>
                                     </a>
                                 <?php } ?>
@@ -160,7 +145,6 @@ $produtos = $objProd->ConsultarProduto();
                         </div>
                     </div>
                     
-
                 </div>
                 <!-- /. ROW  -->
                 <hr />
@@ -168,44 +152,7 @@ $produtos = $objProd->ConsultarProduto();
 
 
                 
-                <div class="row">
-                    <div class="col-md-12" style="float:right">
-                        <!--    Context Classes  -->
-                        <div class="panel panel-default">
-
-                            <div class="panel-heading">
-                                Ultimos Produtos cadastrados
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-
-                                                <th>Nome</th>
-                                                <th>Valor</th>
-                                                <th>Estoque</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php for ($i = 0; $i < count($produtos); $i++) { ?>
-                                                <tr class="info">
-                                                    <td><?= $produtos[$i]['nome_produto'] ?></td>
-                                                    <td><?= $produtos[$i]['valor_produto'] ?></td>
-                                                    <td><?= $produtos[$i]['estoque'] ?></td>
-                                                </tr>
-
-                                                </tr>
-                                            <?php } ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  end  Context Classes  -->
-                    </div>
-                </div>
+                
             </div>
 
             <!-- /. PAGE INNER  -->

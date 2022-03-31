@@ -9,41 +9,33 @@
             <li>
                 <a href="index.php"><i class="fa fa-dashboard fa-2x"></i> Painel Administrativo</a>
             </li>
-            <li>
-                <a href="meus_dados.php"><i class="fa fa-user fa-2x"></i> Meus Dados</a>
-            </li>
+            
 
             <li>
-                <a href="#"><i class="fa fa-archive fa-2x"></i> Produto<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-users fa-2x"></i> Funcionários<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="consultar_categoria.php">Consultar Categorias</a>
+                        <a href="novo_funcionario.php">Cadastrar Funcionário</a>
                     </li>
                     <li>
-                        <a href="consultar_sub_categoria.php">Consultar Sub Categoria</a>
-                    </li>
-                    <li>
-                        <a href="consultar_produto.php">Consultar Produto</a>
-                    </li>
-                    <li>
-                        <a href="novo_estoque.php">Ajustar Estoque</a>
-                    </li>
-
-                </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-list fa-2x"></i> Clientes<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="novo_cliente.php">Cadastrar Clientes</a>
-                    </li>
-                    <li>
-                        <a href="consultar_cliente.php">Consultar Clientes</a>
+                        <a href="consultar_funcionario.php">Consultar Funcionário</a>
                     </li>
 
                 </ul>
             </li>
 
+            <li>
+                <a href="#"><i class="fa fa-briefcase fa-2x"></i> Cargo<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="novo_cargo.php">Cadastrar Cargo</a>
+                    </li>
+                    <li>
+                        <a href="consultar_cargo.php">Consultar Cargo</a>
+                    </li>
+
+                </ul>
+            </li>
 
             <li>
                 <a data-toggle="modal" data-target="#Sair"><i class="fa fa-sign-out fa-2x"></i>Sair</a>

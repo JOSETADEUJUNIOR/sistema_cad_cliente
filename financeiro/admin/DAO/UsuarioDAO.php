@@ -6,6 +6,7 @@ require_once 'UtilDAO.php';
 class UsuarioDAO extends Conexao{
 
 
+
     public function ValidarEmailCadastro($email)
     {
         if (trim($email)=='') {
@@ -84,10 +85,6 @@ class UsuarioDAO extends Conexao{
         }
 
     }
-
-
-
-
 
 
     public function Logar($email,$senha){
