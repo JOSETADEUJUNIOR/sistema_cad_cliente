@@ -5,6 +5,26 @@ if (isset($_GET['ret'])) {
 }
 if (isset($ret)) {
     switch ($ret) {
+        case '-7':
+            //echo '<div class="alert alert-success">
+             //Ação realizada com sucesso!
+              //  </div>';
+              echo "<script>
+              Swal.fire({
+      
+                  icon: 'success',
+                  title: 'Sucesso',
+                  width: 'auto',
+                  html: '<h3>Venda realizada com sucesso!</h3>',
+                  showConfirmButton: false,
+                  timer: 5000,
+              })
+
+              setTimeout(function(){
+                 window.location='".$pag_ret."';
+              }, 2000);
+          </script>";
+            break;
         case '-5':
             //echo '<div class="alert alert-success">
              //Ação realizada com sucesso!
@@ -25,6 +45,26 @@ if (isset($ret)) {
               }, 2000);
           </script>";
             break;
+            case '-4':
+                //echo '<div class="alert alert-success">
+                 //Ação realizada com sucesso!
+                  //  </div>';
+                  echo "<script>
+                  Swal.fire({
+          
+                      icon: 'error',
+                      title: 'Oopss...',
+                      width: 'auto',
+                      html: '<h3>sem ID</h3>',
+                      showConfirmButton: false,
+                      timer: 5000,
+                  })
+    
+                  setTimeout(function(){
+                     window.location='".$pag_ret."';
+                  }, 2000);
+              </script>";
+                break;
         case '-2':
             //echo '<div class="alert alert-success">
              //Ação realizada com sucesso!

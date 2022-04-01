@@ -27,19 +27,11 @@ function ValidarLogin(){
             timer: 2000,
             
           })
-        return true;
+        return false;
     
     
     }else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
+        
           return true;
     }
 }
@@ -790,6 +782,7 @@ function ValidarFornecedor(){
             timer: 2000,
             
           })
+          $("#tel, #celular").mask("(00) 0000-0000");
         return false;
     
     }

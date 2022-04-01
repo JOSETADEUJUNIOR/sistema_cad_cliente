@@ -30,15 +30,7 @@ function ValidarLogin(){
     
     
     }else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Login Efetuado com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
+        
           return true;
     }
 }

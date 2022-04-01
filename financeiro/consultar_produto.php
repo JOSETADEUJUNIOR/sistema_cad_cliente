@@ -75,7 +75,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                     <td><?= UtilDAO::ExibirDataBr($prod['data_cadastro']) ?></td>
                                                     <td><?= $prod['nome_fornecedor'] ?></td>
                                                     <td style="padding: 2px 1px 2px 2px;">
-                                                        <a href="alterar_produto.php?cod=<?= $prod['id_produto'] ?>"><i title="Alterar Produto" style=" color:#c09046; font-size:16px;margin-left:5px; margin-right:5px" class="fa fa-pencil"></i></a>
+                                                        <a href="alterar_produto.php?cod=<?= $prod['id_produto'] ?>"><i title="Alterar Produto" style=" color:#c09046; font-size:16px;margin-left:2px; margin-right:2px" class="fa fa-pencil"></i></a>
                                                         <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $prod['id_produto'] ?>"><i title="Excluir Produto" style=" color:red; font-size:16px; margin-left:1px" class="fa fa-trash"></i></a>
                                                         <div class="modal fade" id="modalExcluir<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
@@ -97,7 +97,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a href="#" data-toggle="modal" data-target="#modalDetalhes<?= $prod['id_produto'] ?>"><i title="Detalhes do Produto" style=" color:blue; font-size:18px; margin-left:15px" class="fa fa-chevron-down"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#modalDetalhes<?= $prod['id_produto'] ?>"><i title="Detalhes do Produto" style=" color:blue; font-size:16px; margin-left:5px" class="fa fa-chevron-down"></i></a>
                                                         <div class="modal fade" id="modalDetalhes<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">

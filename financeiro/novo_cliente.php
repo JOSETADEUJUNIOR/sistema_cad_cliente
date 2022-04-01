@@ -1,6 +1,7 @@
 <?php
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
+include_once ('viacep.php');
 
 require_once '../DAO/ClienteDAO.php';
 $pag_ret = "consultar_cliente.php";
@@ -9,7 +10,7 @@ if (isset($_POST['btn_cadastrar'])) {
     $nomeCliente = trim($_POST['nomeCliente']);
     $rua = trim($_POST['clienteRua']);
     $bairro = trim($_POST['clienteBairro']);
-    $cep = trim($_POST['clienteCep']);
+    $cep = trim($_POST['cep']);
     $cidade = trim($_POST['clienteCidade']);
     $estado = trim($_POST['clienteEstado']);
     $dataNascimento = trim($_POST['clienteNascimento']);
@@ -47,25 +48,26 @@ if (isset($_POST['btn_cadastrar'])) {
                     <label>Nome do Cliente</label>
                     <input name="nomeCliente" id="nomeCliente" type="text"  placeholder="Digite o nome do cliente" class="form-control" onfocusout="SinalizaCampo('divClientNome','nomeCliente')" > 
                 </div>
+                <div class="form-group col-md-6" id="divClientCep">
+                    <label>Cep</label>&nbsp;<button class="btn btn-success btn-xs" type="submit">buscar cep</button>
+                    <input name="cep" id="cep" value="<?php echo $address->cep?>" type="text" placeholder="Digite cep do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCep','clienteCep')"> 
+                </div>
                 <div class="form-group col-md-6" id="divClientRua">
                     <label>Rua</label>
-                    <input name="clienteRua" id="clienteRua" type="text" placeholder="Digite a rua do cliente" class="form-control" onfocusout="SinalizaCampo('divClientRua','clienteRua')"> 
+                    <input name="clienteRua" id="clienteRua" value="<?php echo $address->logradouro?>" type="text" placeholder="Digite a rua do cliente" class="form-control" onfocusout="SinalizaCampo('divClientRua','clienteRua')"> 
                 </div>
                 <div class="form-group col-md-6" id="divClientBairro">
                     <label>Bairro</label>
-                    <input name="clienteBairro" id="clienteBairro" type="phone" placeholder="Digite o bairro do cliente" class="form-control" onfocusout="SinalizaCampo('divClientBairro','clienteBairro')"> 
+                    <input name="clienteBairro" id="clienteBairro" value="<?php echo $address->bairro?>" type="phone" placeholder="Digite o bairro do cliente" class="form-control" onfocusout="SinalizaCampo('divClientBairro','clienteBairro')"> 
                 </div>
-                <div class="form-group col-md-6" id="divClientCep">
-                    <label>Cep</label>
-                    <input name="clienteCep" id="clienteCep" type="text" placeholder="Digite cep do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCep','clienteCep')"> 
-                </div>
+                
                 <div class="form-group col-md-6" id="divClientCidade">
                     <label>Cidade</label>
-                    <input name="clienteCidade" id="clienteCidade" type="text" placeholder="Digite a cidade do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCidade','clienteCidade')"> 
+                    <input name="clienteCidade" id="clienteCidade" value="<?php echo $address->localidade?>" type="text" placeholder="Digite a cidade do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCidade','clienteCidade')"> 
                 </div>
                 <div class="form-group col-md-6" id="divClientEstado">
                     <label>Estado</label>
-                    <input name="clienteEstado" id="clienteEstado" type="text" placeholder="Digite o estado do cliente" class="form-control" onfocusout="SinalizaCampo('divClientEstado','clienteEstado')"> 
+                    <input name="clienteEstado" id="clienteEstado" value="<?php echo $address->uf?>" type="text" placeholder="Digite o estado do cliente" class="form-control" onfocusout="SinalizaCampo('divClientEstado','clienteEstado')"> 
                 </div>
                 <div class="form-group col-md-6" id="divClientNascimento">
                     <label>Data nascimento</label>
@@ -89,6 +91,7 @@ if (isset($_POST['btn_cadastrar'])) {
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     
+
 </body>
 
 </html>

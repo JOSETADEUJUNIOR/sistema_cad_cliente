@@ -1,5 +1,5 @@
 <?php
-require_once '../..//DAO/UtilDAO.php';
+require_once '../../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
     require_once '../../DAO/FuncionarioDAO.php';
     require_once '../../DAO/CargoDAO.php';
