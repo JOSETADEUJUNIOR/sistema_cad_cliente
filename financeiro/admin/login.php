@@ -1,5 +1,5 @@
 <?php
-require_once './DAO/UsuarioDAO.php';
+require_once '../../DAO/UsuarioDAO.php';
 if (isset($_POST['btn_acessar'])) {
     
     $email = trim($_POST['email']);

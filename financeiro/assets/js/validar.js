@@ -9,7 +9,7 @@ function ValidarLogin(){
             title: 'Oops...',
             width: 'auto',
             html: '<h3>Preencha o campo Nome corretamente</h3>',
-            showConfirmButton: true,
+            showConfirmButton: false,
             
 
             
@@ -40,7 +40,7 @@ function ValidarLogin(){
             showConfirmButton: false,
             timer: 2000,
           })
-          return false;
+          return true;
     }
 }
 

@@ -1,7 +1,7 @@
 <?php
-require_once './DAO/UtilDAO.php';
+require_once '../../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
-require_once './DAO/CargoDAO.php';
+require_once '../../DAO/CargoDAO.php';
 $pag_ret = "consultar_cargo.php";
 if (isset($_POST['btn_cadastrar'])) {
     

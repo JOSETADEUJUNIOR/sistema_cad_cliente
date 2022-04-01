@@ -1,6 +1,6 @@
 <?php
 
-require_once './DAO/UsuarioDAO.php';
+require_once '../../DAO/UsuarioDAO.php';
 if (isset($_GET['close']) && $_GET['close'] == 1) 
 {
     UtilDAO::Deslogar();

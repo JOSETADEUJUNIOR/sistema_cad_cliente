@@ -1,7 +1,8 @@
 <?php
-
-require_once '../DAO/PrincipalDAO.php';
 require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
+require_once '../DAO/PrincipalDAO.php';
+
 require_once '../DAO/ProdutoDAO.php';
 $objResult = new PrincipalDAO();
 $objProd = new ProdutoDAO();

@@ -1,5 +1,5 @@
 <?php
-require_once './DAO/UtilDAO.php';
+require_once '../../DAO/UtilDAO.php';
 $nome = UtilDAO::NomeLogado();
 ?>
 <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">

@@ -1,4 +1,6 @@
 <?php
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 require_once '../DAO/CategoriaDAO.php';
 $pag_ret = 'consultar_categoria.php';
 

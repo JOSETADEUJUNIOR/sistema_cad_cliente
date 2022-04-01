@@ -6,6 +6,7 @@ require_once 'UtilDAO.php';
 class UsuarioDAO extends Conexao{
 
 
+
     public function ValidarEmailCadastro($email)
     {
         if (trim($email)=='') {
@@ -84,36 +85,41 @@ class UsuarioDAO extends Conexao{
         }
 
     }
-
-
-
-
-
-
-    public function Logar($email,$senha){
-
-        if (trim($email) == '' || trim($senha) == '') {
-            
+    public function ValidarLoginUsuario($email, $senha)
+    {
+        if (trim($senha) == '' || trim($email) == '') {
             return 0;
         }
 
-    }
-    public function Cadastrar($nome,$email,$senha,$resenha){
-        
-        if (trim($nome) == '' || trim($email)== '' || trim($senha)== '' || trim($resenha)== '') {
-            
-            return 0;
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'select id_funcionario, nome_funcionario 
+                        from tb_funcionario where funcionario_email = ? and funcionario_senha = ? ';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $email);
+        $sql->bindValue(2, $senha);
+        $sql->execute();
+
+        $func = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($func) == 0) {
+            return -5;
+        } else {
+
+            $id = $func[0]['id_funcionario'];
+            $nome = $func[0]['nome_funcionario'];
+
+            //Inicio da sessão
+            UtilDAO::CriarSessao($nome, $id);
+
+
+            header('location: index.php');
+            exit;
         }
 
     }
-    public function Meus_Dados($nome){
 
 
-        if (trim($nome) == '') {
-            
-            return 0;
-        }
-    }
+   
 
     
 

@@ -1,4 +1,6 @@
 <?php
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 
 require_once '../DAO/CategoriaDAO.php';
 $pag_ret = 'consultar_categoria.php';
@@ -50,7 +52,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 <input type="hidden" name="cod" value="<?= $dados[0]['id_categoria']?>">
                     <div class="form-group" id="divCatNome">
                         <label>Nome da Categoria</label>
-                        <input name="nome" value="<?= $dados[0]['nome_categoria']?>" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divCatNome','nomeCategoria')">
+                        <input name="nome" value="<?= @$dados[0]['nome_categoria']?>" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divCatNome','nomeCategoria')">
                     </div>
                     <button name="btn_gravar" class="btn btn-success" onclick="return ValidarCategoria()">Gravar</button>
                     <a href="consultar_categoria.php" class="btn btn-warning">Voltar</a>

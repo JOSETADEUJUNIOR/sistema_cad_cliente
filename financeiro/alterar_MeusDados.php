@@ -1,4 +1,6 @@
 <?php
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 require_once '../DAO/FuncionarioDAO.php';
 $pag_ret = 'meus_dados.php';
  
@@ -7,7 +9,7 @@ $objFunc = new FuncionarioDAO();
 
 if (isset($_GET['cod']) || is_numeric($_GET['cod'])) {
     
-    $id_func = trim($_GET['cod']);
+    @$id_func = trim($_GET['cod']);
 
     $dados = $objFunc->DetalhaDados($id_func);    
 
@@ -62,7 +64,7 @@ $usuario = $objFunc->MeusDados();
                     </div>
                     <div class="form-group col-md-3" id="divDadosEmail">
                         <label>Login</label>
-                        <input name="login" value="<?= $dados[0]['funcionario_login']?>" id="dadosLogin" type="text" placeholder="Digite o login" class="form-control" onfocusout="SinalizaCampo('divDadosEmail','dadosEmail')">
+                        <input name="login" value="<?= $dados[0]['funcionario_email']?>" id="dadosLogin" type="text" placeholder="Digite o login" class="form-control" onfocusout="SinalizaCampo('divDadosEmail','dadosEmail')">
                     </div>
                     <div class="form-group col-md-3" id="divDadosEmail">
                         <label>Senha</label>

@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="imagex/png" href="../financeiro/assets/img/logo.png">
+    <link rel="shortcut icon" type="imagex/png" href="assets/img/logo.png">
     <title>Cadastro de Clientes</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />

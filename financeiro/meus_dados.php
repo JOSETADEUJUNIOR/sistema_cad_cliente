@@ -1,4 +1,6 @@
 <?php
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 require_once '../DAO/FuncionarioDAO.php';
 
 $objFunc = new FuncionarioDAO();
@@ -69,7 +71,7 @@ h4:hover{
                                                                 <?php foreach ($usuario as $user) { ?>
                                                                     <tr class="odd gradeX">
                                                                         <td><?= $user['nome_funcionario'] ?></td>
-                                                                        <td><?= $user['funcionario_login'] ?></td>
+                                                                        <td><?= $user['funcionario_email'] ?></td>
                                                                         <td><?= $user['funcionario_senha'] ?></td>
                                                                         <td style="padding: 3px 1px 3px 3px;">
                                                                             <a href="alterar_MeusDados.php?cod=<?= $user['id_funcionario'] ?>"><i title="Alterar meus dados" style=" color:#c09046; font-size:18px; margin-right:10px" class="fa fa-pencil"></i></a>

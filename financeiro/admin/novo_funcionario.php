@@ -1,8 +1,8 @@
 <?php
-require_once './DAO/UtilDAO.php';
+require_once '../../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
-require_once './DAO/CargoDAO.php';
-require_once './DAO/FuncionarioDAO.php';
+require_once '../../DAO/CargoDAO.php';
+require_once '../../DAO/FuncionarioDAO.php';
 $pag_ret= "consultar_funcionario.php";
 $getCargo = new CargoDAO();
 $cargos = $getCargo->ConsultarCargo();

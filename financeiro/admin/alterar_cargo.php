@@ -1,8 +1,8 @@
 <?php
-require_once './DAO/UtilDAO.php';
+require_once '../../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
 $dados = "";
-require_once './DAO/CargoDAO.php';
+require_once '../../DAO/CargoDAO.php';
 $pag_ret = 'consultar_cargo.php';
 $objCargo = new CargoDAO();
 

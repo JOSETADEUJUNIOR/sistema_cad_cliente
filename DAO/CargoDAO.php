@@ -39,11 +39,11 @@ public function CadastrarCargo($nomeCargo, $cargoDescricao){
 public function ConsultarCargo(){
 
     $conexao = parent::retornaConexao();
-    $comando_sql = 'Select id_cargo, nome_cargo, descricao_cargo from tb_cargo where id_empresa = ? ';
+    $comando_sql = 'Select nome_cargo, id_cargo, descricao_cargo from tb_cargo where id_empresa = ? ';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, UtilDAO::CodigoEmpresa());
     $sql->execute();
-    return $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $sql->fetchAll();
 }
 
 public function DetalharCargo($id_cargo){

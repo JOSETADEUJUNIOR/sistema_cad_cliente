@@ -1,9 +1,9 @@
 <?php
-require_once './DAO/UtilDAO.php';
+require_once '../..//DAO/UtilDAO.php';
 UtilDAO::VerLogado();
-    require_once './DAO/FuncionarioDAO.php';
-    require_once './DAO/CargoDAO.php';
-    require_once './DAO/UtilDAO.php';
+    require_once '../../DAO/FuncionarioDAO.php';
+    require_once '../../DAO/CargoDAO.php';
+    require_once '../../DAO/UtilDAO.php';
 
     $pag_ret = 'consultar_funcionario.php';
     $objFuncionario = new FuncionarioDAO();
@@ -14,7 +14,7 @@ UtilDAO::VerLogado();
         
         $id_funcionario = $_GET['cod'];
         $dados = $objFuncionario->DetalharFuncionario($id_funcionario);
-        var_dump($dados);
+       
 
         if (count($dados)== 0) {
             header('location: consultar_funcionario.php');
@@ -74,8 +74,8 @@ UtilDAO::VerLogado();
                     </div>
                     <div class="col-md-3">    
                         <div class="form-group" id="divFuncLogin">
-                            <label>Login</label>
-                            <input name="loginFuncionario" id="loginFuncionario" type="text" value="<?= @($dados[0]['funcionario_login']==""?"":$dados[0]['funcionario_login'])?>" placeholder="Digite o login do funcionário" class="form-control" onfocusout="SinalizaCampo('divFuncLogin','loginFuncionario')">
+                            <label>Email</label>
+                            <input name="loginFuncionario" id="loginFuncionario" type="text" value="<?= @($dados[0]['funcionario_email']==""?"":$dados[0]['funcionario_email'])?>" placeholder="Digite o login do funcionário" class="form-control" onfocusout="SinalizaCampo('divFuncLogin','loginFuncionario')">
                         </div>
                     </div>
                     <div class="col-md-3">    

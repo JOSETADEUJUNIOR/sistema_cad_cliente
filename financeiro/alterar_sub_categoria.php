@@ -1,4 +1,6 @@
 <?php
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 require_once '../DAO/SubCategoriaDAO.php';
 require_once '../DAO/CategoriaDAO.php';
 $pag_ret = 'consultar_sub_categoria.php';
@@ -60,16 +62,16 @@ else {
                     <div class="col-md-6">
                         <div class="form-group" id="divSubNome">
                             <label>Nome</label>
-                            <input name="nome" value="<?= $dados[0]['nome_subcategoria']?>" id="SubNome" type="text" placeholder="Digite o nome da sub categoria" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
+                            <input name="nome" value="<?= @$dados[0]['nome_subcategoria']?>" id="SubNome" type="text" placeholder="Digite o nome da sub categoria" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
                         </div>
                     </div>  
                     <div class="col-md-6"> 
                         <div class="form-group" id="divCat">
                             <label>Selecione a Categoria</label>
                             <select name="cat" id="cat" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
-                            <option value="<?= $dados[0]['subCatId']?>"><?= $dados[0]['nome_categoria']?></option>
+                            <option value="<?= $dados[0]['subCatId']?>"><?= @$dados[0]['nome_categoria']?></option>
                                 <?php for ($i = 0; $i < count($categorias); $i++) { ?>
-                                    <option value="<?= $categorias[$i]['id_categoria'] ?>"><?= $categorias[$i]['nome_categoria'] ?></option>
+                                    <option value="<?= $categorias[$i]['id_categoria'] ?>"><?= @$categorias[$i]['nome_categoria'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>

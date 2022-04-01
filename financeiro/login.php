@@ -1,13 +1,14 @@
 <?php
 require_once '../DAO/UsuarioDAO.php';
-$pag_ret= "consultar_categoria.php";
+
 if (isset($_POST['btn_acessar'])) {
     
 $email = trim($_POST['email']);
 $senha = trim($_POST['senha']);
 
 $objLogar = new UsuarioDAO();
-$ret = $objLogar->Logar($email,$senha);
+$ret = $objLogar->ValidarLoginUsuario($email,$senha);
+$pag_ret= "login.php";
 }
 
 
@@ -31,7 +32,7 @@ $ret = $objLogar->Logar($email,$senha);
         <div class="row text-center ">
             <div class="col-md-12">
                 <br /><br />
-                <h2> Cadastro de Cliente: Acesso</h2>
+                <h2> Cadastro de Cliente: Painel Funcionário</h2>
                  <br />
             </div>
         </div>

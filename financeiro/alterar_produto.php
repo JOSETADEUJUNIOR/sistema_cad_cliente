@@ -1,5 +1,6 @@
 <?php
-
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 require_once '../DAO/ProdutoDAO.php';
 require_once '../DAO/FornecedorDAO.php';
 $pag_ret = 'consultar_produto.php';

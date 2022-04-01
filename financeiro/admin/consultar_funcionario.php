@@ -1,7 +1,7 @@
 <?php
-require_once './DAO/UtilDAO.php';
+require_once '../../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
-require_once './DAO/FuncionarioDAO.php';
+require_once '../../DAO/FuncionarioDAO.php';
 
 
 $objFuncionario = new FuncionarioDAO();
@@ -48,7 +48,7 @@ $funcionarios = $objFuncionario->ConsultarFuncionario();
                                             <th>Nome Funcionário</th>
                                             <th>Data Admissão</th>
                                             <th>Data Demissão</th>
-                                            <th>Login</th>
+                                            <th>Email</th>
                                             <th>Senha</th>
                                             <th>Cargo</th>
                                             <th>Ação</th>
@@ -61,7 +61,7 @@ $funcionarios = $objFuncionario->ConsultarFuncionario();
                                             <td><?= $funcionarios[$i]['nome_funcionario']?></td>
                                             <td><?= UtilDAO::ExibirDataBr($funcionarios[$i]['data_admissao'])?></td>
                                             <td><?= UtilDAO::ExibirDataBr($funcionarios[$i]['data_demissao'])?></td>
-                                            <td><?= $funcionarios[$i]['funcionario_login']?></td>
+                                            <td><?= $funcionarios[$i]['funcionario_email']?></td>
                                             <td><?= $funcionarios[$i]['funcionario_senha']?></td>
                                             <td><?= $funcionarios[$i]['nome_cargo']?></td>
                                             <td style="padding: 3px 1px 3px 3px;"> 

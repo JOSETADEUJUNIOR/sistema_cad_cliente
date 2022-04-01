@@ -1,5 +1,6 @@
 <?php
-
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
 require_once '../DAO/ClienteDAO.php';
 require_once '../DAO/UtilDAO.php';
 $objCliente = new ClienteDAO();
