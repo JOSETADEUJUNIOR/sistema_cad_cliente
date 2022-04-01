@@ -45,16 +45,8 @@ if (isset($_POST['btn_adicionar'])) {
         $itens = $objVenda->ItensVenda($idVendaRet);
         
     }
-    
-    
    
 }
-
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -173,8 +165,9 @@ if (isset($_POST['btn_adicionar'])) {
                                 
                                         </tbody>
                                     </table>
-                                    <button style="float:right" name="btn_finalizar_venda" class="btn btn-success ">Finalizar Venda</button>
-                     
+                                    <div class="col-md-7 col-sm-7" style="float: right;">
+                                     <button  name="btn_finalizar_venda" class="btn btn-success ">Finalizar Venda</button>
+                                    </div>
                                 </div>
                                 </div>
                                 <div class="panel-footer">
