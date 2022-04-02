@@ -66,13 +66,13 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-group fa-2x"></i> Vendas<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-shopping-cart fa-2x"></i> Vendas<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="pdv2.php">Realizar Venda</a>
                     </li>
                     <li>
-                        <a href="consultar_vendas.php">Consultar Vendas</a>
+                        <a href="consultar_venda.php">Consultar Vendas</a>
                     </li>
 
                 </ul>

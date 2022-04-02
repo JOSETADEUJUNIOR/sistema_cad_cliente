@@ -1,4 +1,5 @@
 <?php
+
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
 require_once '../DAO/ClienteDAO.php';
@@ -28,7 +29,7 @@ if (isset($_POST['btn_adicionar'])) {
     $qtdVenda = trim($_POST['qtd']);
 
     $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor);
-    $itens = $objVenda->ItensVenda($idVendaRet);
+   $itens = $objVenda->ItensVenda($idVendaRet);
     var_dump($idVendaRet);
         
     }else{
@@ -64,7 +65,7 @@ if (isset($_POST['btn_adicionar'])) {
                     <div class="col-md-12">
                         <?php include('_msg.php') ?>
                         <h2>Checkout</h2>
-                        <h5>Iniciar Venda. </h5>
+                        <h5>Iniciar Venda. </h5><span style="float:right"> Venda n:<?= (@$idVendaRet ==''?'':$idVendaRet)?> </span>
 
                     </div>
                 </div>
@@ -105,7 +106,7 @@ if (isset($_POST['btn_adicionar'])) {
                         </div>
                     </div>
                     <div class="col-md-8">
-                    <input type="hidden" name="idvenda" value="<?= $idVendaRet?>">
+                    <input type="hidden" name="idvenda" value="<?=@$idVendaRet?>">
                         <div class="form-group" id="divCat">
                             <label>Selecione o Produto</label>
                             <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
@@ -150,18 +151,18 @@ if (isset($_POST['btn_adicionar'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($itens as $item) { ?>
-
+                                            <?php if (is_countable(@$itens) && count($itens)> 0):?>
+                                            <?php for ($i=0; $i < count($itens) ; $i++) { ?>
                                                 <tr class="odd gradeX">
-                                                    <td><?= $item['nome_produto'] ?></td>
-                                                    <td><?= $item['qtd_produto'] ?></td>
-                                                    <td><?= $item['item_valor'] ?></td>
+                                                    <td><?= $itens[$i]['nome_produto'] ?></td>
+                                                    <td><?= $itens[$i]['qtd_produto'] ?></td>
+                                                    <td><?= $itens[$i]['item_valor'] ?></td>
                                                     
 
                                                 </tr>
                                             <?php } ?>
 
-                                   
+                                            <?php endif?>
                                 
                                         </tbody>
                                     </table>

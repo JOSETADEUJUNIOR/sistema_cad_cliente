@@ -54,7 +54,7 @@ class VendaDAO extends Conexao{
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'select id_item_venda, id_venda, tb_item_venda.id_produto as id_produto, qtd_produto, 
-                                item_valor, nome_produto, Sum(item_valor) as valorTotal
+                                item_valor, nome_produto
                             from tb_item_venda
                                 inner join tb_produto on
                                   tb_item_venda.id_produto = tb_produto.id_produto

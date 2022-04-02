@@ -47,10 +47,41 @@ if (isset($_POST['btn_cadastrar'])) {
                 <hr />
                 <form action="novo_fornecedor.php" method="post">
                     
+                <div class="col-md-3">    
+                        <div class="form-group" id="divFornCep">
+                            <label>Cep</label>&nbsp;<button class="btn btn-success btn-xs" type="submit">buscar cep</button>
+                            <input name="cep" id="cep" type="text" value="<?php echo @$address->cep?>" placeholder="Digite o cep" class="form-control" onfocusout="SinalizaCampo('divFornCep','cep')">
+                        </div>
+                    </div>
+                    <div class="col-md-9">    
+                        <div class="form-group" id="divFornRua">
+                            <label>Rua</label>
+                            <input name="rua" id="rua" value="<?php echo @$address->logradouro?>" type="text" placeholder="Digite a rua" class="form-control" onfocusout="SinalizaCampo('divFornRua','rua')">
+                        </div>
+                    </div>
+                    <div class="col-md-4">    
+                        <div class="form-group" id="divFornBairro">
+                            <label>Bairro</label>
+                            <input name="bairro" id="bairro" value="<?php echo @$address->bairro?>" type="text" placeholder="Digite o bairro" class="form-control" onfocusout="SinalizaCampo('divFornBairro','bairro')">
+                        </div>
+                    </div>
+                    <div class="col-md-4">    
+                        <div class="form-group" id="divFornCidade">
+                            <label>Cidade</label>
+                            <input name="cidade" id="cidade"value="<?php echo @$address->localidade?>" type="text" placeholder="Digite a cidade" class="form-control" onfocusout="SinalizaCampo('divFornCidade','cidade')">
+                        </div>
+                    </div>
+                    <div class="col-md-4">    
+                        <div class="form-group" id="divFornEstado">
+                            <label>Estado</label>
+                            <input name="estado" id="estado" value="<?php echo @$address->uf?>" type="text" placeholder="Digite o estado" class="form-control" onfocusout="SinalizaCampo('divFornEstado','estado')">
+                        </div>
+                    </div>
+
                 <div class="col-md-4">    
                         <div class="form-group" id="divFornCnpj">
                             <label>Cnpj</label>
-                            <input name="cnpj" id="cnpj" value="<?= $cnpj?>" type="text" placeholder="Digite o cnpj" class="form-control" onfocusout="SinalizaCampo('divFornCnpj','cnpj')">
+                            <input name="cnpj" id="cnpj" value="<?= @$cnpj?>" type="text" placeholder="Digite o cnpj" class="form-control" onfocusout="SinalizaCampo('divFornCnpj','cnpj')">
                         </div>
                     </div>  
                 <div class="col-md-8">    
@@ -71,36 +102,7 @@ if (isset($_POST['btn_cadastrar'])) {
                             <input name="email" id="email" type="text" placeholder="Digite o e-mail" class="form-control" onfocusout="SinalizaCampo('divFornEmail','email')">
                         </div>
                     </div>
-                    <div class="col-md-3">    
-                        <div class="form-group" id="divFornCep">
-                            <label>Cep</label>&nbsp;<button class="btn btn-success btn-xs" type="submit">buscar cep</button>
-                            <input name="cep" id="cep" type="text" value="<?php echo $address->cep?>" placeholder="Digite o cep" class="form-control" onfocusout="SinalizaCampo('divFornCep','cep')">
-                        </div>
-                    </div>
-                    <div class="col-md-9">    
-                        <div class="form-group" id="divFornRua">
-                            <label>Rua</label>
-                            <input name="rua" id="rua" value="<?php echo $address->logradouro?>" type="text" placeholder="Digite a rua" class="form-control" onfocusout="SinalizaCampo('divFornRua','rua')">
-                        </div>
-                    </div>
-                    <div class="col-md-4">    
-                        <div class="form-group" id="divFornBairro">
-                            <label>Bairro</label>
-                            <input name="bairro" id="bairro" value="<?php echo $address->bairro?>" type="text" placeholder="Digite o bairro" class="form-control" onfocusout="SinalizaCampo('divFornBairro','bairro')">
-                        </div>
-                    </div>
-                    <div class="col-md-4">    
-                        <div class="form-group" id="divFornCidade">
-                            <label>Cidade</label>
-                            <input name="cidade" id="cidade"value="<?php echo $address->localidade?>" type="text" placeholder="Digite a cidade" class="form-control" onfocusout="SinalizaCampo('divFornCidade','cidade')">
-                        </div>
-                    </div>
-                    <div class="col-md-4">    
-                        <div class="form-group" id="divFornEstado">
-                            <label>Estado</label>
-                            <input name="estado" id="estado" value="<?php echo $address->uf?>" type="text" placeholder="Digite o estado" class="form-control" onfocusout="SinalizaCampo('divFornEstado','estado')">
-                        </div>
-                    </div>
+                    
                     <div class="col-md-12">
                         <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarFornecedor()">Cadastrar</button>
                     </div>

@@ -25,6 +25,26 @@ if (isset($ret)) {
               }, 2000);
           </script>";
             break;
+            case '-3':
+                //echo '<div class="alert alert-success">
+                 //Ação realizada com sucesso!
+                  //  </div>';
+                  echo "<script>
+                  Swal.fire({
+          
+                      icon: 'Warning',
+                      title: 'Oopss...',
+                      width: 'auto',
+                      html: '<h3>Campos de data obrigatórios!</h3>',
+                      showConfirmButton: false,
+                      timer: 5000,
+                  })
+    
+                  setTimeout(function(){
+                     window.location='".$pag_ret."';
+                  }, 2000);
+              </script>";
+                break;
         case '-5':
             //echo '<div class="alert alert-success">
              //Ação realizada com sucesso!

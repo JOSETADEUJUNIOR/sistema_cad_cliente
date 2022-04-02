@@ -114,7 +114,7 @@ $produtos = $objProd->ConsultarProduto();
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
+                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-list"></i>
                             </span>
                             <div class="text-box">
@@ -132,8 +132,8 @@ $produtos = $objProd->ConsultarProduto();
                     
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
+                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-archive"></i>
                             </span>
                             <div class="text-box">
                                 <?php foreach ($produto as $prod) { ?>
@@ -147,8 +147,8 @@ $produtos = $objProd->ConsultarProduto();
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
+                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-group"></i>
                             </span>
                             <div class="text-box">
                                 <?php foreach ($fornecedores as $forn) { ?>
