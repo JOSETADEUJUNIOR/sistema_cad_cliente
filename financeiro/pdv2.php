@@ -70,7 +70,7 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                 </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-info">
                             <div class="panel-heading">
                                 Dados da Venda
                             </div>
@@ -141,31 +141,7 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <input type="hidden" name="idvenda" value="<?= @$idVendaRet ?>">
-                        <div class="form-group" id="divCat">
-                            <label>Selecione o Produto</label>
-                            <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
-                                <option value="">Escolha o produto</option>
-                                <?php foreach ($produtos as $prod) { ?>
-                                    <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group" id="divSubNome">
-                            <label>Quantidade</label>
-                            <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
-                        </div>
-
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group" id="divSubNome">
-                            <label>Adicionar item</label>
-                            <button name="btn_adicionar" class="btn btn-success ">Adicionar</button>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
@@ -210,6 +186,31 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                                 <div class="panel-footer">
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="hidden" name="idvenda" value="<?= @$idVendaRet ?>">
+                        <div class="form-group" id="divCat">
+                            <label>Selecione o Produto</label>
+                            <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
+                                <option value="">Escolha o produto</option>
+                                <?php foreach ($produtos as $prod) { ?>
+                                    <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" id="divSubNome">
+                            <label>Quantidade</label>
+                            <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" id="divSubNome">
+                            <label>Adicionar item</label>
+                            <button name="btn_adicionar" class="btn btn-success ">Adicionar</button>
                         </div>
                     </div>
             </div>
