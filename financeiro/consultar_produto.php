@@ -46,7 +46,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Produtos cadastrados <span> <a style="color:white;" href="novo_produto.php"><i title="Criar Novo Produto" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                                Produtos cadastrados <span> <a style="color:white;" href="pdf_produto.php" target="_blank"><i title="Emitir Relatorio de Produto" style="font-size: 22px;float: right; padding:0px 10px" class="fa fa-print"></i></a></span> <span> <a style="color:white;" href="novo_produto.php"><i title="Criar novo produto" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -71,12 +71,12 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                     <td><?= $prod['cod_produto'] ?></td>
                                                     <td><?= $prod['nome_produto'] ?></td>
                                                     <td><?= $prod['estoque'] ?></td>
-                                                    <td><?= $prod['valor_produto'] ?></td>
+                                                    <td><?= $prod['valor_produto'] = explode('.', $prod['valor_produto'])[0].',00'; ?></td>
                                                     <td><?= UtilDAO::ExibirDataBr($prod['data_cadastro']) ?></td>
                                                     <td><?= $prod['nome_fornecedor'] ?></td>
-                                                    <td style="padding: 2px 1px 2px 2px;">
-                                                        <a href="alterar_produto.php?cod=<?= $prod['id_produto'] ?>"><i title="Alterar Produto" style=" color:#c09046; font-size:16px;margin-left:2px; margin-right:2px" class="fa fa-pencil"></i></a>
-                                                        <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $prod['id_produto'] ?>"><i title="Excluir Produto" style=" color:red; font-size:16px; margin-left:1px" class="fa fa-trash"></i></a>
+                                                    <td style="padding: 1px 1px 1px 1px;">
+                                                        <a href="alterar_produto.php?cod=<?= $prod['id_produto'] ?>"><i title="Alterar Produto" style=" color:#c09046; font-size:14px;margin-left:2px; margin-right:2px" class="fa fa-pencil"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $prod['id_produto'] ?>"><i title="Excluir Produto" style=" color:red; font-size:14px; margin-left:1px" class="fa fa-trash"></i></a>
                                                         <div class="modal fade" id="modalExcluir<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
@@ -87,7 +87,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                                     <div class="modal-body">
                                                                         Deseja excluir o produto: <br>
                                                                         <label>Codigo: <?= $prod['cod_produto'] ?></label><br>
-                                                                        <label>Nome do produto: <?= $prod['nome_produto'] ?></label>
+                                                                        <label>Nome do produto: <?= $prod['nome_produto'] ?></label></br>
                                                                         <label>Valor do produto: <?= $prod['valor_produto'] ?></label>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -97,7 +97,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a href="#" data-toggle="modal" data-target="#modalDetalhes<?= $prod['id_produto'] ?>"><i title="Detalhes do Produto" style=" color:blue; font-size:16px; margin-left:5px" class="fa fa-chevron-down"></i></a>
+                                                        <a href="#" data-toggle="modal" data-target="#modalDetalhes<?= $prod['id_produto'] ?>"><i title="Detalhes do Produto" style=" color:blue; font-size:14px; margin-left:2px" class="fa fa-chevron-down"></i></a>
                                                         <div class="modal fade" id="modalDetalhes<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
@@ -145,9 +145,6 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                         <!--End Advanced Tables -->
                     </div>
                 </div>
-
-
-
             </div>
             <!-- /. PAGE INNER  -->
         </div>

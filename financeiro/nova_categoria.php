@@ -29,23 +29,35 @@ if (isset($_POST['btn_gravar'])) {
                 <div class="row">
                     <div class="col-md-12">
                         <?php include('_msg.php') ?>
-                        <h2>Categorias</h2>
-                        <h5>Aqui você poderá Cadastrar as categorias dos produtos. </h5>
+                        <h2>Categoria</h2>
+                        <h5>Aqui você poderá Cadastrar a categoria dos produtos. </h5>
 
                     </div>
                 </div>
                 <!-- /. ROW  -->
                 <hr />
                 <form action="nova_categoria.php" method="post">
-                    <div class="col-md-12">
+                <div class="row">
+                <div class="col-md-12 col-sm-12">
+                     <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Campo de cadastro
+                        </div>
+                    <div class="panel-body">
+                    
+                <div class="col-md-12">
                         <div class="form-group" id="divDadosNome">
                             <label>Nome</label>
-                            <input name="nome" id="dadosNome" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divDadosNome','dadosNome')">
+                            <input name="nome" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divDadosNome','nomeCategoria')">
                         </div>
 
-                        <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarMeusDados()">Cadastrar</button>
+                        <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarCategoria()">Cadastrar</button>
                         <a href="consultar_categoria.php" class="btn btn-warning">Voltar</a>
                     </div>
+                </div>
+                </div>
+                </div>
+                </div>
                 </form>
             </div>
             <!-- /. PAGE INNER  -->

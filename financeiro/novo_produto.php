@@ -55,99 +55,92 @@ if (isset($_POST['btn_cadastrar'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="novo_produto.php" method="post">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Campos de cadastro
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-3">
+                                        <div class="form-group" id="divProdCod">
+                                            <label>Codigo Barras</label>
+                                            <input name="codBarras" id="codBarras" type="text" placeholder="Digite o codigo de barras" class="form-control" onfocusout="SinalizaCampo('divProdCod','codBarras')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divProdNome">
+                                            <label>Nome do Produto</label>
+                                            <input name="nomeProduto" id="nomeProduto" type="text" placeholder="Digite o nome do produto" class="form-control" onfocusout="SinalizaCampo('divProdNome','nomeProduto')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" id="divProdCad">
+                                            <label>Data do Cadastro</label>
+                                            <input name="dataCad" id="dataCad" type="date" placeholder="Digite o nome digite a data de cadastro do produto" class="form-control" onfocusout="SinalizaCampo('divProdCad','dataCad')">
+                                        </div>
+                                    </div>
 
-                    <div class="col-md-3">
-                        <div class="form-group" id="divProdCod">
-                            <label>Codigo Barras</label>
-                            <input name="codBarras" id="codBarras" type="text" placeholder="Digite o codigo de barras" class="form-control" onfocusout="SinalizaCampo('divProdCod','codBarras')">
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divProdCat">
+                                            <label>Selecione a Categoria</label>
+                                            <select name="cat" id="cat" class="form-control" onfocusout="SinalizaCampo('divProdCat','cat')">
+                                                <option value="">Selecione</option>
+                                                <?php for ($i = 0; $i < count($categorias); $i++) { ?>
+                                                    <option value="<?= $categorias[$i]['id_categoria'] ?>"><?= $categorias[$i]['nome_categoria'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divProdSubCat">
+                                            <label>Selecione a Sub Categoria</label>
+                                            <select name="subcat" id="subcat" class="form-control" onfocusout="SinalizaCampo('divProdSubCat','subcat')">
+                                                <option value="">Selecione</option>
+                                                <?php for ($i = 0; $i < count($Subcategorias); $i++) { ?>
+                                                    <option value="<?= $Subcategorias[$i]['id_subCategoria'] ?>"><?= $Subcategorias[$i]['nome_subcategoria'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divProdForn">
+                                            <label>Selecione o Fornecedor</label>
+                                            <select name="fornecedor" id="fornecedor" class="form-control" onfocusout="SinalizaCampo('divProdForn','fornecedor')">
+                                                <option value="">Selecione</option>
+                                                <?php for ($i = 0; $i < count($fornecedores); $i++) { ?>
+                                                    <option value="<?= $fornecedores[$i]['id_fornecedor'] ?>"><?= $fornecedores[$i]['nome_fornecedor'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" id="divProdEst">
+                                            <label>Estoque</label>
+                                            <input name="estoque" id="estoque" type="text" placeholder="Digite o estoque do produto" class="form-control" onfocusout="SinalizaCampo('divProdEst','estoque')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group" id="divProdValor">
+                                            <label>Valor</label>
+                                            <input name="valor" id="valor" type="text" placeholder="Digite o valor do produto" class="form-control" onfocusout="SinalizaCampo('divProdValor','valor')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="divProdDesc">
+                                            <label>Descrição do produto</label>
+                                            <textarea name="descProd" id="descProd" type="text" placeholder="Digite a descrição do produto" class="form-control" onfocusout="SinalizaCampo('divProdDesc','descProd')"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarProduto()">Cadastrar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group" id="divProdNome">
-                            <label>Nome do Produto</label>
-                            <input name="nomeProduto" id="nomeProduto" type="text" placeholder="Digite o nome do produto" class="form-control" onfocusout="SinalizaCampo('divProdNome','nomeProduto')">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" id="divProdCad">
-                            <label>Data do Cadastro</label>
-                            <input name="dataCad" id="dataCad" type="date" placeholder="Digite o nome digite a data de cadastro do produto" class="form-control" onfocusout="SinalizaCampo('divProdCad','dataCad')">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-
-
-                        <div class="form-group" id="divProdCat">
-
-                            <label>Selecione a Categoria</label>
-
-                            <select name="cat" id="cat" class="form-control" onfocusout="SinalizaCampo('divProdCat','cat')">
-                                <option value="">Selecione</option>
-                                <?php for ($i = 0; $i < count($categorias); $i++) { ?>
-                                    <option value="<?= $categorias[$i]['id_categoria'] ?>"><?= $categorias[$i]['nome_categoria'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-
-
-                        <div class="form-group" id="divProdSubCat">
-
-                            <label>Selecione a Sub Categoria</label>
-
-                            <select name="subcat" id="subcat" class="form-control" onfocusout="SinalizaCampo('divProdSubCat','subcat')">
-                                <option value="">Selecione</option>
-                                <?php for ($i = 0; $i < count($Subcategorias); $i++) { ?>
-                                    <option value="<?= $Subcategorias[$i]['id_subCategoria'] ?>"><?= $Subcategorias[$i]['nome_subcategoria'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                    </div>
-
-
-
-
-
-                    <div class="col-md-6">
-
-
-                        <div class="form-group" id="divProdForn">
-
-                            <label>Selecione o Fornecedor</label>
-
-                            <select name="fornecedor" id="fornecedor" class="form-control" onfocusout="SinalizaCampo('divProdForn','fornecedor')">
-                                <option value="">Selecione</option>
-                                <?php for ($i = 0; $i < count($fornecedores); $i++) { ?>
-                                    <option value="<?= $fornecedores[$i]['id_fornecedor'] ?>"><?= $fornecedores[$i]['nome_fornecedor'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" id="divProdEst">
-                            <label>Estoque</label>
-                            <input name="estoque" id="estoque" type="text" placeholder="Digite o estoque do produto" class="form-control" onfocusout="SinalizaCampo('divProdEst','estoque')">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" id="divProdValor">
-                            <label>Valor</label>
-                            <input name="valor" id="valor" type="text" placeholder="Digite o valor do produto" class="form-control" onfocusout="SinalizaCampo('divProdValor','valor')">
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group" id="divProdDesc">
-                            <label>Descrição do produto</label>
-                            <textarea name="descProd" id="descProd" type="text" placeholder="Digite a descrição do produto" class="form-control" onfocusout="SinalizaCampo('divProdDesc','descProd')"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarProduto()">Cadastrar</button>
                     </div>
                 </form>
             </div>

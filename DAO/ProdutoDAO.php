@@ -7,7 +7,7 @@ class ProdutoDAO extends Conexao{
 
 public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $fornecedor, $cat, $subcat){
 
-    if (trim($codBarras)=='' || trim($nomeProduto)=='' || trim($dataCad)=='' || trim($descProd)==''
+    if (trim($codBarras)=='' || trim($nomeProduto)=='' || trim($dataCad)=='' 
     || trim($valor)=='' || trim($fornecedor)=='' || trim($estoque)=='' || trim($cat)=='' || trim($subcat)=='') {
         
         return 0;
@@ -62,11 +62,17 @@ public function ConsultarProduto(){
 public function DetalharProduto($idProd){
 
     $conexao = parent::retornaConexao();
-    $comando_sql = 'Select tb_produto.id_produto as id_produto, cod_produto, nome_produto, descricao_produto,
-                          valor_produto, data_cadastro, tb_produto.id_fornecedor as id_fornecedor, nome_fornecedor from tb_produto 
-                                inner join tb_fornecedor on
-                                tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor
-                                    where id_produto = ?';
+    $comando_sql = 'Select tb_produto.id_produto as id_produto, cod_produto, nome_produto, descricao_produto, tb_produto.id_categoria as id_categoria,
+                                    tb_produto.id_subCategoria as id_subCategoria, nome_categoria, nome_subcategoria,
+                                    valor_produto, data_cadastro, tb_produto.id_fornecedor as id_fornecedor, nome_fornecedor, estoque
+                    from tb_produto 
+                        inner join tb_fornecedor on
+                            tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor
+                        inner join tb_categoria on
+                            tb_produto.id_categoria = tb_categoria.id_categoria
+                        inner join tb_sub_categoria on
+                            tb_produto.id_subCategoria = tb_sub_categoria.id_subCategoria
+                    where id_produto = ?';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $idProd);
     $sql->execute();
@@ -74,11 +80,11 @@ public function DetalharProduto($idProd){
     
 }
 
-public function AlterarProduto($codBarras, $nomeProduto, $dataCad, $descProd, $valor, $fornecedor,$cod){
+public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $stoque, $fornecedor, $cat, $subcat, $cod){
 
     $conexao = parent::retornaConexao();
     $comando_sql = 'update tb_produto set cod_produto = ?, nome_produto = ?, descricao_produto = ?, valor_produto = ?, 
-                        data_cadastro = ?, id_funcionario = ?, id_fornecedor = ? where id_produto = ? ';
+                        data_cadastro = ?, id_funcionario = ?, id_fornecedor = ?, id_categoria = ?, id_subCategoria = ? where id_produto = ? ';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $codBarras);
     $sql->bindValue(2, $nomeProduto);
@@ -87,7 +93,9 @@ public function AlterarProduto($codBarras, $nomeProduto, $dataCad, $descProd, $v
     $sql->bindValue(5, $dataCad);
     $sql->bindValue(6, UtilDAO::CodigoLogado());
     $sql->bindValue(7, $fornecedor);
-    $sql->bindValue(8, $cod);
+    $sql->bindValue(8, $cat);
+    $sql->bindValue(9, $subcat);
+    $sql->bindValue(10, $cod);
 
     try {
         $sql->execute();
@@ -124,15 +132,13 @@ public function TopProduto(){
   
     $conexao = parent::retornaConexao();
     $comando_sql = 'Select 
-                    count(id_produto) as id_produto,
-                    nome_produto, 
-                    valor_produto,
-                    descricao_produto, 
-                    estoque 
-                    from tb_produto 
-                        group by id_produto
+                        id_produto,
+                        nome_produto, 
+                        valor_produto,
+                        descricao_produto, 
+                        estoque 
+                        from tb_produto 
                     order by id_produto desc
-                
                     LIMIT 5';
     $sql = $conexao->prepare($comando_sql);
     $sql->execute();

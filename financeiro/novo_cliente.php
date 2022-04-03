@@ -19,6 +19,8 @@ if (isset($_POST['btn_cadastrar'])) {
     $objCliente = new ClienteDAO();
     $ret = $objCliente->CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs);
 }
+   
+
 ?>
 
 <!DOCTYPE html>
@@ -44,31 +46,58 @@ if (isset($_POST['btn_cadastrar'])) {
                 <!-- /. ROW  -->
                 <hr />
             <form action="novo_cliente.php" method="post">   
+                <div class="row">
+                <div class="col-md-12 col-sm-12">
+                     <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Campos do Endereço
+                        </div>
+                    <div class="panel-body">
+                   
+                    <div class="form-group col-md-6" id="divClientCep">
+                    <label>Cep</label>&nbsp;<button class="btn btn-success btn-xs" name="viacep" type="submit">buscar cep</button>
+                    <input name="cep" id="cep" value="<?php echo @$address->cep?>" type="text" placeholder="Digite cep do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCep','clienteCep')"> 
+                   
+                </div>
+                <div class="form-group col-md-6" id="divClientRua">
+                    <label>Rua</label>
+                    <input name="clienteRua" id="clienteRua" value="<?php echo @$address->logradouro?>" type="text" placeholder="Digite a rua do cliente" class="form-control" onfocusout="SinalizaCampo('divClientRua','clienteRua')"> 
+                </div>
+                <div class="form-group col-md-4" id="divClientBairro">
+                    <label>Bairro</label>
+                    <input name="clienteBairro" id="clienteBairro" value="<?php echo @$address->bairro?>" type="phone" placeholder="Digite o bairro do cliente" class="form-control" onfocusout="SinalizaCampo('divClientBairro','clienteBairro')"> 
+                </div>
+                
+                <div class="form-group col-md-4" id="divClientCidade">
+                    <label>Cidade</label>
+                    <input name="clienteCidade" id="clienteCidade" value="<?php echo @$address->localidade?>" type="text" placeholder="Digite a cidade do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCidade','clienteCidade')"> 
+                </div>
+                <div class="form-group col-md-4" id="divClientEstado">
+                    <label>Estado</label>
+                    <input name="clienteEstado" id="clienteEstado" value="<?php echo @$address->uf?>" type="text" placeholder="Digite o estado do cliente" class="form-control" onfocusout="SinalizaCampo('divClientEstado','clienteEstado')"> 
+                </div>
+
+                    </div>
+            </div>
+            </div>
+            </div>
+            
+            
+            
+            
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                     <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Dados do Cliente
+                        </div>
+                
+                    <div class="panel-body">
                 <div class="form-group col-md-12" id="divClientNome">
                     <label>Nome do Cliente</label>
                     <input name="nomeCliente" id="nomeCliente" type="text"  placeholder="Digite o nome do cliente" class="form-control" onfocusout="SinalizaCampo('divClientNome','nomeCliente')" > 
                 </div>
-                <div class="form-group col-md-6" id="divClientCep">
-                    <label>Cep</label>&nbsp;<button class="btn btn-success btn-xs" type="submit">buscar cep</button>
-                    <input name="cep" id="cep" value="<?php echo $address->cep?>" type="text" placeholder="Digite cep do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCep','clienteCep')"> 
-                </div>
-                <div class="form-group col-md-6" id="divClientRua">
-                    <label>Rua</label>
-                    <input name="clienteRua" id="clienteRua" value="<?php echo $address->logradouro?>" type="text" placeholder="Digite a rua do cliente" class="form-control" onfocusout="SinalizaCampo('divClientRua','clienteRua')"> 
-                </div>
-                <div class="form-group col-md-6" id="divClientBairro">
-                    <label>Bairro</label>
-                    <input name="clienteBairro" id="clienteBairro" value="<?php echo $address->bairro?>" type="phone" placeholder="Digite o bairro do cliente" class="form-control" onfocusout="SinalizaCampo('divClientBairro','clienteBairro')"> 
-                </div>
                 
-                <div class="form-group col-md-6" id="divClientCidade">
-                    <label>Cidade</label>
-                    <input name="clienteCidade" id="clienteCidade" value="<?php echo $address->localidade?>" type="text" placeholder="Digite a cidade do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCidade','clienteCidade')"> 
-                </div>
-                <div class="form-group col-md-6" id="divClientEstado">
-                    <label>Estado</label>
-                    <input name="clienteEstado" id="clienteEstado" value="<?php echo $address->uf?>" type="text" placeholder="Digite o estado do cliente" class="form-control" onfocusout="SinalizaCampo('divClientEstado','clienteEstado')"> 
-                </div>
                 <div class="form-group col-md-6" id="divClientNascimento">
                     <label>Data nascimento</label>
                     <input name="clienteNascimento" id="clienteNascimento" type="date" placeholder="Digite a data de nascimento" class="form-control" onfocusout="SinalizaCampo('divClientNascimento','clienteNascimento')"> 
@@ -80,7 +109,11 @@ if (isset($_POST['btn_cadastrar'])) {
                 
                 <div class="col-md-12">
                     <button name="btn_cadastrar" class="btn btn-success" onclick=" return ValidarCliente()">Cadastrar</button>
-            </form>
+            </div>
+            </div>
+            </div>
+            </div>
+                </form>
                 </div>
             </div>
             <!-- /. PAGE INNER  -->

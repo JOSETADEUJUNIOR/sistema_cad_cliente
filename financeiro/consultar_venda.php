@@ -107,7 +107,7 @@ if (isset($_POST['btnFiltrar'])) {
                                                     <td><?= $mov['qtd_produto'] ?></td>
                                                     <td><?= $mov['item_valor'] ?></td>
                                                     <td><?= ($mov['item_valor']) * ($mov['qtd_produto']).',00' ?></td>
-                                                    <?= $mov['item_valor'] ++  ?>
+                                                   
                                                 </tr>
                                             <?php } ?>
 

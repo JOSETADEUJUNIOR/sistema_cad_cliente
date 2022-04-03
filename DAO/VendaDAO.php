@@ -38,6 +38,7 @@ class VendaDAO extends Conexao{
 
             $sql->execute();
 
+            
             //COMMIT TRASACTION
 
             return $idVenda;
@@ -91,6 +92,56 @@ class VendaDAO extends Conexao{
 
 
    }
+
+   public function DetalhesVenda($idvenda){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select id_venda, data_venda, tb_venda.id_cliente as id_cliente, nome_cliente, rua_cliente, bairro_cliente
+                        from tb_venda 
+                            inner join tb_cliente on
+                                tb_venda.id_cliente = tb_cliente.id_cliente
+                                        where id_venda = ?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $idvenda);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+   }
+   public function ValorTotVenda($idvenda){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select Sum(item_valor) as valorTotal
+                        from tb_item_venda 
+                            inner join tb_venda on
+                                tb_item_venda.id_venda = tb_venda.id_venda
+                                where tb_item_venda.id_venda = ?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $idvenda);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+   }
+   public function ConsultarVenda(){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select distinct tb_venda.id_venda as codVenda, data_venda, nome_cliente, nome_produto, item_valor
+                                from tb_venda 
+                                    inner join tb_cliente on
+                                        tb_venda.id_cliente = tb_cliente.id_cliente
+                                    inner join tb_item_venda on
+                                        tb_venda.id_venda = tb_item_venda.id_venda
+                                    inner join tb_produto on 
+                                        tb_item_venda.id_produto = tb_produto.id_produto 
+                                                limit 5        ';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+   }
+
 
 }
 ?>

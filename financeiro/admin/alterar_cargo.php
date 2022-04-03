@@ -48,7 +48,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                     <div class="col-md-12">
                         <?php include_once('_msg.php') ?>
                         <h2>Alterar Cargo</h2>
-                        <h5>Aqui você poderá alterar todos os Cargos. </h5>
+                        <h5>Aqui você poderá alterar o Cargo. </h5>
 
                     </div>
                 </div>

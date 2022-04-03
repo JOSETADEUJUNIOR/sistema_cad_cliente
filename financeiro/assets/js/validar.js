@@ -3,21 +3,20 @@
 function ValidarLogin(){
 
     if ($("#emailLogin").val().trim() == ""){
-       
+        
+        $("#emailLogin").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
             width: 'auto',
-            html: '<h3>Preencha o campo Nome corretamente</h3>',
+            html: '<h3>Preencha o campo e-mail corretamente</h3>',
             showConfirmButton: false,
-            
-
-            
+            timer: 2000,
           })
         return false;
     
     }else if ($("#senhaLogin").val().trim() == ""){
-       
+        $("#senhaLogin").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -29,7 +28,6 @@ function ValidarLogin(){
           })
         return false;
     
-    
     }else{
         
           return true;
@@ -40,7 +38,7 @@ function ValidarLogin(){
 function ValidarCategoria(){
 
     if ($("#nomeCategoria").val().trim() == "") {
-       
+       $("#nomeCategoria").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -53,15 +51,6 @@ function ValidarCategoria(){
         return false;
     
     }else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
           return true;
     }
 
@@ -70,7 +59,7 @@ function ValidarCategoria(){
 
 function ValidarSubCat(){
     if ($("#SubNome").val().trim() == "") {
-       
+        $("#SubNome").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -83,7 +72,7 @@ function ValidarSubCat(){
         return false;
     
     }if ($("#cat").val().trim() == "") {
-       
+        $("#cat").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -96,15 +85,7 @@ function ValidarSubCat(){
         return false;
     
     }else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
+        
           return true;
     }
 
@@ -158,12 +139,13 @@ function ValidarMeusDados(){
 
 function ValidarCliente(){
 
-    if ($("#nomeCliente").val().trim() == "") {
+    if ($("#clienteCep").val().trim() == "") {
+        $("#clienteCep").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
             width: 'auto',
-            html: '<h3>Preencha o campo nome do cliente corretamente</h3>',
+            html: '<h3>Preencha o campo cep corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
             
@@ -172,6 +154,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteRua").val().trim() == "") {
+        $("#clienteRua").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -185,6 +168,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteBairro").val().trim() == "") {
+        $("#clienteBairro").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -197,20 +181,9 @@ function ValidarCliente(){
         return false;
 
     }
-    if ($("#clienteCep").val().trim() == "") {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            width: 'auto',
-            html: '<h3>Preencha o campo cep corretamente</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-            
-          })
-        return false;
-
-    }
+    
     if ($("#clienteCidade").val().trim() == "") {
+        $("#clienteCidade").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -224,6 +197,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteEstado").val().trim() == "") {
+        $("#clienteEstado").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -236,7 +210,22 @@ function ValidarCliente(){
         return false;
 
     }
+    if ($("#nomeCliente").val().trim() == "") {
+        $("#nomeCliente").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo nome do cliente corretamente</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+
+    }
     if ($("#clienteNascimento").val().trim() == "") {
+        $("#clienteNascimento").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -248,17 +237,7 @@ function ValidarCliente(){
           })
         return false;
 
-    }
-    else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
+    }else{
           return true;
     }
 }
@@ -591,7 +570,7 @@ function ValidarConta(){
 function ValidarProduto(){
 
     if ($("#codBarras").val().trim() == "") {
-       
+        $("#codBarras").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -605,7 +584,7 @@ function ValidarProduto(){
     
     }
     if ($("#nomeProduto").val().trim() == "") {
-       
+        $("#nomeProduto").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -619,7 +598,7 @@ function ValidarProduto(){
     
     }
     if ($("#dataCad").val().trim() == "") {
-       
+        $("#dataCad").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -633,7 +612,7 @@ function ValidarProduto(){
     
     }
     if ($("#cat").val().trim() == "") {
-       
+        $("#cat").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -647,7 +626,7 @@ function ValidarProduto(){
     
     }
     if ($("#subcat").val().trim() == "") {
-       
+        $("#subcat").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -661,7 +640,7 @@ function ValidarProduto(){
     
     }
     if ($("#fornecedor").val().trim() == "") {
-       
+        $("#fornecedor").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -676,7 +655,7 @@ function ValidarProduto(){
     }
     
     if ($("#estoque").val().trim() == "") {
-       
+        $("#estoque").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -690,7 +669,7 @@ function ValidarProduto(){
     
     }
     if ($("#valor").val().trim() == "") {
-       
+        $("#valor").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -702,37 +681,8 @@ function ValidarProduto(){
           })
         return false;
     
-    }
-    
-    
-    
-    if ($("#descProd").val().trim() == "") {
-       
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            width: 'auto',
-            html: '<h3>Preencha o campo descrição do produto corretamente!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-            
-          })
-        return false;
-    
-    }
-
-    
-    
-    else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
+    }else{
+        
           return true;
     }
 
@@ -744,7 +694,7 @@ function ValidarProduto(){
 function ValidarFornecedor(){
 
     if ($("#cnpj").val().trim() == "") {
-       
+       $("#cnpj").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -754,11 +704,11 @@ function ValidarFornecedor(){
             timer: 2000,
             
           })
-        return false;
+          return false;
     
     }
     if ($("#nomeFornecedor").val().trim() == "") {
-       
+        $("#nomeFornecedor").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -772,7 +722,7 @@ function ValidarFornecedor(){
     
     }
     if ($("#tel").val().trim() == "") {
-       
+        $("#tel").focus()
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -782,12 +732,11 @@ function ValidarFornecedor(){
             timer: 2000,
             
           })
-          $("#tel, #celular").mask("(00) 0000-0000");
         return false;
     
     }
     if ($("#email").val().trim() == "") {
-       
+        $("#email").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -802,7 +751,7 @@ function ValidarFornecedor(){
     }
 
     if ($("#cep").val().trim() == "") {
-       
+        $("#cep").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -816,7 +765,7 @@ function ValidarFornecedor(){
     
     }
     if ($("#rua").val().trim() == "") {
-       
+        $("#rua").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -830,7 +779,7 @@ function ValidarFornecedor(){
     
     }
     if ($("#bairro").val().trim() == "") {
-       
+        $("#bairro").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -844,7 +793,7 @@ function ValidarFornecedor(){
     
     }
     if ($("#cidade").val().trim() == "") {
-       
+        $("#cidade").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -858,7 +807,7 @@ function ValidarFornecedor(){
     
     }
     if ($("#estado").val().trim() == "") {
-       
+        $("#estado").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -871,15 +820,6 @@ function ValidarFornecedor(){
         return false;
     
     }else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
           return true;
     }
 

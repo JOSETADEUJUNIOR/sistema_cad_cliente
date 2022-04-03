@@ -2,21 +2,20 @@
 function ValidarLogin(){
 
     if ($("#emailLogin").val().trim() == ""){
-       
+        
+        $("#emailLogin").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
             width: 'auto',
-            html: '<h3>Preencha o campo Nome corretamente</h3>',
+            html: '<h3>Preencha o campo e-mail corretamente</h3>',
             showConfirmButton: false,
-            
-
-            
+            timer: 2000,
           })
         return false;
     
     }else if ($("#senhaLogin").val().trim() == ""){
-       
+        $("#senhaLogin").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -28,7 +27,6 @@ function ValidarLogin(){
           })
         return false;
     
-    
     }else{
         
           return true;
@@ -39,7 +37,7 @@ function ValidarLogin(){
 function ValidarCategoria(){
 
     if ($("#nomeCategoria").val().trim() == "") {
-       
+        $("#nomeCategoria").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -69,7 +67,7 @@ function ValidarCategoria(){
 
 function ValidarSubCat(){
     if ($("#SubNome").val().trim() == "") {
-       
+        $("#subNome").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -82,7 +80,7 @@ function ValidarSubCat(){
         return false;
     
     }if ($("#cat").val().trim() == "") {
-       
+        $("#cat").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -113,7 +111,7 @@ function ValidarSubCat(){
 function ValidarMeusDados(){
 
     if ($("#dadosNome").val().trim() == ""){
-       
+        $("#dadosNome").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -126,7 +124,7 @@ function ValidarMeusDados(){
         return false;
     
     }else if ($("#dadosEmail").val().trim() == ""){
-       
+        $("#dadosEmail").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -158,6 +156,7 @@ function ValidarMeusDados(){
 function ValidarCliente(){
 
     if ($("#nomeCliente").val().trim() == "") {
+        $("#nomeCliente").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -171,6 +170,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteRua").val().trim() == "") {
+        $("#clienteRua").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -184,6 +184,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteBairro").val().trim() == "") {
+        $("#clienteBairro").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -197,6 +198,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteCep").val().trim() == "") {
+        $("#clienteCep").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -210,6 +212,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteCidade").val().trim() == "") {
+        $("#clienteCidade").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -223,6 +226,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteEstado").val().trim() == "") {
+        $("#clienteEstado").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -236,6 +240,7 @@ function ValidarCliente(){
 
     }
     if ($("#clienteNascimento").val().trim() == "") {
+        $("#clienteNascimento").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -264,6 +269,7 @@ function ValidarCliente(){
 
 function ValidarCargo(){
     if ($("#nomeCargo").val().trim() == "") {
+        $("#nomeCargo").focus();
         Swal.fire({
             icon: 'warning',
             icon: 'warning',
@@ -276,6 +282,7 @@ function ValidarCargo(){
         return false;
     }
     if ($("#cargoDescricao").val().trim() == "") {
+        $("#cargoDescricao").focus();
         Swal.fire({
             icon: 'warning',
             icon: 'warning',
@@ -300,15 +307,12 @@ function ValidarCargo(){
           return true;
     }
 
-
-
 }
-
 
 function ValidarFuncionario(){
 
     if ($("#nomeFuncionario").val().trim() == "") {
-        
+        $("#nomeFuncionario").focus();        
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -322,7 +326,7 @@ function ValidarFuncionario(){
 
     }
     if ($("#loginFuncionario").val().trim() == "") {
-        
+        $("#loginFuncionario").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -336,7 +340,7 @@ function ValidarFuncionario(){
 
     }
     if ($("#senhaFuncionario").val().trim() == "") {
-        
+        $("#senhaFuncionario").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -349,7 +353,7 @@ function ValidarFuncionario(){
           return false;
 
     }else if ($("#senhaFuncionario").val().length < 6){
-       
+        $("#senhaFuncionario").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -363,7 +367,7 @@ function ValidarFuncionario(){
 
     }
     if ($("#dataAdmissao").val().trim() == "") {
-        
+        $("#dataAdmissao").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -379,7 +383,7 @@ function ValidarFuncionario(){
     
     
     if ($("#Cargo").val().trim() == "") {
-        
+        $("#Cargo").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -417,7 +421,7 @@ function ValidarFuncionario(){
 function ValidarMovimento(){
 
     if ($("#tipo").val().trim() == ""){
-       
+        $("#tipo").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -431,7 +435,7 @@ function ValidarMovimento(){
     
     }
     if ($("#dtMovimento").val().trim() == ""){
-       
+        $("#dtMovimento").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',

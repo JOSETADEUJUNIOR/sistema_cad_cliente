@@ -2,7 +2,9 @@
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
 require_once '../DAO/PrincipalDAO.php';
-
+require_once '../DAO/VendaDAO.php';
+$objVenda = new VendaDAO();
+$dadosVenda = $objVenda->ConsultarVenda(); 
 require_once '../DAO/ProdutoDAO.php';
 $objResult = new PrincipalDAO();
 $objProd = new ProdutoDAO();
@@ -190,11 +192,53 @@ $produtos = $objProd->ConsultarProduto();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php for ($i = 0; $i < count($produtos); $i++) { ?>
+                                            <?php foreach ($produtos as $prod) { ?>
                                                 <tr class="info">
-                                                    <td><?= $produtos[$i]['nome_produto'] ?></td>
-                                                    <td><?= $produtos[$i]['valor_produto'] ?></td>
-                                                    <td><?= $produtos[$i]['estoque'] ?></td>
+                                                    <td><?= $prod['nome_produto'] ?></td>
+                                                    <td><?= $prod['valor_produto'] ?></td>
+                                                    <td><?= $prod['estoque'] ?></td>
+                                                </tr>
+
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  end  Context Classes  -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="float:right">
+                        <!--    Context Classes  -->
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                Ultimas Vendas Realizadas
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Cod Venda</th>
+                                                <th>Data Venda</th>
+                                                <th>Cliente</th>
+                                                <th>Produto</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($dadosVenda as $venda) { ?>
+                                                <tr class="info">
+                                                    <td><?= $venda['codVenda'] ?></td>
+                                                    <td><?= UtilDAO::ExibirDataBr($venda['data_venda']) ?></td>
+                                                    <td><?= $venda['nome_cliente'] ?></td>
+                                                    <td><?= $venda['nome_produto'] ?></td>
+                                                    <td><?= $venda['item_valor'] ?></td>
                                                 </tr>
 
                                                 </tr>

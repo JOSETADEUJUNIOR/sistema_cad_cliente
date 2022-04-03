@@ -113,9 +113,9 @@ $retEmpresa = $objResult->GetEmpresa();
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: green;" class="icon-box bg-color-green set-icon">
+                            <span style="background-color: #023e66;" class="icon-box bg-color-green set-icon">
                                 <i class="fa fa-users"></i>
                             </span>
                             <div class="text-box">
@@ -129,9 +129,9 @@ $retEmpresa = $objResult->GetEmpresa();
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: blue;" class="icon-box bg-color-blue set-icon">
+                            <span style="background-color: #023e66;" class="icon-box bg-color-blue set-icon">
                                 <i class="fa fa-briefcase"></i>
                             </span>
                             <div class="text-box">

@@ -50,12 +50,24 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 <hr />
                 <form action="alterar_categoria.php" method="post">
                 <input type="hidden" name="cod" value="<?= $dados[0]['id_categoria']?>">
-                    <div class="form-group" id="divCatNome">
+                <div class="row">
+                <div class="col-md-12 col-sm-12">
+                     <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Campo de cadastro
+                        </div>
+                    <div class="panel-body">
+                
+                <div class="form-group" id="divCatNome">
                         <label>Nome da Categoria</label>
                         <input name="nome" value="<?= @$dados[0]['nome_categoria']?>" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divCatNome','nomeCategoria')">
                     </div>
                     <button name="btn_gravar" class="btn btn-success" onclick="return ValidarCategoria()">Gravar</button>
                     <a href="consultar_categoria.php" class="btn btn-warning">Voltar</a>
+                </div>
+                </div>
+                </div>
+                </div>
                 </form>
             </div>
             <!-- /. PAGE INNER  -->

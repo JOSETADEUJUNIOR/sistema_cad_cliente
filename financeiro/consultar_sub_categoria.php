@@ -32,8 +32,8 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                 <div class="row">
                     <div class="col-md-12">
                     <?php include_once('_msg.php'); ?>
-                        <h2>Consultar Sub Categoria</h2>
-                        <h5>Aqui você poderá consultar suas sub categorias. </h5>
+                        <h2>Consultar Subcategoria</h2>
+                        <h5>Aqui você poderá consultar suas subcategorias. </h5>
 
                     </div>
                 </div>
@@ -45,7 +45,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Sub Categorias Cadastradas <span> <a style="color:white;" href="pdfSubCategoria.php" target="_blank"><i title="Emitir Relatorio de Sub Categorias" style="font-size: 22px;float: right; padding:0px 10px" class="fa fa-print"></i></a></span> <span> <a style="color:white;" href="nova_sub_categoria.php"><i title="Criar nova sub categoria" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                                Subcategorias Cadastradas <span> <a style="color:white;" href="pdf_sub_categoria.php" target="_blank"><i title="Emitir Relatorio de Sub Categorias" style="font-size: 22px;float: right; padding:0px 10px" class="fa fa-print"></i></a></span> <span> <a style="color:white;" href="nova_sub_categoria.php"><i title="Criar nova sub categoria" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">

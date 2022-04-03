@@ -9,7 +9,7 @@ $objFunc = new FuncionarioDAO();
 
 if (isset($_GET['cod']) || is_numeric($_GET['cod'])) {
     
-    @$id_func = trim($_GET['cod']);
+    @$id_func = trim(@$_GET['cod']);
 
     $dados = $objFunc->DetalhaDados($id_func);    
 

@@ -35,10 +35,7 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                     <li>
                         <a href="consultar_produto.php">Consultar Produto</a>
                     </li>
-                    <li>
-                        <a href="novo_estoque.php">Ajustar Estoque</a>
-                    </li>
-
+                    
                 </ul>
             </li>
             <li>
