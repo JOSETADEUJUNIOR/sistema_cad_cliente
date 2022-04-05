@@ -35,6 +35,7 @@ class CategoriaDAO extends Conexao{
             return 1;
 
         } catch (Exception $ex) {
+            echo $ex->getMessage();
             return -1;
         }
 

@@ -3,8 +3,8 @@
 // Configurações do Site
 define('HOST','localhost'); //IP
 define('USER','root'); //usuario
-define('PASS', ''); //senha
-define('DB', 'cad_cliente'); //banco
+define('PASS', 'ac9711'); //senha
+define('DB', 'db_cadcliente_dtx'); //banco
 
 /**
  * Conexao.class TIPO [Conexão]

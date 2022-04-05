@@ -31,7 +31,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     $fornecedor = trim($_POST['fornecedor']);
     $cod = trim($_POST['cod']);
 
-    $ret = $objProd->AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $stoque, $fornecedor, $cat, $subcat, $cod);
+    $ret = $objProd->AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $fornecedor, $cat, $subcat, $cod);
 } else {
     header('location: consultar_produto.php');
     exit;

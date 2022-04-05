@@ -30,7 +30,12 @@ if (isset($_POST['btn_adicionar'])) {
         $qtdVenda = trim($_POST['qtd']);
 
         $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor);
+        if ($idVendaRet == 0) {
+            $ret = 0;
+            $itens = $objVenda->ItensVenda($idVendaRet);
+        }
         $itens = $objVenda->ItensVenda($idVendaRet);
+        
     } else {
         $dtVenda = trim($_POST['dtvenda']);
         $clienteVenda = trim($_POST['cliente']);
@@ -42,8 +47,24 @@ if (isset($_POST['btn_adicionar'])) {
             $ret = 0;
         }
         $itens = $objVenda->ItensVenda($idVendaRet);
+       
     }
 }
+
+if (isset($_GET['idExcluir'])){
+
+    $idItem = explode('-',$_GET['idExcluir'])[0];
+    $idVenda = explode('-',$_GET['idExcluir'])[1];
+    $idVendaRet = $objVenda->RetiraItem($idItem, $idVenda);
+    $itens = $objVenda->ItensVenda($idVendaRet);
+    
+}
+echo '<pre>';
+var_dump($idVendaRet);
+echo '</pre>';
+echo '<pre>';
+var_dump($itens);
+echo '</pre>';
 
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
@@ -158,6 +179,7 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                                                     <th>Produto</th>
                                                     <th>Quantidade</th>
                                                     <th>Valor</th>
+                                                    <th>Excluir item</th>
 
 
                                                 </tr>
@@ -169,6 +191,27 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                                                             <td><?= $itens[$i]['nome_produto'] ?></td>
                                                             <td><?= $itens[$i]['qtd_produto'] ?></td>
                                                             <td><?= $itens[$i]['item_valor'] ?></td>
+                                                            <td>
+                                                            <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
+                                                                <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Deseja excluir o item: <br>
+                                                                                <label>Nome do item: <?= $itens[$i]['id_item_venda'] ?></label><br>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                                <a href="pdv2.php?idExcluir=<?= $itens[$i]['id_item_venda'].'-'.$itens[$i]['id_venda']?>" class="btn btn-primary">Sim</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
 
 
                                                         </tr>
@@ -195,7 +238,7 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                             <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
                                 <option value="">Escolha o produto</option>
                                 <?php foreach ($produtos as $prod) { ?>
-                                    <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] ?></option>
+                                    <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'].' - estoque: '.$prod['estoque'].'qtd' ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -203,7 +246,7 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                     <div class="col-md-2">
                         <div class="form-group" id="divSubNome">
                             <label>Quantidade</label>
-                            <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
+                            <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" required class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
                         </div>
 
                     </div>

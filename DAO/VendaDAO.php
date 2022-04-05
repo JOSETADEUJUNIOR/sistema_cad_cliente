@@ -12,13 +12,14 @@ class VendaDAO extends Conexao{
             return 0;
         }
 
+        $conexao = parent::retornaConexao();
 
         //INICIA A TRANSAÇÂO AQUI
+        $conexao->beginTransaction();
 
         try {
 
             #cadastrar a venda
-            $conexao = parent::retornaConexao();
             $comando_sql = 'insert into tb_venda (data_venda, id_cliente) values (?,?)';
             $sql = $conexao->prepare($comando_sql);
             $sql->bindValue(1, $dtVenda);
@@ -38,12 +39,20 @@ class VendaDAO extends Conexao{
 
             $sql->execute();
 
+            #retira o item do produto conforme a quantidade de venda.
+            $comando_sql = 'update tb_produto set estoque = estoque - ? where id_produto = ? ';
+            $sql = $conexao->prepare($comando_sql);
+            $sql->bindValue(1, $qtdVenda);
+            $sql->bindValue(2, $idProduto);
+            $sql->execute();
             
             //COMMIT TRASACTION
 
+            $conexao->commit();
             return $idVenda;
         } catch (Exception $ex) {
             //ROLLBACK
+            $conexao->rollBack();
             echo $ex->getMessage();
             return -1;
         }
@@ -74,6 +83,11 @@ class VendaDAO extends Conexao{
         return 0;
     }
     $conexao = parent::retornaConexao();
+
+
+    # Inicia a Transação
+    $conexao->beginTransaction();
+
     $comando_sql = 'insert into tb_item_venda (id_venda, id_produto, qtd_produto, item_valor) values (?,?,?,?)';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $idVenda);
@@ -83,9 +97,20 @@ class VendaDAO extends Conexao{
 
     try {
         $sql->execute();
+
+
+            #retira o item do produto conforme a quantidade de venda.
+            $comando_sql = 'update tb_produto set estoque = estoque - ? where id_produto = ? ';
+            $sql = $conexao->prepare($comando_sql);
+            $sql->bindValue(1, $qtdVenda);
+            $sql->bindValue(2, $itemVenda);
+            $sql->execute();
+
+        $conexao->commit();
         return $idVenda;
     } catch (Exception $ex) {
       
+        $conexao->rollBack();
         return -1;
     }
     
@@ -141,7 +166,51 @@ class VendaDAO extends Conexao{
 
 
    }
+                                //68     //62
+   public function RetiraItem($idItem, $idVenda){
+    if ($idItem==''|| $idVenda== '' ) {
+        return 0;
+    }
+    $conexao = parent::retornaConexao();
+    # Inicia a transação
+    $conexao->beginTransaction();
+    
+    $comando_sql = 'select id_produto, qtd_produto from tb_item_venda where id_item_venda = ?';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1,$idItem);
+        $sql->execute();
 
+        $idProdExcluir = $sql->fetchAll(PDO::FETCH_ASSOC);
+    
+    $comando_sql = 'delete from tb_item_venda where id_item_venda = ? and id_venda =?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $idItem);//id do item de venda
+    $sql->bindValue(2, $idVenda); // id da venda na tb item venda
+    
+    $sql->execute();
+    
+    try {
+
+
+        
+
+
+
+        #retira o item do produto conforme a quantidade de venda.
+            $comando_sql = 'update tb_produto set estoque = estoque + ? where id_produto = ?';
+            $sql = $conexao->prepare($comando_sql);
+            $sql->bindValue(1, $idProdExcluir[0]['qtd_produto']);
+            $sql->bindValue(2, $idProdExcluir[0]['id_produto']);
+            $sql->execute();
+            $conexao->commit();
+        return $idVenda;
+    } catch (Exception $ex) {
+      
+        $conexao->rollBack();
+        return -1;
+    }
+    
+
+   }
 
 }
-?>

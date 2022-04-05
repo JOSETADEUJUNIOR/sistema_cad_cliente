@@ -1,6 +1,7 @@
 <?php
 
-class UtilDAO{
+class UtilDAO
+{
 
     private static function IniciarSessao()
     {
@@ -58,25 +59,24 @@ class UtilDAO{
     }
 
 
-    public static function DataAtual(){
+    public static function DataAtual()
+    {
         return date('Y-m-d');
     }
 
-    
 
-    public static function ExibirDataBr($data){
+
+    public static function ExibirDataBr($data)
+    {
 
         if ($data == "") {
             return "";
+        } else {
+            $data_array = explode('-', $data);
+
+            $data_br = $data_array[2] . '/' . $data_array[1] . '/' . $data_array[0];
+
+            return $data_br;
         }
-        else{
-        $data_array = explode('-', $data);
-
-        $data_br = $data_array[2]. '/' . $data_array[1] . '/' . $data_array[0];
-        
-        return $data_br;
     }
-    }
-
-
 }

@@ -80,22 +80,23 @@ public function DetalharProduto($idProd){
     
 }
 
-public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $stoque, $fornecedor, $cat, $subcat, $cod){
+public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $fornecedor, $cat, $subcat, $cod){
 
     $conexao = parent::retornaConexao();
     $comando_sql = 'update tb_produto set cod_produto = ?, nome_produto = ?, descricao_produto = ?, valor_produto = ?, 
-                        data_cadastro = ?, id_funcionario = ?, id_fornecedor = ?, id_categoria = ?, id_subCategoria = ? where id_produto = ? ';
+                        data_cadastro = ?, estoque = ?, id_funcionario = ?, id_fornecedor = ?, id_categoria = ?, id_subCategoria = ? where id_produto = ? ';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $codBarras);
     $sql->bindValue(2, $nomeProduto);
     $sql->bindValue(3, $descProd);
     $sql->bindValue(4, $valor);
     $sql->bindValue(5, $dataCad);
-    $sql->bindValue(6, UtilDAO::CodigoLogado());
-    $sql->bindValue(7, $fornecedor);
-    $sql->bindValue(8, $cat);
-    $sql->bindValue(9, $subcat);
-    $sql->bindValue(10, $cod);
+    $sql->bindValue(6, $estoque);
+    $sql->bindValue(7, UtilDAO::CodigoLogado());
+    $sql->bindValue(8, $fornecedor);
+    $sql->bindValue(9, $cat);
+    $sql->bindValue(10, $subcat);
+    $sql->bindValue(11, $cod);
 
     try {
         $sql->execute();
