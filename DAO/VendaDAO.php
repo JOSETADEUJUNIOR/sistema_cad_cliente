@@ -213,4 +213,25 @@ class VendaDAO extends Conexao{
 
    }
 
+
+   public function ResultadoVenda($idVenda){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+                                from tb_venda 
+                                    inner join tb_cliente on
+                                        tb_venda.id_cliente = tb_cliente.id_cliente
+                                    inner join tb_item_venda on
+                                        tb_venda.id_venda = tb_item_venda.id_venda
+                                    inner join tb_produto on 
+                                        tb_item_venda.id_produto = tb_produto.id_produto 
+                                               where tb_venda.id_venda = ?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $idVenda);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+    }
 }

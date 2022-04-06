@@ -8,8 +8,7 @@ $objVenda = new VendaDAO();
 $objcliente = new ClienteDAO();
 $clientes = $objcliente->ConsultarCliente();
 require_once '../DAO/ProdutoDAO.php';
-$objProduto = new ProdutoDAO();
-$produtos = $objProduto->ConsultarProduto();
+
 $itemVenda = '';
 $valor = '';
 
@@ -35,7 +34,6 @@ if (isset($_POST['btn_adicionar'])) {
             $itens = $objVenda->ItensVenda($idVendaRet);
         }
         $itens = $objVenda->ItensVenda($idVendaRet);
-        
     } else {
         $dtVenda = trim($_POST['dtvenda']);
         $clienteVenda = trim($_POST['cliente']);
@@ -47,27 +45,22 @@ if (isset($_POST['btn_adicionar'])) {
             $ret = 0;
         }
         $itens = $objVenda->ItensVenda($idVendaRet);
-       
     }
 }
 
-if (isset($_GET['idExcluir'])){
+if (isset($_GET['idExcluir'])) {
 
-    $idItem = explode('-',$_GET['idExcluir'])[0];
-    $idVenda = explode('-',$_GET['idExcluir'])[1];
+    $idItem = explode('-', $_GET['idExcluir'])[0];
+    $idVenda = explode('-', $_GET['idExcluir'])[1];
     $idVendaRet = $objVenda->RetiraItem($idItem, $idVenda);
     $itens = $objVenda->ItensVenda($idVendaRet);
-    
 }
-echo '<pre>';
-var_dump($idVendaRet);
-echo '</pre>';
-echo '<pre>';
-var_dump($itens);
-echo '</pre>';
 
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
+
+$objProduto = new ProdutoDAO();
+$produtos = $objProduto->ConsultarProduto();
 
 
 ?>
@@ -89,6 +82,148 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                         <h2>CHECKOUT</h2>
                     </div>
                 </div>
+
+                <!-- /. ROW  -->
+                <hr />
+                <form action="pdv2.php" method="post">
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Campos para a venda
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divSubNome">
+                                            <label>Data da Venda</label>
+                                            <input name="dtvenda" id="dtvenda" type="date" placeholder="Digite a data da venda" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divCat">
+                                            <label>Selecione o Cliente</label>
+                                            <select name="cliente" id="cliente" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
+                                                <option value="">Escolher cliente</option>
+                                                <?php for ($i = 0; $i < count($clientes); $i++) { ?>
+                                                    <option value="<?= $clientes[$i]['id_cliente'] ?>"><?= $clientes[$i]['nome_cliente'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Itens da Venda
+                                </div>
+                                <div class="panel-body">
+
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <thead>
+                                                <tr>
+                                                    <th>Produto</th>
+                                                    <th>Quantidade</th>
+                                                    <th>Valor</th>
+                                                    <th>Excluir item</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if (is_countable(@$itens) && count($itens) > 0) : ?>
+                                                    <?php for ($i = 0; $i < count($itens); $i++) { ?>
+                                                        <tr class="odd gradeX">
+                                                            <td><?= $itens[$i]['nome_produto'] ?></td>
+                                                            <td><?= $itens[$i]['qtd_produto'] ?></td>
+                                                            <td><?= $itens[$i]['item_valor'] ?></td>
+                                                            <td>
+                                                                <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
+                                                                <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Deseja excluir o item: <br>
+                                                                                <label>Nome do item: <?= $itens[$i]['id_item_venda'] ?></label><br>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                                <a href="pdv2.php?idExcluir=<?= $itens[$i]['id_item_venda'] . '-' . $itens[$i]['id_venda'] ?>" class="btn btn-primary">Sim</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+
+                                                        </tr>
+                                                    <?php } ?>
+
+                                                <?php endif ?>
+
+                                            </tbody>
+                                        </table>
+
+
+
+
+
+
+                                        <div class="col-md-8">
+                                            <input type="hidden" name="idvenda" value="<?= @$idVendaRet ?>">
+                                            <div class="form-group" id="divCat">
+                                                <label>Selecione o Produto</label>
+                                                <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
+                                                    <option value="">Escolha o produto</option>
+                                                    <?php foreach ($produtos as $prod) { ?>
+                                                        <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] . ' - estoque: ' . $prod['estoque'] . 'qtd' ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group" id="divSubNome">
+                                                <label>Quantidade</label>
+                                                <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group" id="divSubNome">
+                                                <label>Adicionar item</label>
+                                                <button name="btn_adicionar" class="btn btn-success ">Adicionar</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-7 col-sm-7" style="float: right;">
+                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet?>" class="btn btn-success ">Finalizar Venda</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="panel panel-info">
@@ -126,139 +261,7 @@ $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
                         </div>
                     </div>
                 </div>
-                <!-- /. ROW  -->
-                <hr />
-                <form action="pdv2.php" method="post">
-
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    Campos para a venda
-                                </div>
-                                <div class="panel-body">
-
-                                    <div class="col-md-6">
-                                        <div class="form-group" id="divSubNome">
-                                            <label>Data da Venda</label>
-                                            <input name="dtvenda" id="dtvenda" type="date" placeholder="Digite a data da venda" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group" id="divCat">
-                                            <label>Selecione o Cliente</label>
-                                            <select name="cliente" id="cliente" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
-                                                <option value="">Escolher cliente</option>
-                                                <?php for ($i = 0; $i < count($clientes); $i++) { ?>
-                                                    <option value="<?= $clientes[$i]['id_cliente'] ?>"><?= $clientes[$i]['nome_cliente'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    Itens da Venda
-                                </div>
-                                <div class="panel-body">
-
-
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                            <thead>
-                                                <tr>
-                                                    <th>Produto</th>
-                                                    <th>Quantidade</th>
-                                                    <th>Valor</th>
-                                                    <th>Excluir item</th>
-
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if (is_countable(@$itens) && count($itens) > 0) : ?>
-                                                    <?php for ($i = 0; $i < count($itens); $i++) { ?>
-                                                        <tr class="odd gradeX">
-                                                            <td><?= $itens[$i]['nome_produto'] ?></td>
-                                                            <td><?= $itens[$i]['qtd_produto'] ?></td>
-                                                            <td><?= $itens[$i]['item_valor'] ?></td>
-                                                            <td>
-                                                            <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
-                                                                <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                Deseja excluir o item: <br>
-                                                                                <label>Nome do item: <?= $itens[$i]['id_item_venda'] ?></label><br>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                                                <a href="pdv2.php?idExcluir=<?= $itens[$i]['id_item_venda'].'-'.$itens[$i]['id_venda']?>" class="btn btn-primary">Sim</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-
-
-                                                        </tr>
-                                                    <?php } ?>
-
-                                                <?php endif ?>
-
-                                            </tbody>
-                                        </table>
-                                        <div class="col-md-7 col-sm-7" style="float: right;">
-                                            <button name="btn_finalizar_venda" class="btn btn-success ">Finalizar Venda</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="hidden" name="idvenda" value="<?= @$idVendaRet ?>">
-                        <div class="form-group" id="divCat">
-                            <label>Selecione o Produto</label>
-                            <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
-                                <option value="">Escolha o produto</option>
-                                <?php foreach ($produtos as $prod) { ?>
-                                    <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'].' - estoque: '.$prod['estoque'].'qtd' ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group" id="divSubNome">
-                            <label>Quantidade</label>
-                            <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" required class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
-                        </div>
-
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group" id="divSubNome">
-                            <label>Adicionar item</label>
-                            <button name="btn_adicionar" class="btn btn-success ">Adicionar</button>
-                        </div>
-                    </div>
             </div>
-            </form>
-
         </div>
         <!-- /. PAGE INNER  -->
     </div>
