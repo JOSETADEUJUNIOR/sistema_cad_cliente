@@ -13,11 +13,15 @@ UtilDAO::VerLogado();
     $html .= '<head>';
     $html .= '<style>';
     $html .= 'p{color:black;}
-              td{font-size:14px}  ';
+              td{font-size:14px} 
+              .linha{
+                  margim-top:1px;
+              } ';
     $html .= '</style>';
 
     $html .= '</head>';
-
+    $html .= '<p class="linha" id="linha">-----------------------------------------------------------------------------------</p>';
+   
     $html .= '<p>Cupom fiscal</p>';
     $html .= '<p style="float: right"> Data da Venda: ' .UtilDAO::ExibirDataBr((@$dadosVenda[0]['data_venda'] == '' ? '' : $dadosVenda[0]['data_venda'])).'</p>';
     $html .= '<p>-----------------------------------------------------------------------------------</p>';

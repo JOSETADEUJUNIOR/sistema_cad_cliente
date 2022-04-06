@@ -84,35 +84,82 @@ class VendaDAO extends Conexao{
     }
     $conexao = parent::retornaConexao();
 
-
+    
     # Inicia a Transação
     $conexao->beginTransaction();
 
-    $comando_sql = 'insert into tb_item_venda (id_venda, id_produto, qtd_produto, item_valor) values (?,?,?,?)';
+    $comando_sql = 'select id_venda, id_produto
+                        from tb_item_venda
+                           where id_venda = ? ';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $idVenda);
-    $sql->bindValue(2, $itemVenda);
-    $sql->bindValue(3, $qtdVenda);
-    $sql->bindValue(4, $valor);
+    $sql->execute();
+    $itemExiste =  $sql->fetchAll(PDO::FETCH_ASSOC);
 
-    try {
-        $sql->execute();
-
-
-            #retira o item do produto conforme a quantidade de venda.
-            $comando_sql = 'update tb_produto set estoque = estoque - ? where id_produto = ? ';
-            $sql = $conexao->prepare($comando_sql);
-            $sql->bindValue(1, $qtdVenda);
-            $sql->bindValue(2, $itemVenda);
+    if ($itemExiste[0]['id_produto']==$itemVenda) {
+        
+        $comando_sql = 'update tb_item_venda set qtd_produto = qtd_produto + ?, item_valor = item_valor + ?  where id_produto = ? ';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $qtdVenda);
+        $sql->bindValue(2, $valor);
+        $sql->bindValue(3, $itemVenda);
+        try {
             $sql->execute();
+    
+    
+                #retira o item do produto conforme a quantidade de venda.
+                $comando_sql = 'update tb_produto set estoque = estoque - ? where id_produto = ? ';
+                $sql = $conexao->prepare($comando_sql);
+                $sql->bindValue(1, $qtdVenda);
+                $sql->bindValue(2, $itemVenda);
+                $sql->execute();
+    
+            $conexao->commit();
+            return $idVenda;
+        } catch (Exception $ex) {
+          
+            $conexao->rollBack();
+            return -1;
+        }
 
-        $conexao->commit();
-        return $idVenda;
-    } catch (Exception $ex) {
-      
-        $conexao->rollBack();
-        return -1;
+
+
+
+
+    }else{
+
+        $comando_sql = 'insert into tb_item_venda (id_venda, id_produto, qtd_produto, item_valor) values (?,?,?,?)';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $idVenda);
+        $sql->bindValue(2, $itemVenda);
+        $sql->bindValue(3, $qtdVenda);
+        $sql->bindValue(4, $valor);
+    
+        try {
+            $sql->execute();
+    
+    
+                #retira o item do produto conforme a quantidade de venda.
+                $comando_sql = 'update tb_produto set estoque = estoque - ? where id_produto = ? ';
+                $sql = $conexao->prepare($comando_sql);
+                $sql->bindValue(1, $qtdVenda);
+                $sql->bindValue(2, $itemVenda);
+                $sql->execute();
+    
+            $conexao->commit();
+            return $idVenda;
+        } catch (Exception $ex) {
+          
+            $conexao->rollBack();
+            return -1;
+        }
+    
+    
     }
+
+
+    
+    
     
 
 

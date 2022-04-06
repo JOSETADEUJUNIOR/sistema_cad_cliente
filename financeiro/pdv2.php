@@ -60,7 +60,7 @@ $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
 
 $objProduto = new ProdutoDAO();
-$produtos = $objProduto->ConsultarProduto();
+$produtos = $objProduto->ConsultarProdutoVenda();
 
 
 ?>
@@ -211,7 +211,7 @@ $produtos = $objProduto->ConsultarProduto();
                                         </div>
 
                                         <div class="col-md-7 col-sm-7" style="float: right;">
-                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet?>" class="btn btn-success ">Finalizar Venda</a>
+                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet?> target=_blank " class="btn btn-success ">Finalizar Venda</a>
                                         </div>
                                     </div>
                                 </div>

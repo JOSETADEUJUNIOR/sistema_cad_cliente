@@ -59,6 +59,26 @@ public function ConsultarProduto(){
     return $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function ConsultarProdutoVenda(){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select id_produto, cod_produto, nome_produto, descricao_produto,
+                        valor_produto, data_cadastro, estoque, tb_produto.id_categoria, 
+                        nome_categoria, nome_subcategoria, nome_fornecedor
+                    from tb_produto 
+                    inner join tb_fornecedor on
+                        tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor
+                    inner join tb_categoria on
+                        tb_produto.id_categoria = tb_categoria.id_categoria
+                    inner join tb_sub_categoria on
+                        tb_produto.id_subCategoria = tb_sub_categoria.id_subCategoria
+                        where estoque >0';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 public function DetalharProduto($idProd){
 
     $conexao = parent::retornaConexao();
