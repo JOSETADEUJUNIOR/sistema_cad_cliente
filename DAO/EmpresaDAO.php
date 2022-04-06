@@ -8,7 +8,7 @@ class EmpresaDAO extends Conexao{
 
     public function CadastrarEmpresa($nome,$telefone,$endereco,$email){
 
-       echo 'passou';
+       
         if (trim($nome) == '' || trim($telefone) == '' || trim($endereco) == '' || trim($email) == ''){
             return 0;
         }
@@ -34,10 +34,10 @@ class EmpresaDAO extends Conexao{
        // passo 5 Tentar executar
        try {
             $sql->execute();
-            echo 'passou';
+            
             return 1;
        } catch (Exception $ex) {
-          echo $ex->getMessage();
+          
         return -1;
        } 
        

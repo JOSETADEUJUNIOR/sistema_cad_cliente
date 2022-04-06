@@ -23,11 +23,13 @@ if (isset($_POST['btn_cadastrar'])) {
     $descProd = trim($_POST['descProd']);
     $valor = trim($_POST['valor']);
     $estoque = trim($_POST['estoque']);
+    $custo = trim($_POST['custo']);
+    $unidade = trim($_POST['unidade']);
     $cat = trim($_POST['cat']);
     $subcat = trim($_POST['subcat']);
     $fornecedor = trim($_POST['fornecedor']);
 
-    $ret = $objProd->CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $fornecedor, $cat, $subcat);
+    $ret = $objProd->CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat);
 }
 ?>
 
@@ -117,13 +119,25 @@ if (isset($_POST['btn_cadastrar'])) {
                                         </div>
 
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
                                         <div class="form-group" id="divProdEst">
                                             <label>Estoque</label>
-                                            <input name="estoque" id="estoque" type="text" placeholder="Digite o estoque do produto" class="form-control" onfocusout="SinalizaCampo('divProdEst','estoque')">
+                                            <input name="estoque" id="estoque" type="text" placeholder="est" class="form-control" onfocusout="SinalizaCampo('divProdEst','estoque')">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-1">
+                                        <div class="form-group" id="divProUnid">
+                                            <label>Unidade</label>
+                                            <input name="unidade" id="unidade" type="text" placeholder="un" class="form-control" onfocusout="SinalizaCampo('divProdEst','estoque')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" id="divProdCusto">
+                                            <label>Custo</label>
+                                            <input name="custo" id="custo" type="text" placeholder="Digite o valor do produto" class="form-control" onfocusout="SinalizaCampo('divProdValor','valor')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
                                         <div class="form-group" id="divProdValor">
                                             <label>Valor</label>
                                             <input name="valor" id="valor" type="text" placeholder="Digite o valor do produto" class="form-control" onfocusout="SinalizaCampo('divProdValor','valor')">

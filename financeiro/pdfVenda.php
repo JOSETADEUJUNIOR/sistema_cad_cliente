@@ -12,11 +12,12 @@ UtilDAO::VerLogado();
 
     $html .= '<head>';
     $html .= '<style>';
-    $html .= 'p{color:black;}
-              td{font-size:14px} 
+    $html .= 'p{color:black;font-size:8px}
+              td{font-size:8px} 
               .linha{
                   margim-top:1px;
-              } ';
+              }
+              span{font-size:8px; text-aligh:right} ';
     $html .= '</style>';
 
     $html .= '</head>';
@@ -30,8 +31,8 @@ UtilDAO::VerLogado();
     $html .= '<table> ';
 	$html .= '<thead>';
 	$html .= '<tr>';
-	$html .= '<td style="width:100px"><b>COD</b></td>';
-	$html .= '<td style="width:220px"><b>PRODUTO</b></td>';
+	$html .= '<td style="width:30px"><b>COD</b></td>';
+	$html .= '<td style="width:80px"><b>PRODUTO</b></td>';
     $html .= '<td style="width:50px"><b>QTD</b></td>';
     $html .= '<td style="width:90px"><b>VALOR</b></td>';
     $html .= '</tr>';
@@ -48,9 +49,9 @@ UtilDAO::VerLogado();
         $html .= '</hr>';
     }
     
-    $html .= '<h3>Valor Total: 1200,00</h3>';
-    $html .= '<h3>---------------------------------------</h3>';
-
+    
+    $html .= '<p>------------------------------------------------------------------------------------</p>';
+    $html .= '<p style="text-align: right"> Valor Total: 1200,00</p>';
     //tb_venda.id_venda as id_venda, data_venda, nome_cliente, nome_produto, item_valor
 
 	$html .= '</table>';
@@ -67,7 +68,7 @@ UtilDAO::VerLogado();
 		');
 
 	//Renderizar o html
-    $dompdf->setPaper([0,0,400,600]);
+    $dompdf->setPaper([2,-10,220,400]);
 	$dompdf->render();
 
 	//Exibibir a página
