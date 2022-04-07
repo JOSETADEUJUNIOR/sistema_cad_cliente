@@ -264,7 +264,7 @@ class VendaDAO extends Conexao{
    public function ResultadoVenda($idVenda){
 
     $conexao = parent::retornaConexao();
-    $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+    $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
                                 from tb_venda 
                                     inner join tb_cliente on
                                         tb_venda.id_cliente = tb_cliente.id_cliente
@@ -278,7 +278,77 @@ class VendaDAO extends Conexao{
     $sql->execute();
     return $sql->fetchAll(PDO::FETCH_ASSOC);
 
+   
+}
+
+public function ResultadoVendaGeral(){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+                                from tb_venda 
+                                    inner join tb_cliente on
+                                        tb_venda.id_cliente = tb_cliente.id_cliente
+                                    inner join tb_item_venda on
+                                        tb_venda.id_venda = tb_item_venda.id_venda
+                                    inner join tb_produto on 
+                                        tb_item_venda.id_produto = tb_produto.id_produto';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
 
 
+
+}
+
+public function ResultadoVendaDt($dtIncial, $dtFinal, $cliente){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+                                from tb_venda 
+                                    inner join tb_cliente on
+                                        tb_venda.id_cliente = tb_cliente.id_cliente
+                                    inner join tb_item_venda on
+                                        tb_venda.id_venda = tb_item_venda.id_venda
+                                    inner join tb_produto on 
+                                        tb_item_venda.id_produto = tb_produto.id_produto
+                                        where data_venda between ? and ?';
+   
+   if ($cliente >0) {
+       
+    $comando_sql = $comando_sql . ' and tb_venda.id_cliente = ?';
+   }
+   
+   
+   
+   
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $dtIncial);
+    $sql->bindValue(2, $dtFinal);
+    
+    if ($cliente >0) {
+        $sql->bindValue(3, $cliente);
     }
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+public function ResultadoVendaCliente($idCliente){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select  tb_venda.id_venda as id_venda, tb_venda.id_cliente as id_cliente, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+                            from tb_venda 
+                                inner join tb_cliente on
+                                    tb_venda.id_cliente = tb_cliente.id_cliente
+                                inner join tb_item_venda on
+                                    tb_venda.id_venda = tb_item_venda.id_venda
+                                inner join tb_produto on 
+                                    tb_item_venda.id_produto = tb_produto.id_produto
+                                    where tb_venda.id_cliente = ?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $idCliente);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 }
