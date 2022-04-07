@@ -74,6 +74,27 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
 
                 </ul>
             </li>
+            <li>
+                <a href="#"><i class="fa fa-file fa-2x"></i> Relatorios<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="rel_cliente.php">Clientes</a>
+                    </li>
+                    <li>
+                        <a href="rel_produto.php">Produtos</a>
+                    </li>
+                    <li>
+                        <a href="rel_fornecedor.php">Fornecedores</a>
+                    </li>
+                    <li>
+                        <a href="consultar_venda.php">Vendas</a>
+                    </li>
+                    <li>
+                        <a href="consultar_movimento.php">Movimentos Financeiros</a>
+                    </li>
+
+                </ul>
+            </li>
 
 
             <li>

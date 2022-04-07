@@ -15,13 +15,11 @@ if (isset($_POST['btnFiltrar'])) {
 
     if (!is_array($movimentos)) {
         $ret = 0;
-    }else {
-        if (count($movimentos)==0) {
+    } else {
+        if (count($movimentos) == 0) {
             $ret = -3;
         }
     }
-
-
 }
 
 ?>
@@ -49,83 +47,96 @@ if (isset($_POST['btnFiltrar'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="consultar_venda.php" method="post">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Campos para a venda
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Data inicial</label>
+                                            <input name="dtInicial" id="dtInicial" value="<?= @$dtIncial ?>" type="date" placeholder="Escolha a data inicial" class="form-control">
+                                        </div>
+                                    </div>
 
-                    
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Data inicial</label>
-                            <input name="dtInicial" id="dtInicial" value="<?= @$dtIncial ?>" type="date" placeholder="Escolha a data inicial" class="form-control">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Data Final</label>
+                                            <input name="dtFinal" id="dtFinal" value="<?= @$dtFinal ?>" type="date" placeholder="Escolha a data Final" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" style="display:block; padding: 24px 10px">
+                                        <button id="btnFiltrar" name="btnFiltrar" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
+                                    </div>
+
+                                    <div class="panel-footer">
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Data Final</label>
-                            <input name="dtFinal" id="dtFinal" value="<?= @$dtFinal ?>" type="date" placeholder="Escolha a data Final" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="display:block; padding: 24px 10px">
-                        <button id="btnFiltrar" name="btnFiltrar" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
-                    </div>
-
-                </form>
+              
+                    </form>
 
 
                 <hr>
-                <?php if (is_countable(@$movimentos) && count($movimentos)> 0):?>
-                <?php if (isset($movimentos) && count($movimentos) > 0) { ?>
-                <div class="row">
-                    <div class="col-md-12">
+                <?php if (is_countable(@$movimentos) && count($movimentos) > 0) : ?>
+                    <?php if (isset($movimentos) && count($movimentos) > 0) { ?>
+                        <div class="row">
+                            <div class="col-md-12">
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Vendas realizadas  
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>Data venda</th>
-                                                <th>produto</th>
-                                                <th>qtd</th>
-                                                <th>Valor</th>
-                                                <th>Valor Total</th>
-                                                
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Vendas realizadas
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Data venda</th>
+                                                        <th>produto</th>
+                                                        <th>qtd</th>
+                                                        <th>Valor</th>
+                                                        <th>Valor Total</th>
 
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            if (is_array(@$movimentos) || is_object(@$movimentos))
-                                                foreach (@$movimentos as $mov) { ?>
 
-                                                <tr class="odd gradeX">
-                                                    <td><?= UtilDAO::ExibirDataBr($mov['data_venda']) ?></td>
-                                                    <td><?= $mov['nome_produto'] ?></td>
-                                                    <td><?= $mov['qtd_produto'] ?></td>
-                                                    <td><?= $mov['item_valor'] ?></td>
-                                                    <td><?= ($mov['item_valor']) * ($mov['qtd_produto']).',00' ?></td>
-                                                   
-                                                </tr>
-                                            <?php } ?>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    if (is_array(@$movimentos) || is_object(@$movimentos))
+                                                        foreach (@$movimentos as $mov) { ?>
 
-                                        </tbody>
-                                    </table>
+                                                        <tr class="odd gradeX">
+                                                            <td><?= UtilDAO::ExibirDataBr($mov['data_venda']) ?></td>
+                                                            <td><?= $mov['nome_produto'] ?></td>
+                                                            <td><?= $mov['qtd_produto'] ?></td>
+                                                            <td><?= $mov['item_valor'] ?></td>
+                                                            <td><?= ($mov['item_valor']) * ($mov['qtd_produto']) . ',00' ?></td>
+
+                                                        </tr>
+                                                    <?php } ?>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
-                </div>
-            <?php } ?>
-            <?php endif ?>
+                    <?php } ?>
+                <?php endif ?>
             </div>
 
             <!-- /. PAGE INNER  -->
         </div>
-        
+
 
 
 
