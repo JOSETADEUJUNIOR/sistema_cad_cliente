@@ -46,13 +46,11 @@ $clientes = $objCliente->ConsultarCliente();
                                     <thead>
                                         <tr>
                                             <th>Nome Cliente</th>
-                                            <th>Rua</th>
                                             <th>Bairro</th>
                                             <th>Cep</th>
                                             <th>Cidade</th>
-                                            <th>Estado</th>
                                             <th>Dt Nascimento</th>
-                                            <th>Obs</th>
+                                            <th>Cpf</th>
                                             <th>Ações</th>
                                            
                                         </tr>
@@ -61,13 +59,11 @@ $clientes = $objCliente->ConsultarCliente();
                                     <?php for ($i=0; $i<count($clientes) ; $i++) { ?>
                                         <tr class="odd gradeX">
                                             <td><?= $clientes[$i]['nome_cliente']?></td>
-                                            <td><?= $clientes[$i]['rua_cliente']?></td>
                                             <td><?= $clientes[$i]['bairro_cliente']?></td>
                                             <td><?= $clientes[$i]['cep_cliente']?></td>
                                             <td><?= $clientes[$i]['cidade_cliente']?></td>
-                                            <td><?= $clientes[$i]['estado_cliente']?></td>
                                             <td><?= UtilDAO::ExibirDataBr($clientes[$i]['data_nascimento'])?></td>
-                                            <td><?= $clientes[$i]['obs_cliente']?></td>
+                                            <td><?= $clientes[$i]['cpf_cliente']?></td>
                                             <td style="padding: 3px 1px 3px 3px;"> 
                                                 <a href="alterar_cliente.php?cod=<?= $clientes[$i]['id_cliente']?>"><i title="Alterar Cargo" style=" color:#c09046; font-size:18px; margin-right:10px" class="fa fa-pencil"></i></a>
                                                 <!--<a href="excluir_cliente.php"><i title="Excluir Cargo" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>-->

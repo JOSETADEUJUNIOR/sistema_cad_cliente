@@ -6,12 +6,12 @@ UtilDAO::VerLogado();
 	$html .= '<table border=1';
 	$html .= '<thead>';
 	$html .= '<tr>';
-	$html .= '<td style="width:50px"><b>COD</b></td>';
-	$html .= '<td style="width:90px"><b>PRODUTO</b></td>';
-    $html .= '<td style="width:90px"><b>ESTOQUE</b></td>';
-    $html .= '<td style="width:90px"><b>VALOR</b></td>';
-    $html .= '<td style="width:90px"><b>CATEGORIA</b></td></br>';
-	$html .= '</tr>';
+	$html .= '<td style="width:110px"><b>COD</b></td>';
+	$html .= '<td style="width:400px"><b>PRODUTO</b></td>';
+    $html .= '<td style="width:30px"><b>ESTQ</b></td>';
+	$html .= '<td style="width:50px"><b>CUSTO</b></td>';
+    $html .= '<td style="width:50px"><b>VALOR</b></td>';
+    $html .= '</tr>';
     $html .= '</thead>';
 	
 	$objProd = new ProdutoDAO();
@@ -21,8 +21,8 @@ UtilDAO::VerLogado();
 		$html .= '<tr><td>' .$produtos[$i]['cod_produto']."</td>";
 		$html .= '<td >' .$produtos[$i]['nome_produto']."</td>";
         $html .= '<td >' .$produtos[$i]['estoque']."</td>";
+		$html .= '<td >' .$produtos[$i]['custo']."</td>";
         $html .= '<td >' .$produtos[$i]['valor_produto']."</td>";
-        $html .= '<td >' .$produtos[$i]['nome_categoria']."</td></br>";
         $html .= '</tbody>';
     }
 
@@ -40,6 +40,7 @@ UtilDAO::VerLogado();
 		');
 
 	//Renderizar o html
+	$dompdf->setPaper('A4',);
 	$dompdf->render();
 
 	//Exibibir a página

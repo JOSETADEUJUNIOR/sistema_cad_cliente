@@ -53,7 +53,7 @@ class VendaDAO extends Conexao{
         } catch (Exception $ex) {
             //ROLLBACK
             $conexao->rollBack();
-            echo $ex->getMessage();
+            
             return -1;
         }
     }

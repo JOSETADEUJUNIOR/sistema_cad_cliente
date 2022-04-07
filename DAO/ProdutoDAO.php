@@ -5,7 +5,7 @@ require_once 'UtilDAO.php';
 
 class ProdutoDAO extends Conexao{
 
-public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $fornecedor, $cat, $subcat){
+public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat){
 
     if (trim($codBarras)=='' || trim($nomeProduto)=='' || trim($dataCad)=='' 
     || trim($valor)=='' || trim($fornecedor)=='' || trim($estoque)=='' || trim($cat)=='' || trim($subcat)=='') {
@@ -16,7 +16,7 @@ public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $d
     $conexao = parent::retornaConexao();
     //Passo 2 = Comando SQL
     $comando_sql = 'Insert into tb_produto (cod_produto, nome_produto, descricao_produto,
-                       valor_produto, data_cadastro, estoque, id_funcionario, id_fornecedor, id_categoria, id_subCategoria) values (?,?,?,?,?,?,?,?,?,?)';
+                       valor_produto, data_cadastro, estoque, custo, unidade, id_funcionario, id_fornecedor, id_categoria, id_subCategoria) values (?,?,?,?,?,?,?,?,?,?,?,?)';
     // Passo 3 = sql recebe conexão preparando a conexçaão
     $sql = $conexao->prepare($comando_sql);
     // Passo 4 = Verifica se no comando sql tem ?. Caso tiver, configura as informações
@@ -26,10 +26,12 @@ public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $d
     $sql->bindValue(4, $valor);
     $sql->bindValue(5, $dataCad);
     $sql->bindValue(6, $estoque);
-    $sql->bindValue(7, UtilDAO::CodigoLogado());
-    $sql->bindValue(8, $fornecedor);
-    $sql->bindValue(9, $cat);
-    $sql->bindValue(10, $subcat);
+    $sql->bindValue(7, $custo);
+    $sql->bindValue(8, $unidade);
+    $sql->bindValue(9, UtilDAO::CodigoLogado());
+    $sql->bindValue(10, $fornecedor);
+    $sql->bindValue(11, $cat);
+    $sql->bindValue(12, $subcat);
     // passo 5 Tentar executar
     try {
         $sql->execute();
@@ -45,7 +47,7 @@ public function ConsultarProduto(){
 
     $conexao = parent::retornaConexao();
     $comando_sql = 'Select id_produto, cod_produto, nome_produto, descricao_produto,
-                        valor_produto, data_cadastro, estoque, tb_produto.id_categoria, 
+                        valor_produto, data_cadastro, estoque, custo, unidade, tb_produto.id_categoria, 
                         nome_categoria, nome_subcategoria, nome_fornecedor
                     from tb_produto 
                     inner join tb_fornecedor on
@@ -84,7 +86,7 @@ public function DetalharProduto($idProd){
     $conexao = parent::retornaConexao();
     $comando_sql = 'Select tb_produto.id_produto as id_produto, cod_produto, nome_produto, descricao_produto, tb_produto.id_categoria as id_categoria,
                                     tb_produto.id_subCategoria as id_subCategoria, nome_categoria, nome_subcategoria,
-                                    valor_produto, data_cadastro, tb_produto.id_fornecedor as id_fornecedor, nome_fornecedor, estoque
+                                    valor_produto, data_cadastro, tb_produto.id_fornecedor as id_fornecedor, nome_fornecedor, estoque, custo, unidade
                     from tb_produto 
                         inner join tb_fornecedor on
                             tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor
@@ -100,11 +102,11 @@ public function DetalharProduto($idProd){
     
 }
 
-public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $fornecedor, $cat, $subcat, $cod){
+public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $cod){
 
     $conexao = parent::retornaConexao();
     $comando_sql = 'update tb_produto set cod_produto = ?, nome_produto = ?, descricao_produto = ?, valor_produto = ?, 
-                        data_cadastro = ?, estoque = ?, id_funcionario = ?, id_fornecedor = ?, id_categoria = ?, id_subCategoria = ? where id_produto = ? ';
+                        data_cadastro = ?, estoque = ?, custo = ?, unidade = ?, id_funcionario = ?, id_fornecedor = ?, id_categoria = ?, id_subCategoria = ? where id_produto = ? ';
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $codBarras);
     $sql->bindValue(2, $nomeProduto);
@@ -112,11 +114,13 @@ public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dat
     $sql->bindValue(4, $valor);
     $sql->bindValue(5, $dataCad);
     $sql->bindValue(6, $estoque);
-    $sql->bindValue(7, UtilDAO::CodigoLogado());
-    $sql->bindValue(8, $fornecedor);
-    $sql->bindValue(9, $cat);
-    $sql->bindValue(10, $subcat);
-    $sql->bindValue(11, $cod);
+    $sql->bindValue(7, $custo);
+    $sql->bindValue(8, $unidade);
+    $sql->bindValue(9, UtilDAO::CodigoLogado());
+    $sql->bindValue(10, $fornecedor);
+    $sql->bindValue(11, $cat);
+    $sql->bindValue(12, $subcat);
+    $sql->bindValue(13, $cod);
 
     try {
         $sql->execute();

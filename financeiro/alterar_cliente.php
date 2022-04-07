@@ -25,6 +25,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     $clienteEstado = trim($_POST['clienteEstado']);
     $clienteNascimento = trim($_POST['clienteNascimento']);
     $clienteObs = trim($_POST['clienteObs']);
+    $cpf = trim($_POST['cpfCliente']);
     $cod = $_POST['cod'];
     $ret = $objCliente->AlterarCliente(
         $nomeCliente,
@@ -35,6 +36,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
         $clienteEstado,
         $clienteNascimento,
         $clienteObs,
+        $cpf,
         $cod
     );
 } else if (isset($_POST['btn_excluir'])) {
@@ -128,6 +130,10 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                                         <label>Data nascimento</label>
                                         <input name="clienteNascimento" id="clienteNascimento" value="<?= @$dados[0]['data_nascimento'] ?>" type="date" placeholder="Digite a data de nascimento" class="form-control" onfocusout="SinalizaCampo('divClientNascimento','clienteNascimento')">
                                     </div>
+                                    <div class="form-group col-md-6" id="divClientCpf">
+                                        <label>CPF do Cliente</label>
+                                        <input name="cpfCliente" id="cpfCliente" value="<?= @$dados[0]['cpf_cliente'] ?>" type="text" placeholder="Digite o cpf do cliente" class="form-control" onfocusout="SinalizaCampo('divClientCpf','cpfCliente')">
+                                    </div>
                                     <div class="form-group col-md-12" id="divClientObs">
                                         <label>Obs</label>
                                         <textarea name="clienteObs" id="clienteObs" type="text" placeholder="Digite uma observação para o cliente" class="form-control"><?= @$dados[0]['obs_cliente'] ?></textarea>
@@ -170,7 +176,14 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        // $("#tel").mask("(00) 0000-00009");
 
+        $("#cpfCliente").mask("000.000.000-00");
+       
+    </script>
 </body>
 
 </html>

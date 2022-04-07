@@ -6,10 +6,10 @@ require_once 'UtilDAO.php';
 
 class ClienteDAO extends Conexao
 {
-    public function CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs){
+    public function CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs, $cpf){
 
         if (trim($nomeCliente)=='' || trim($rua)=='' || trim($bairro)=='' || trim($cep)=='' || trim($cidade)=='' ||
-            trim($estado)=='' || trim($dataNascimento)=='') {
+            trim($estado)=='' || trim($dataNascimento)=='' || trim($cpf)=='') {
            
                 return 0;
         }
@@ -19,8 +19,8 @@ class ClienteDAO extends Conexao
 
         //Passo 2 = Comando SQL
         $comando_sql = ('Insert into tb_cliente (nome_cliente, rua_cliente, bairro_cliente, 
-                         cep_cliente, cidade_cliente, estado_cliente, data_nascimento, obs_cliente,
-                          id_funcionario) values (?,?,?,?,?,?,?,?,?)');
+                         cep_cliente, cidade_cliente, estado_cliente, data_nascimento, obs_cliente, cpf_cliente,
+                          id_funcionario) values (?,?,?,?,?,?,?,?,?,?)');
 
         
         //Passo 3 = sql recebe preparando a conexao
@@ -36,7 +36,8 @@ class ClienteDAO extends Conexao
         $sql->bindValue(6,$estado);
         $sql->bindValue(7,$dataNascimento);
         $sql->bindValue(8,$obs);
-        $sql->bindValue(9,UtilDao::CodigoLogado());
+        $sql->bindValue(9,$cpf);
+        $sql->bindValue(10,UtilDao::CodigoLogado());
 
         //Passo 5 Tentar executar
         try {
@@ -62,7 +63,8 @@ class ClienteDAO extends Conexao
                           ,cidade_cliente
                           ,estado_cliente
                           ,data_nascimento      
-                          ,obs_cliente  
+                          ,obs_cliente 
+                          ,cpf_cliente 
                              from tb_cliente where id_funcionario = ? ';
     
         $sql = $conexao->prepare($comando_sql);
@@ -76,7 +78,7 @@ class ClienteDAO extends Conexao
         $conexao = parent::retornaConexao();
         $comando_sql = 'Select id_cliente, nome_cliente, rua_cliente, bairro_cliente,
                                cep_cliente, cidade_cliente, estado_cliente, data_nascimento,
-                               obs_cliente from tb_cliente where id_cliente = ? and id_funcionario = ? ';
+                               obs_cliente, cpf_cliente from tb_cliente where id_cliente = ? and id_funcionario = ? ';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $id_cliente);
         $sql->bindValue(2, UtilDAO::CodigoLogado());
@@ -85,11 +87,11 @@ class ClienteDAO extends Conexao
 
     }
 
-    public function AlterarCliente($nomeCliente, $clienteRua, $clienteBairro, $clienteCep, $clienteCidade, $clienteEstado, $clienteNascimento, $clienteObs, $cod){
+    public function AlterarCliente($nomeCliente, $clienteRua, $clienteBairro, $clienteCep, $clienteCidade, $clienteEstado, $clienteNascimento, $clienteObs, $cpf, $cod){
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'update tb_cliente set nome_cliente = ?, rua_cliente = ?,  bairro_cliente = ?, cep_cliente = ?, cidade_cliente = ?,
-                                                estado_cliente = ?, data_nascimento = ?, obs_cliente = ? where id_funcionario = ? and id_cliente = ? ';
+                                                estado_cliente = ?, data_nascimento = ?, obs_cliente = ?, cpf_cliente = ? where id_funcionario = ? and id_cliente = ? ';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $nomeCliente);
         $sql->bindValue(2, $clienteRua);
@@ -99,12 +101,13 @@ class ClienteDAO extends Conexao
         $sql->bindValue(6, $clienteEstado);
         $sql->bindValue(7, $clienteNascimento);
         $sql->bindValue(8, $clienteObs);
-        $sql->bindValue(9, UtilDAO::CodigoLogado());
-        $sql->bindValue(10, $cod);
+        $sql->bindValue(9, $cpf);
+        $sql->bindValue(10, UtilDAO::CodigoLogado());
+        $sql->bindValue(11, $cod);
 
         try {
             $sql->execute();
-            echo 'passou';
+            
             return 1;
         } catch (Exception $ex) {
             return -1;

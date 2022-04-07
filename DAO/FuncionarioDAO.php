@@ -32,7 +32,7 @@ class FuncionarioDAO extends Conexao{
             return 1;
 
         } catch (Exception $ex) {
-            echo $ex->getMessage();
+          
             var_dump($sql);
             return -1;
         }
@@ -97,7 +97,7 @@ class FuncionarioDAO extends Conexao{
             $sql->execute();
             return 1;
         } catch (Exception $ex) {
-            echo $ex->getMessage();
+            
             return -1;
         }
 
@@ -136,7 +136,7 @@ class FuncionarioDAO extends Conexao{
             $sql->execute();
             return 1;
         } catch (Exception $ex) {
-            echo $ex->getMessage();
+            
             return -1;
         }
 

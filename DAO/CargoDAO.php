@@ -72,7 +72,7 @@ public function AlterarCargo($nome_cargo, $cargo_descricao, $cod){
         $sql->execute();
         return 1;
     } catch (Exception $ex) {
-        echo $ex->getMessage();
+        
         return -1;
     }
 }

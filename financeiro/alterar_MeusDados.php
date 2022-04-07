@@ -24,11 +24,6 @@ if (isset($_GET['cod']) || is_numeric($_GET['cod'])) {
 
 }
 
-
-
-
-
-
 $usuario = $objFunc->MeusDados();
 
 ?>
