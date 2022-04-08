@@ -6,7 +6,7 @@ require_once 'UtilDAO.php';
 
 class ClienteDAO extends Conexao
 {
-    public function CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs, $cpf){
+    public function CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs, $cpf, $restricao){
 
         if (trim($nomeCliente)=='' || trim($rua)=='' || trim($bairro)=='' || trim($cep)=='' || trim($cidade)=='' ||
             trim($estado)=='' || trim($dataNascimento)=='' || trim($cpf)=='') {
@@ -18,9 +18,9 @@ class ClienteDAO extends Conexao
         $conexao = parent::retornaConexao();
 
         //Passo 2 = Comando SQL
-        $comando_sql = ('Insert into tb_cliente (nome_cliente, rua_cliente, bairro_cliente, 
-                         cep_cliente, cidade_cliente, estado_cliente, data_nascimento, obs_cliente, cpf_cliente,
-                          id_funcionario) values (?,?,?,?,?,?,?,?,?,?)');
+        $comando_sql = 'Insert into tb_cliente (nome_cliente, rua_cliente, bairro_cliente, 
+                         cep_cliente, cidade_cliente, estado_cliente, data_nascimento, obs_cliente, cpf_cliente, restricao,
+                          id_funcionario) values (?,?,?,?,?,?,?,?,?,?,?)';
 
         
         //Passo 3 = sql recebe preparando a conexao
@@ -37,7 +37,8 @@ class ClienteDAO extends Conexao
         $sql->bindValue(7,$dataNascimento);
         $sql->bindValue(8,$obs);
         $sql->bindValue(9,$cpf);
-        $sql->bindValue(10,UtilDao::CodigoLogado());
+        $sql->bindValue(10,$restricao);
+        $sql->bindValue(11,UtilDao::CodigoLogado());
 
         //Passo 5 Tentar executar
         try {
@@ -65,6 +66,7 @@ class ClienteDAO extends Conexao
                           ,data_nascimento      
                           ,obs_cliente 
                           ,cpf_cliente 
+                          ,restricao
                              from tb_cliente where id_funcionario = ? ';
     
         $sql = $conexao->prepare($comando_sql);
@@ -73,12 +75,70 @@ class ClienteDAO extends Conexao
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function DetalharCliente($id_cliente){
+    public function ResultadoCliente($cliente){
+
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'Select 
+                          id_cliente
+                          ,nome_cliente
+                          ,rua_cliente
+                          ,bairro_cliente
+                          ,cep_cliente
+                          ,cidade_cliente
+                          ,estado_cliente
+                          ,data_nascimento      
+                          ,obs_cliente 
+                          ,cpf_cliente 
+                          ,restricao
+                             from tb_cliente ';
+    
+        if ($cliente > 0) {
+           $comando_sql = $comando_sql . ' where id_cliente = ? ';
+        }
+       
+        $sql = $conexao->prepare($comando_sql);
+       
+       if ($cliente >0) {
+           
+           $sql->bindValue(1, $cliente);
+       }
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function ResultadoClienteCpf($cpf){
+
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'Select 
+                          id_cliente
+                          ,nome_cliente
+                          ,rua_cliente
+                          ,bairro_cliente
+                          ,cep_cliente
+                          ,cidade_cliente
+                          ,estado_cliente
+                          ,data_nascimento      
+                          ,obs_cliente 
+                          ,cpf_cliente 
+                          ,restricao
+                             from tb_cliente where cpf_cliente = ?';
+    
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $cpf);       
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+     public function DetalharCliente($id_cliente){
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'Select id_cliente, nome_cliente, rua_cliente, bairro_cliente,
                                cep_cliente, cidade_cliente, estado_cliente, data_nascimento,
-                               obs_cliente, cpf_cliente from tb_cliente where id_cliente = ? and id_funcionario = ? ';
+                               obs_cliente, cpf_cliente, restricao from tb_cliente where id_cliente = ? and id_funcionario = ? ';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $id_cliente);
         $sql->bindValue(2, UtilDAO::CodigoLogado());
@@ -87,11 +147,15 @@ class ClienteDAO extends Conexao
 
     }
 
-    public function AlterarCliente($nomeCliente, $clienteRua, $clienteBairro, $clienteCep, $clienteCidade, $clienteEstado, $clienteNascimento, $clienteObs, $cpf, $cod){
-
+    public function AlterarCliente($nomeCliente, $clienteRua, $clienteBairro, $clienteCep, $clienteCidade, $clienteEstado, $clienteNascimento, $clienteObs, $cpf, $restricao, $cod){
+        if (trim($nomeCliente)=='' || trim($clienteRua)=='' || trim($clienteBairro)=='' || trim($clienteCep)=='' || trim($clienteCidade)=='' ||
+        trim($clienteEstado)=='' || trim($clienteNascimento)=='' || trim($cpf)=='') {
+       
+            return 0;
+    }
         $conexao = parent::retornaConexao();
         $comando_sql = 'update tb_cliente set nome_cliente = ?, rua_cliente = ?,  bairro_cliente = ?, cep_cliente = ?, cidade_cliente = ?,
-                                                estado_cliente = ?, data_nascimento = ?, obs_cliente = ?, cpf_cliente = ? where id_funcionario = ? and id_cliente = ? ';
+                                                estado_cliente = ?, data_nascimento = ?, obs_cliente = ?, cpf_cliente = ?, restricao = ? where id_funcionario = ? and id_cliente = ? ';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $nomeCliente);
         $sql->bindValue(2, $clienteRua);
@@ -102,8 +166,9 @@ class ClienteDAO extends Conexao
         $sql->bindValue(7, $clienteNascimento);
         $sql->bindValue(8, $clienteObs);
         $sql->bindValue(9, $cpf);
-        $sql->bindValue(10, UtilDAO::CodigoLogado());
-        $sql->bindValue(11, $cod);
+        $sql->bindValue(10, $restricao);
+        $sql->bindValue(11, UtilDAO::CodigoLogado());
+        $sql->bindValue(12, $cod);
 
         try {
             $sql->execute();

@@ -75,7 +75,7 @@ UtilDAO::VerLogado();
 	$dompdf = new DOMPDF();
 	// Carrega seu HTML
 	$dompdf->load_html('
-			<h2 style="text-align: center;">RondonCell</h2>
+			<h3 style="text-align: center;">RondonCell</h3>
 			'.$html .'
 		');
 

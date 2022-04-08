@@ -15,30 +15,21 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
         header('location: consultar_cliente.php');
         exit;
     }
-} else if (isset($_POST['btn_alterar'])) {
+}else if (isset($_POST['btn_alterar'])) {
 
     $nomeCliente = trim($_POST['nomeCliente']);
     $clienteRua = trim($_POST['clienteRua']);
     $clienteBairro = trim($_POST['clienteBairro']);
-    $clienteCep = trim($_POST['clienteCep']);
+    $clienteCep = trim($_POST['cep']);
     $clienteCidade = trim($_POST['clienteCidade']);
     $clienteEstado = trim($_POST['clienteEstado']);
     $clienteNascimento = trim($_POST['clienteNascimento']);
     $clienteObs = trim($_POST['clienteObs']);
     $cpf = trim($_POST['cpfCliente']);
+    $restricao = trim($_POST['restricao']);
     $cod = $_POST['cod'];
-    $ret = $objCliente->AlterarCliente(
-        $nomeCliente,
-        $clienteRua,
-        $clienteBairro,
-        $clienteCep,
-        $clienteCidade,
-        $clienteEstado,
-        $clienteNascimento,
-        $clienteObs,
-        $cpf,
-        $cod
-    );
+    $ret = $objCliente->AlterarCliente($nomeCliente, $clienteRua, $clienteBairro, $clienteCep, $clienteCidade, $clienteEstado, $clienteNascimento, $clienteObs, $cpf, $restricao, $cod );
+
 } else if (isset($_POST['btn_excluir'])) {
 
     $id_client = $_POST['cod'];
@@ -73,7 +64,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="alterar_cliente.php" method="post">
-                    <input type="hidden" name="cod" value="<?= $dados[0]['id_cliente'] ?>">
+                    <input type="text" name="cod" value="<?= $dados[0]['id_cliente'] ?>">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
@@ -109,10 +100,6 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
@@ -121,11 +108,21 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                                 </div>
 
                                 <div class="panel-body">
-                                    <div class="form-group col-md-12" id="divClientNome">
+                                    <div class="form-group col-md-10" id="divClientNome">
                                         <label>Nome do Cliente</label>
                                         <input name="nomeCliente" id="nomeCliente" type="text" value="<?= @$dados[0]['nome_cliente'] ?>" placeholder="Digite o nome do cliente" class="form-control" onfocusout="SinalizaCampo('divClientNome','nomeCliente')">
                                     </div>
-
+                                    <div class="col-md-2">
+                                        <div class="form-group" id="divRestricao">
+                                            <label>Cliente Restrito?</label>
+                                            <select name="restricao" id="restricao" class="form-control" >
+                                            <option value="<?=$dados[0]['restricao']?>"><?=($dados[0]['restricao']>0?'SIM':'NÃO')?></option>    
+                                                <option value="0">NÃO</option>
+                                                <option value="1">SIM</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group col-md-6" id="divClientNascimento">
                                         <label>Data nascimento</label>
                                         <input name="clienteNascimento" id="clienteNascimento" value="<?= @$dados[0]['data_nascimento'] ?>" type="date" placeholder="Digite a data de nascimento" class="form-control" onfocusout="SinalizaCampo('divClientNascimento','clienteNascimento')">

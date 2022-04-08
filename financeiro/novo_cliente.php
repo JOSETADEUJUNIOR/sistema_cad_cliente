@@ -16,9 +16,10 @@ if (isset($_POST['btn_cadastrar'])) {
     $dataNascimento = trim($_POST['clienteNascimento']);
     $obs = trim($_POST['clienteObs']);
     $cpf = trim($_POST['cpfCliente']);
-
+    $restricao = trim($_POST['restricao']);
+    
     $objCliente = new ClienteDAO();
-    $ret = $objCliente->CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs, $cpf);
+    $ret = $objCliente->CadastrarCliente($nomeCliente, $rua, $bairro, $cep, $cidade, $estado, $dataNascimento, $obs, $cpf, $restricao);
 }
 
 
@@ -90,11 +91,20 @@ if (isset($_POST['btn_cadastrar'])) {
                                 </div>
 
                                 <div class="panel-body">
-                                    <div class="form-group col-md-12" id="divClientNome">
+                                    <div class="form-group col-md-10" id="divClientNome">
                                         <label>Nome do Cliente</label>
                                         <input name="nomeCliente" id="nomeCliente" type="text" placeholder="Digite o nome do cliente" class="form-control" onfocusout="SinalizaCampo('divClientNome','nomeCliente')">
                                     </div>
-
+                                    <div class="col-md-2">
+                                        <div class="form-group" id="divRestricao">
+                                            <label>Cliente Restrito?</label>
+                                            <select name="restricao" id="restricao" class="form-control" >
+                                                <option value="0">NÃO</option>
+                                                <option value="1">SIM</option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group col-md-6" id="divClientNascimento">
                                         <label>Data nascimento</label>
                                         <input name="clienteNascimento" id="clienteNascimento" type="date" placeholder="Digite a data de nascimento" class="form-control" onfocusout="SinalizaCampo('divClientNascimento','clienteNascimento')">

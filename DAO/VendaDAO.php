@@ -300,34 +300,61 @@ public function ResultadoVendaGeral(){
 
 }
 
-public function ResultadoVendaDt($dtIncial, $dtFinal, $cliente){
+public function ResultadoVendaDt($dtInicial, $dtFinal, $cliente){
 
     $conexao = parent::retornaConexao();
-    $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
-                                from tb_venda 
-                                    inner join tb_cliente on
-                                        tb_venda.id_cliente = tb_cliente.id_cliente
-                                    inner join tb_item_venda on
-                                        tb_venda.id_venda = tb_item_venda.id_venda
-                                    inner join tb_produto on 
-                                        tb_item_venda.id_produto = tb_produto.id_produto
-                                        where data_venda between ? and ?';
+    
+
+
+    
+        $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+        from tb_venda 
+            inner join tb_cliente on
+                tb_venda.id_cliente = tb_cliente.id_cliente
+            inner join tb_item_venda on
+                tb_venda.id_venda = tb_item_venda.id_venda
+            inner join tb_produto on 
+                tb_item_venda.id_produto = tb_produto.id_produto 
+                ';
+
+  
+
+
+    if ($dtInicial!='' || $dtFinal!= '') {
+        
+        $comando_sql = $comando_sql . ' where data_venda between ? and ?';
+    }
+    
    
-   if ($cliente >0) {
+   if ($cliente >0 && $dtInicial=='' && $dtFinal=='') {
        
+    $comando_sql = $comando_sql . ' where tb_venda.id_cliente = ?';
+   }
+   
+   if ($cliente>0 && $dtInicial!='' && $dtFinal!='' ) {
     $comando_sql = $comando_sql . ' and tb_venda.id_cliente = ?';
    }
    
    
+   $sql = $conexao->prepare($comando_sql);
+   
+   if ($dtInicial!='' && $dtFinal!='') {
+       
+       $sql->bindValue(1, $dtInicial);
+       $sql->bindValue(2, $dtFinal);
+       
+   }
    
    
-    $sql = $conexao->prepare($comando_sql);
-    $sql->bindValue(1, $dtIncial);
-    $sql->bindValue(2, $dtFinal);
-    
-    if ($cliente >0) {
+    if ($cliente >0 && $dtInicial=='' && $dtFinal=='' ) {
+        $sql->bindValue(1, $cliente);
+    }
+
+    if ($cliente >0 && $dtInicial!='' && $dtFinal!='' ) {
         $sql->bindValue(3, $cliente);
     }
+
+
     $sql->execute();
     return $sql->fetchAll(PDO::FETCH_ASSOC);
 
