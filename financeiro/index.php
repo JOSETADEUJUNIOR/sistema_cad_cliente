@@ -13,7 +13,7 @@ $retCliente = $objResult->GetClientes();
 $retEmpresa = $objResult->GetEmpresa();
 $produto = $objResult->GetProduto();
 $fornecedores = $objResult->GetFornecedor();
-$produtos = $objProd->ConsultarProduto();
+$produtos = $objProd->TopProduto();
 
 ?>
 
@@ -165,6 +165,8 @@ $produtos = $objProd->ConsultarProduto();
                     
 
                 </div>
+
+                
                 <!-- /. ROW  -->
                 <hr />
 
@@ -172,12 +174,50 @@ $produtos = $objProd->ConsultarProduto();
 
                 
                 <div class="row">
-                    <div class="col-md-12" style="float:right">
+                    <div class="col-md-12" style="display:inline" >
                         <!--    Context Classes  -->
                         <div class="panel panel-default">
 
                             <div class="panel-heading">
                                 Ultimos Produtos cadastrados
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Nome</th>
+                                                <th>Valor</th>
+                                                <th>Estoque</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($produtos as $prod) { ?>
+                                                <tr class="info">
+                                                    <td><?= $prod['nome_produto'] ?></td>
+                                                    <td><?= $prod['valor_produto'] ?></td>
+                                                    <td><?= $prod['estoque'] ?></td>
+                                                </tr>
+
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  end  Context Classes  -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--    Context Classes  -->
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                Produtos Mais Vendidos
                             </div>
 
                             <div class="panel-body">

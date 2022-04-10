@@ -114,7 +114,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
 
                                             <label>Selecione a Sub Categoria</label>
 
-                                            <select name="subcat" id="subcat" class="form-control" onfocusout="SinalizaCampo('divProdSubCat','subcat')">
+                                            <select name="subcat" id="subcat" class="form-control">
                                                 <option value="<?= $dados[0]['id_subCategoria'] ?>"><?= $dados[0]['nome_subcategoria'] ?></option>
                                                 <?php for ($i = 0; $i < count($Subcategorias); $i++) { ?>
                                                     <option value="<?= $Subcategorias[$i]['id_subCategoria'] ?>"><?= $Subcategorias[$i]['nome_subcategoria'] ?></option>

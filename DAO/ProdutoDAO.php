@@ -43,6 +43,23 @@ public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $d
 
 }
 
+public function ConsultarProdutoEstoque($itemVenda){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select id_produto, estoque
+                         from tb_produto
+                          where id_produto = ?';
+                                        
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $itemVenda);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
+
+
 public function ConsultarProduto(){
 
     $conexao = parent::retornaConexao();
@@ -55,7 +72,8 @@ public function ConsultarProduto(){
                     inner join tb_categoria on
                         tb_produto.id_categoria = tb_categoria.id_categoria
                     inner join tb_sub_categoria on
-                        tb_produto.id_subCategoria = tb_sub_categoria.id_subCategoria';
+                        tb_produto.id_subCategoria = tb_sub_categoria.id_subCategoria
+                        Order by nome_produto';
     $sql = $conexao->prepare($comando_sql);
     $sql->execute();
     return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -75,6 +93,51 @@ public function ConsultarProdutoVenda(){
                     inner join tb_sub_categoria on
                         tb_produto.id_subCategoria = tb_sub_categoria.id_subCategoria
                         where estoque >0';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function ResultadoProduto($idProd){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select id_produto, cod_produto, nome_produto, descricao_produto,
+                        valor_produto, estoque, custo, nome_categoria,  nome_fornecedor
+                    from tb_produto 
+                    inner join tb_fornecedor on
+                        tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor
+                    inner join tb_categoria on
+                        tb_produto.id_categoria = tb_categoria.id_categoria
+                        ';
+    
+    if ($idProd >0) {
+        $comando_sql = $comando_sql . ' where id_produto = ?';
+    }
+    
+    $sql = $conexao->prepare($comando_sql);
+    if ($idProd >0) {
+        $sql->bindValue(1, $idProd);
+    }
+    
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function ResultadoProdutoEstoque(){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select id_produto, cod_produto, nome_produto, descricao_produto,
+                        valor_produto, estoque, custo, nome_categoria,  nome_fornecedor
+                    from tb_produto 
+                    inner join tb_fornecedor on
+                        tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor
+                    inner join tb_categoria on
+                        tb_produto.id_categoria = tb_categoria.id_categoria
+                          where estoque < 2
+                          Order by nome_produto';
+    
+    
+    
     $sql = $conexao->prepare($comando_sql);
     $sql->execute();
     return $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -103,6 +166,12 @@ public function DetalharProduto($idProd){
 }
 
 public function AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $cod){
+
+     if (trim($codBarras)=='' || trim($nomeProduto)=='' || trim($dataCad)=='' 
+    || trim($valor)=='' || trim($fornecedor)=='' || trim($estoque)=='' || trim($cat)=='' || trim($subcat)=='') {
+        
+        return 0;
+    }
 
     $conexao = parent::retornaConexao();
     $comando_sql = 'update tb_produto set cod_produto = ?, nome_produto = ?, descricao_produto = ?, valor_produto = ?, 

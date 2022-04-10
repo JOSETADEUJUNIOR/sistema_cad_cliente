@@ -28,23 +28,49 @@ if (isset($_POST['btn_adicionar'])) {
         $valor = explode('-', $_POST['produto'])[1];
         $qtdVenda = trim($_POST['qtd']);
 
-        $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor);
-        if ($idVendaRet == 0) {
-            $ret = 0;
+        $objProd = new ProdutoDAO();
+        $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
+
+        if ($VerSaldo[0]['estoque']< $qtdVenda) {
+            $idVendaRet = $idVenda;
+            $ret = -6;
+            $pag_ret = 'pdv2.php';
             $itens = $objVenda->ItensVenda($idVendaRet);
+        }else{
+            $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor);
+            if ($idVendaRet == 0) {
+                $ret = 0;
+                $itens = $objVenda->ItensVenda($idVendaRet);
+            }
+            $itens = $objVenda->ItensVenda($idVendaRet);
+
         }
-        $itens = $objVenda->ItensVenda($idVendaRet);
+
     } else {
         $dtVenda = trim($_POST['dtvenda']);
         $clienteVenda = trim($_POST['cliente']);
         $itemVenda = explode('-', $_POST['produto'])[0];
         $valor = explode('-', $_POST['produto'])[1];
         $qtdVenda = trim($_POST['qtd']);
-        $idVendaRet = $objVenda->CadastrarVenda($dtVenda, $clienteVenda, $itemVenda, $qtdVenda, $valor);
-        if ($idVendaRet == 0) {
-            $ret = 0;
+        
+        $objProd = new ProdutoDAO();
+        $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
+        
+        var_dump($VerSaldo);
+        if ($VerSaldo[0]['estoque']< $qtdVenda) {
+            $idVendaRet = $idVenda;
+            $ret = -6;
+            $pag_ret = 'pdv2.php';
+            $itens = $objVenda->ItensVenda($idVendaRet);
+        }else {
+            $idVendaRet = $objVenda->CadastrarVenda($dtVenda, $clienteVenda, $itemVenda, $qtdVenda, $valor);
+            if ($idVendaRet == 0) {
+                $ret = 0;
+            }
+            $itens = $objVenda->ItensVenda($idVendaRet);
         }
-        $itens = $objVenda->ItensVenda($idVendaRet);
+        
+        
     }
 }
 
