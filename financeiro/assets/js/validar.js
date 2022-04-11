@@ -57,6 +57,28 @@ function ValidarCategoria(){
 
 }
 
+function ValidarCaixa(){
+
+    if ($("#valorCaixa").val().trim() == "") {
+       $("#valorCaixa").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Digite o valor inicial do caixa!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }else{
+          return true;
+    }
+
+
+}
+
 function ValidarSubCat(){
     if ($("#SubNome").val().trim() == "") {
         $("#SubNome").focus();

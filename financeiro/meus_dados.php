@@ -62,7 +62,6 @@ h4:hover{
                                                                 <tr>
                                                                     <th>Nome do usuário</th>
                                                                     <th>Login</th>
-                                                                    <th>Senha</th>
                                                                     <th>Ação</th>
 
                                                                 </tr>
@@ -72,7 +71,6 @@ h4:hover{
                                                                     <tr class="odd gradeX">
                                                                         <td><?= $user['nome_funcionario'] ?></td>
                                                                         <td><?= $user['funcionario_email'] ?></td>
-                                                                        <td><?= $user['funcionario_senha'] ?></td>
                                                                         <td style="padding: 3px 1px 3px 3px;">
                                                                             <a href="alterar_MeusDados.php?cod=<?= $user['id_funcionario'] ?>"><i title="Alterar meus dados" style=" color:#c09046; font-size:18px; margin-right:10px" class="fa fa-pencil"></i></a>
                                                                             <!--<a href="excluir_cliente.php"><i title="Excluir Cargo" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>-->
@@ -104,7 +102,6 @@ h4:hover{
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-
 
 </body>
 

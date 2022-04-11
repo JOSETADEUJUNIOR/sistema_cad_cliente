@@ -64,6 +64,57 @@ class FornecedorDAO extends Conexao
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    public function ResultadoFornecedor($idForn){
+
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'Select 
+                            id_fornecedor, nome_fornecedor, telefone_fornecedor, email_fornecedor, 
+                            rua_fornecedor, cep_fornecedor, bairro_fornecedor, cidade_fornecedor, estado_fornecedor,
+                            cnpj_fornecedor
+                        from tb_fornecedor ';
+
+        if ($idForn > 0) {
+            $comando_sql = $comando_sql . ' where id_fornecedor = ?';
+        }
+    
+
+        $sql = $conexao->prepare($comando_sql);
+        if ($idForn >0) {
+            $sql->bindValue(1, $idForn);
+        }
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function ResultadoFornecedorCnpj($cnpj){
+
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'Select 
+                            id_fornecedor, nome_fornecedor, telefone_fornecedor, email_fornecedor, 
+                            rua_fornecedor, cep_fornecedor, bairro_fornecedor, cidade_fornecedor, estado_fornecedor,
+                            cnpj_fornecedor
+                        from tb_fornecedor 
+                            where cnpj_fornecedor = ?';
+
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $cnpj);
+        $sql->execute();
+        $result =  $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        if (is_array($result)) {
+            return $result;
+        }else {
+            return -8;
+        }
+      
+    }
+
+
+
+
+
     public function DetalharFornecedor($idForn){
 
         $conexao = parent::retornaConexao();

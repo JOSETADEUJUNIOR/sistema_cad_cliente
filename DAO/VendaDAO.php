@@ -59,6 +59,35 @@ class VendaDAO extends Conexao{
     }
 
 
+    public function AbrirCaixa($valorCaixa)
+    {
+
+        if ($valorCaixa == ''){
+            return 0;
+        }
+
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'insert into tb_caixa (valor_caixa, data_caixa) values (?,?)';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $valorCaixa);
+        $sql->bindValue(2, UtilDAO::DataAtual());
+        
+        try {
+            
+            $sql->execute();
+                     
+
+            return 1;
+        } catch (Exception $ex) {
+         
+            return -1;
+        }
+    }
+
+
+
+
+
 
     public function ItensVenda($idVendaRet){
 

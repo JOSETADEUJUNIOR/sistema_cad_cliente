@@ -47,7 +47,7 @@ include_once('_head.php');
 
                         <div class="panel-body">
                             <center>
-                                <img src="assets/img/logo_cell.png" style="width:180px; height:150px;" alt="">
+                                <img src="assets/img/logo_1.png" style="width:200px; height:110px;border-radius:15%" alt="">
                             </center>
                             <form action="login.php" method="post" role="form">
                                 <br />

@@ -68,8 +68,8 @@ $clientes = $objcliente->ConsultarCliente();
                                     <div class="col-md-2" style="display:block; padding: 24px 10px">
                                         <button id="btnFiltrar" name="btnFiltrar" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
                                     </div>
-                                    <div class="col-md-2" style="display:block; padding: 24px 10px">
-                                        <button id="btnVendaHoje" name="btnVendaHoje" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
+                                    <div class="col-md-12" style="display:block; padding: 24px 10px">
+                                        <button id="btnVendaHoje" name="btnVendaHoje" class="btn btn-warning" >Venda do dia</button>
                                     </div>
 
                 </form>
