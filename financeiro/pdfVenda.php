@@ -8,6 +8,7 @@ UtilDAO::VerLogado();
     $objVenda = new VendaDAO();
     $vendas = $objVenda->ResultadoVenda($idVenda);
     $dadosVenda = $objVenda->DetalhesVenda($idVenda);
+    $valorTotVenda = $objVenda->ValorTotVenda($idVenda);
 
 
     $html .= '<head>';
@@ -51,7 +52,7 @@ UtilDAO::VerLogado();
     
     
     $html .= '<p>------------------------------------------------------------------------------------</p>';
-    $html .= '<p style="text-align: right"> Valor Total: 1200,00</p>';
+    $html .= '<p style="text-align: right"> Valor Total: R$ ' .explode('.',$valorTotVenda[0]['valorTotal'])[0].',00'.'</p>';
     //tb_venda.id_venda as id_venda, data_venda, nome_cliente, nome_produto, item_valor
 
 	$html .= '</table>';

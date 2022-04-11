@@ -32,7 +32,7 @@ $clientes = $objcliente->ConsultarCliente();
                 </div>
                 <!-- /. ROW  -->
                 <hr />
-                <form id="form1" action="pdf_rel_venda.php" method="get">
+                <form id="form1" action="pdf_rel_venda.php" target="_blank" method="get">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
@@ -67,6 +67,9 @@ $clientes = $objcliente->ConsultarCliente();
                                     </div>
                                     <div class="col-md-2" style="display:block; padding: 24px 10px">
                                         <button id="btnFiltrar" name="btnFiltrar" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
+                                    </div>
+                                    <div class="col-md-2" style="display:block; padding: 24px 10px">
+                                        <button id="btnVendaHoje" name="btnVendaHoje" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
                                     </div>
 
                 </form>

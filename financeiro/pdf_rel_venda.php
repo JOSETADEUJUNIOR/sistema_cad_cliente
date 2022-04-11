@@ -13,6 +13,11 @@ UtilDAO::VerLogado();
  
        
     }
+
+    if (isset($_GET['btnVendaHoje'])) {
+        
+        $vendas = $objVenda->ResultadoVendaDia();
+    }
     
    
 

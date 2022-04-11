@@ -335,6 +335,7 @@ public function ResultadoVendaDt($dtInicial, $dtFinal, $cliente){
     $comando_sql = $comando_sql . ' and tb_venda.id_cliente = ?';
    }
    
+   $comando_sql = $comando_sql . ' Order by id_venda';
    
    $sql = $conexao->prepare($comando_sql);
    
@@ -359,6 +360,29 @@ public function ResultadoVendaDt($dtInicial, $dtFinal, $cliente){
     return $sql->fetchAll(PDO::FETCH_ASSOC);
 
 }
+
+public function ResultadoVendaDia(){
+
+    $conexao = parent::retornaConexao();
+    
+        $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+        from tb_venda 
+            inner join tb_cliente on
+                tb_venda.id_cliente = tb_cliente.id_cliente
+            inner join tb_item_venda on
+                tb_venda.id_venda = tb_item_venda.id_venda
+            inner join tb_produto on 
+                tb_item_venda.id_produto = tb_produto.id_produto 
+                    Where data_venda = ?
+                        Order by id_venda';
+ 
+   $sql = $conexao->prepare($comando_sql);
+   $sql->bindValue(1, Date('Y-m-d'));
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 public function ResultadoVendaCliente($idCliente){
 
     $conexao = parent::retornaConexao();

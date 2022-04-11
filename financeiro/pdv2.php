@@ -15,7 +15,7 @@ $valor = '';
 require_once '../DAO/VendaDAO.php';
 $objVenda = new VendaDAO();
 
-if (isset($_POST['btn_finalizar_venda'])) {
+if (isset($_POST['btn_finalizar_Venda'])) {
     $ret = -7;
     $pag_ret = 'pdv2.php';
 }
@@ -31,46 +31,42 @@ if (isset($_POST['btn_adicionar'])) {
         $objProd = new ProdutoDAO();
         $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
 
-        if ($VerSaldo[0]['estoque']< $qtdVenda) {
+        if ($VerSaldo[0]['estoque'] < $qtdVenda) {
             $idVendaRet = $idVenda;
             $ret = -6;
             $pag_ret = 'pdv2.php';
             $itens = $objVenda->ItensVenda($idVendaRet);
-        }else{
+        } else {
             $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor);
             if ($idVendaRet == 0) {
                 $ret = 0;
                 $itens = $objVenda->ItensVenda($idVendaRet);
             }
             $itens = $objVenda->ItensVenda($idVendaRet);
-
         }
-
     } else {
         $dtVenda = trim($_POST['dtvenda']);
         $clienteVenda = trim($_POST['cliente']);
         $itemVenda = explode('-', $_POST['produto'])[0];
         $valor = explode('-', $_POST['produto'])[1];
         $qtdVenda = trim($_POST['qtd']);
-        
+
         $objProd = new ProdutoDAO();
         $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
-        
+
         var_dump($VerSaldo);
-        if ($VerSaldo[0]['estoque']< $qtdVenda) {
+        if ($VerSaldo[0]['estoque'] < $qtdVenda) {
             $idVendaRet = $idVenda;
             $ret = -6;
             $pag_ret = 'pdv2.php';
             $itens = $objVenda->ItensVenda($idVendaRet);
-        }else {
+        } else {
             $idVendaRet = $objVenda->CadastrarVenda($dtVenda, $clienteVenda, $itemVenda, $qtdVenda, $valor);
             if ($idVendaRet == 0) {
                 $ret = 0;
             }
             $itens = $objVenda->ItensVenda($idVendaRet);
         }
-        
-        
     }
 }
 
@@ -114,20 +110,20 @@ $produtos = $objProduto->ConsultarProdutoVenda();
                 <form action="pdv2.php" method="post">
 
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-6 ">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     Campos para a venda
                                 </div>
                                 <div class="panel-body">
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group" id="divSubNome">
                                             <label>Data da Venda</label>
                                             <input name="dtvenda" id="dtvenda" type="date" placeholder="Digite a data da venda" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group" id="divCat">
                                             <label>Selecione o Cliente</label>
                                             <select name="cliente" id="cliente" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
@@ -140,11 +136,53 @@ $produtos = $objProduto->ConsultarProdutoVenda();
                                     </div>
                                 </div>
                                 <div class="panel-footer">
-
+                                                
                                 </div>
                             </div>
                         </div>
+                    
+
+                    
+                        <div class="col-md-6 ">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    Dados da Venda
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divSubNome">
+                                            <label>Numero da Venda</label>
+                                            <input disabled value="<?= (@$dadosVenda[0]['id_venda'] == '' ? '' : $dadosVenda[0]['id_venda']) ?>" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="float:right">
+                                        <div class="form-group" id="divSubNome">
+                                            <label>Data Venda</label>
+                                            <input disabled value="<?= UtilDAO::ExibirDataBr((@$dadosVenda[0]['data_venda'] == '' ? '' : $dadosVenda[0]['data_venda'])) ?>" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="divSubNome">
+                                            <label>Dados do Cliente</label></br>
+                                            <span><strong>CPF:</strong> <?= (@$dadosVenda[0]['cpf_cliente'] == '' ? '' : $dadosVenda[0]['cpf_cliente']) ?></span></br>
+                                            <span><strong>Nome:</strong> <?= (@$dadosVenda[0]['nome_cliente'] == '' ? '' : $dadosVenda[0]['nome_cliente']) ?></span></br>
+                                            <span><strong>Rua:</strong> <?= (@$dadosVenda[0]['rua_cliente'] == '' ? '' : $dadosVenda[0]['rua_cliente']) ?></span></br>
+                                            <span><strong>Bairro:</strong> <?= (@$dadosVenda[0]['bairro_cliente'] == '' ? '' : $dadosVenda[0]['bairro_cliente']) ?></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+
+                                    <label style="text-align:right">Valor Total: <?= $valorTotVenda[0]['valorTotal'] ?> </label>
+                                </div>
+                            </div>
+                        </div>
+                    
                     </div>
+
+
 
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -211,7 +249,7 @@ $produtos = $objProduto->ConsultarProdutoVenda();
 
 
                                         <div class="col-md-8">
-                                            <input type="hidden" name="idvenda" value="<?= @$idVendaRet ?>">
+                                            <input type="hidden" name="idvenda" id="idvenda" value="<?= @$idVendaRet ?>">
                                             <div class="form-group" id="divCat">
                                                 <label>Selecione o Produto</label>
                                                 <select name="produto" id="produto" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
@@ -236,8 +274,9 @@ $produtos = $objProduto->ConsultarProdutoVenda();
                                             </div>
                                         </div>
 
-                                        <div class="col-md-7 col-sm-7" style="float: right;">
-                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet?> target=_blank " class="btn btn-success ">Finalizar Venda</a>
+                                        <div class="col-md-12 ">
+                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning ">Emitir Cupom</a>
+                                            <button name="btn_finalizar_Venda" class="btn btn-success ">Finalizar Venda</button>
                                         </div>
                                     </div>
                                 </div>
@@ -250,43 +289,7 @@ $produtos = $objProduto->ConsultarProdutoVenda();
 
                 </form>
 
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                Dados da Venda
-                            </div>
-                            <div class="panel-body">
 
-                                <div class="col-md-3">
-                                    <div class="form-group" id="divSubNome">
-                                        <label>Numero da Venda</label>
-                                        <input disabled value="<?= (@$dadosVenda[0]['id_venda'] == '' ? '' : $dadosVenda[0]['id_venda']) ?>" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-3" style="float:right">
-                                    <div class="form-group" id="divSubNome">
-                                        <label>Data Venda</label>
-                                        <input disabled value="<?= UtilDAO::ExibirDataBr((@$dadosVenda[0]['data_venda'] == '' ? '' : $dadosVenda[0]['data_venda'])) ?>" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group" id="divSubNome">
-                                        <label>Dados do Cliente</label>
-                                        <span><strong>Nome:</strong> <?= (@$dadosVenda[0]['nome_cliente'] == '' ? '' : $dadosVenda[0]['nome_cliente']) ?></span>
-                                        <span><strong>Rua:</strong> <?= (@$dadosVenda[0]['rua_cliente'] == '' ? '' : $dadosVenda[0]['rua_cliente']) ?></span>
-                                        <span><strong>Bairro:</strong> <?= (@$dadosVenda[0]['bairro_cliente'] == '' ? '' : $dadosVenda[0]['bairro_cliente']) ?></span>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-
-                                <label style="text-align:right">Valor Total: <?= $valorTotVenda[0]['valorTotal'] ?> </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- /. PAGE INNER  -->
@@ -296,6 +299,15 @@ $produtos = $objProduto->ConsultarProdutoVenda();
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
+<script>
+    $("#dtvenda").focus();
+
+if ($("#idvenda").val() > 0) {
+    $("#produto").focus();
+}
+
+</script>
+
 
 
 </body>

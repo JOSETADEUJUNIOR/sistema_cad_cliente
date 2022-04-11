@@ -32,7 +32,7 @@ $produtos = $objproduto->ConsultarProduto();
                 </div>
                 <!-- /. ROW  -->
                 <hr />
-                <form id="form1" action="pdf_rel_produto.php" method="get">
+                <form id="form1" action="pdf_rel_produto.php" target="_blank" method="get">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
