@@ -14,6 +14,10 @@ $valor = '';
 
 require_once '../DAO/VendaDAO.php';
 $objVenda = new VendaDAO();
+$caixaDia = $objVenda->CaixaDoDia();
+$ValorVendaDia = $objVenda->VendasDia();
+
+var_dump($caixaDia);
 
 if (isset($_POST['btn_finalizar_Venda'])) {
     $ret = -7;
@@ -45,7 +49,6 @@ if (isset($_POST['btn_adicionar'])) {
             $itens = $objVenda->ItensVenda($idVendaRet);
         }
     } else {
-        $dtVenda = trim($_POST['dtvenda']);
         $clienteVenda = trim($_POST['cliente']);
         $itemVenda = explode('-', $_POST['produto'])[0];
         $valor = explode('-', $_POST['produto'])[1];
@@ -61,7 +64,7 @@ if (isset($_POST['btn_adicionar'])) {
             $pag_ret = 'pdv2.php';
             $itens = $objVenda->ItensVenda($idVendaRet);
         } else {
-            $idVendaRet = $objVenda->CadastrarVenda($dtVenda, $clienteVenda, $itemVenda, $qtdVenda, $valor);
+            $idVendaRet = $objVenda->CadastrarVenda($clienteVenda, $itemVenda, $qtdVenda, $valor);
             if ($idVendaRet == 0) {
                 $ret = 0;
             }
@@ -103,6 +106,7 @@ $produtos = $objProduto->ConsultarProdutoVenda();
                         <?php include('_msg.php') ?>
                         <h2>CHECKOUT</h2>
                     </div>
+                   
                 </div>
 
                 <!-- /. ROW  -->
@@ -117,12 +121,24 @@ $produtos = $objProduto->ConsultarProdutoVenda();
                                 </div>
                                 <div class="panel-body">
 
-                                    <div class="col-md-12">
+                                   <!-- <div class="col-md-12">
                                         <div class="form-group" id="divSubNome">
                                             <label>Data da Venda</label>
                                             <input name="dtvenda" id="dtvenda" type="date" placeholder="Digite a data da venda" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
                                         </div>
-                                    </div>
+                                    </div>-->
+                                    <div class="col-md-6">
+                                        <div class="form-group" id="divSubNome">
+                                            <label>Valor em Caixa:</label>
+                                            <input disabled value="<?= 'R$: '.(@$caixaDia[0]['valor_caixa'] == '' ? '' : $caixaDia[0]['valor_caixa']) ?>" class="form-control">
+                                        </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group" id="divSubNome">
+                                            <label>Venda do Dia:</label>
+                                            <input disabled value="<?= 'R$: '.(@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']) ?>" class="form-control">
+                                        </div>
+                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group" id="divCat">
                                             <label>Selecione o Cliente</label>
@@ -136,7 +152,7 @@ $produtos = $objProduto->ConsultarProdutoVenda();
                                     </div>
                                 </div>
                                 <div class="panel-footer">
-                                                
+                                      <label>Data do Caixa: <?= UtilDAO::ExibirDataBr(@$caixaDia[0]['data_caixa']). 'Valor teste: '. ($caixaDia[0]['valor_caixa'] + $ValorVendaDia[0]['item_valor'])  ?></label>        
                                 </div>
                             </div>
                         </div>

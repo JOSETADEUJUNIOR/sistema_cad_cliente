@@ -66,6 +66,9 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                 <a href="#"><i class="fa fa-shopping-cart fa-2x"></i> Vendas<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
+                        <a href="abrir_caixa.php">Abrir Caixa</a>
+                    </li>
+                    <li>
                         <a href="pdv2.php">Realizar Venda</a>
                     </li>
                     <li>

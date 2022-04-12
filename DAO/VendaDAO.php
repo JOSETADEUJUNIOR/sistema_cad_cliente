@@ -4,10 +4,10 @@ require_once 'UtilDAO.php';
 
 class VendaDAO extends Conexao{
 
-    public function CadastrarVenda($dtVenda, $clienteVenda, $idProduto, $qtdVenda, $valor)
+    public function CadastrarVenda($clienteVenda, $idProduto, $qtdVenda, $valor)
     {
 
-        if ($dtVenda == '' || $clienteVenda == '' || $idProduto=='' || $qtdVenda=='' || $valor=='') {
+        if ($clienteVenda == '' || $idProduto=='' || $qtdVenda=='' || $valor=='') {
 
             return 0;
         }
@@ -20,10 +20,11 @@ class VendaDAO extends Conexao{
         try {
 
             #cadastrar a venda
-            $comando_sql = 'insert into tb_venda (data_venda, id_cliente) values (?,?)';
+            $comando_sql = 'insert into tb_venda (data_venda, id_cliente, id_funcionario) values (?,?,?)';
             $sql = $conexao->prepare($comando_sql);
-            $sql->bindValue(1, $dtVenda);
+            $sql->bindValue(1, UtilDAO::DataAtual());
             $sql->bindValue(2, $clienteVenda);
+            $sql->bindValue(3, UtilDAO::CodigoLogado());
             $sql->execute();
             #recuperar o id da venda
             $idVenda = $conexao->lastInsertId();
@@ -431,4 +432,27 @@ public function ResultadoVendaCliente($idCliente){
 
 }
 
+public function CaixaDoDia(){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select id_caixa, valor_caixa, data_caixa from tb_caixa where data_caixa = ?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, UtilDAO::DataAtual());
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+public function VendasDia(){
+    $conexao = parent::retornaConexao();
+    
+        $comando_sql = 'Select  Sum(item_valor) as item_valor
+                         from tb_item_venda
+                            inner join tb_venda on
+                                tb_item_venda.id_venda = tb_venda.id_venda
+                                    where data_venda = ?';
+ 
+   $sql = $conexao->prepare($comando_sql);
+   $sql->bindValue(1, Date('Y-m-d'));
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 }
