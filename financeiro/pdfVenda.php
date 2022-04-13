@@ -25,7 +25,9 @@ UtilDAO::VerLogado();
     $html .= '<p class="linha" id="linha">-----------------------------------------------------------------------------------</p>';
    
     $html .= '<p>Cupom fiscal</p>';
+    $html .= '<p style="float: right"> Cliente: ' .(@$dadosVenda[0]['nome_cliente'] == '' ? '' : $dadosVenda[0]['nome_cliente']).'</p> </br>';
     $html .= '<p style="float: right"> Data da Venda: ' .UtilDAO::ExibirDataBr((@$dadosVenda[0]['data_venda'] == '' ? '' : $dadosVenda[0]['data_venda'])).'</p>';
+    $html .= '<br>';
     $html .= '<p>-----------------------------------------------------------------------------------</p>';
     
     
@@ -56,7 +58,9 @@ UtilDAO::VerLogado();
     //tb_venda.id_venda as id_venda, data_venda, nome_cliente, nome_produto, item_valor
 
 	$html .= '</table>';
-	//referenciar o DomPDF com namespace
+	$html .= '<p style="font-size: 7px;"> *Este produto tem garantia de 30 dias após a data de compra</p>';
+    
+    //referenciar o DomPDF com namespace
 	use Dompdf\Dompdf;
 	// include autoloader
 	require_once("dompdf/autoload.inc.php");

@@ -5,6 +5,38 @@ if (isset($_GET['ret'])) {
 }
 if (isset($ret)) {
     switch ($ret) {
+        case '-10':
+            //echo '<div class="alert alert-success">
+             //Ação realizada com sucesso!
+              //  </div>';
+              echo "<script>
+              Swal.fire({
+      
+                  icon: 'warning',
+                  title: 'Alerta',
+                  width: 'auto',
+                  html: '<h3>Caixa já esta aberto, use o Movimentar Caixa!</h3>',
+                  showConfirmButton: false,
+                  timer: 5000,
+              })
+          </script>";
+            break;
+            case '-9':
+                //echo '<div class="alert alert-success">
+                 //Ação realizada com sucesso!
+                  //  </div>';
+                  echo "<script>
+                  Swal.fire({
+          
+                      icon: 'warning',
+                      title: 'Alerta',
+                      width: 'auto',
+                      html: '<h3>Sangria Maior que o valor do Caixa!</h3>',
+                      showConfirmButton: false,
+                      timer: 5000,
+                  })
+              </script>";
+                break;
         case '-7':
             //echo '<div class="alert alert-success">
              //Ação realizada com sucesso!

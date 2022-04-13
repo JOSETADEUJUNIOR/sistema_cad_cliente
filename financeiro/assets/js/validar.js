@@ -65,7 +65,7 @@ function ValidarCaixa(){
             icon: 'warning',
             title: 'Oops...',
             width: 'auto',
-            html: '<h3>Digite o valor inicial do caixa!</h3>',
+            html: '<h3>Digite o valor do movimento!</h3>',
             showConfirmButton: false,
             timer: 2000,
             
