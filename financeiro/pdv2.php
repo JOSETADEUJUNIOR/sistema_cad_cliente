@@ -130,7 +130,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                      <div class="col-md-6">
                                         <div class="form-group" id="divSubNome">
                                             <label>Venda do Dia:</label>
-                                            <input disabled value="<?= 'R$: '.(@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']) ?>" class="form-control">
+                                            <input disabled value="<?= 'R$: '.explode('.',(@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']))[0].','.explode('.',(@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']))[1] ?>" class="form-control">
                                         </div>
                                      </div>
                                     <div class="col-md-12">
@@ -147,7 +147,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                 </div>
                                 <div class="panel-footer">
                                       <label>Data do Caixa: <?= UtilDAO::ExibirDataBr(@$caixaDia[0]['data_caixa'])?></label>
-                                      <label style="margin-left:50px">Valor em Caixa:  <?=explode('.', $caixaDia[0]['valor_caixa'])[0].',00'?> </label>        
+                                      <label style="margin-left:50px">Valor em Caixa:  <?=explode('.', $caixaDia[0]['valor_caixa'])[0].','.explode('.', $caixaDia[0]['valor_caixa'])[1]?> </label>        
                                 </div>
                             </div>
                         </div>
@@ -186,7 +186,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                 </div>
                                 <div class="panel-footer">
 
-                                    <label style="text-align:right">Valor Total: <?= $valorTotVenda[0]['valorTotal'] ?> </label>
+                                    <label style="text-align:right">Valor Total: <?= explode('.',$valorTotVenda[0]['valorTotal'])[0].','.explode('.',$valorTotVenda[0]['valorTotal'])[1] ?> </label>
                                 </div>
                             </div>
                         </div>

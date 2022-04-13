@@ -159,7 +159,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                                     <div class="col-md-2">
                                         <div class="form-group" id="divProdValor">
                                             <label>Valor</label>
-                                            <input name="valor" id="valor" value="<?= $dados[0]['valor_produto'] = explode('.', $dados[0]['valor_produto'])[0] . ',00' ?>" type="text" placeholder="Digite o valor do produto" class="form-control" onfocusout="SinalizaCampo('divProdValor','valor')">
+                                            <input name="valor" id="valor"  value="<?= $dados[0]['valor_produto'] = explode('.', $dados[0]['valor_produto'])[0].explode('.', $dados[0]['valor_produto'])[1]?>" type="text" placeholder="Digite o valor do produto" class="form-control" onfocusout="SinalizaCampo('divProdValor','valor')">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -185,6 +185,17 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+
+
+        $(document).ready(function(){
+            $("#valor").mask('000000.00', {reverse: true});
+        });     
+</script>
+
 
 </body>
 

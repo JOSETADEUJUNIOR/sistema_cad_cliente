@@ -115,6 +115,7 @@ class VendaDAO extends Conexao{
             $sql->execute();
             return 1;
         } catch (Exception $ex) {
+           echo $ex->getMessage();
             return -1;
         }
 
@@ -249,7 +250,7 @@ class VendaDAO extends Conexao{
    public function DetalhesVenda($idvenda){
 
     $conexao = parent::retornaConexao();
-    $comando_sql = 'Select id_venda, data_venda, tb_venda.id_cliente as id_cliente, nome_cliente, rua_cliente, bairro_cliente
+    $comando_sql = 'Select id_venda, data_venda, tb_venda.id_cliente as id_cliente, nome_cliente, rua_cliente, bairro_cliente, cpf_cliente
                         from tb_venda 
                             inner join tb_cliente on
                                 tb_venda.id_cliente = tb_cliente.id_cliente

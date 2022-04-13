@@ -114,7 +114,7 @@ $produtos = $objProd->TopProduto();
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="col-md-4 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
                             <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-list"></i>
@@ -132,7 +132,7 @@ $produtos = $objProd->TopProduto();
 
                     
                     
-                    <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="col-md-4 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
                             <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-archive"></i>
@@ -147,7 +147,7 @@ $produtos = $objProd->TopProduto();
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="col-md-4 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
                             <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-group"></i>
@@ -174,7 +174,7 @@ $produtos = $objProd->TopProduto();
 
                 
                 <div class="row">
-                    <div class="col-md-12" style="display:inline" >
+                    <div class="col-md-12 col-xs-12" style="display:inline" >
                         <!--    Context Classes  -->
                         <div class="panel panel-default">
 
@@ -212,7 +212,7 @@ $produtos = $objProd->TopProduto();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-xs-12">
                         <!--    Context Classes  -->
                         <div class="panel panel-default">
 
@@ -250,7 +250,7 @@ $produtos = $objProd->TopProduto();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12" style="float:right">
+                    <div class="col-md-12 col-xs-12" style="float:right">
                         <!--    Context Classes  -->
                         <div class="panel panel-default">
 

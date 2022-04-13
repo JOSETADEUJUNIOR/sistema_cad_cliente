@@ -7,10 +7,11 @@ $pag_ret = 'abrir_caixa.php';
 
 $objCaixa = new VendaDAO();
 
-if (isset($_GET['dataCaixa'])) {
-    
+if (isset($_GET['dataCaixa']) && $_GET['dataCaixa']== UtilDAO::DataAtual()) {
     $dataCaixa = $_GET['dataCaixa'];
-
+}else {
+    header('location: abrir_caixa.php');
+    exit;
 }
 
 if (isset($_POST['btn_gravar'])) {
@@ -58,7 +59,7 @@ $caixaDia = $objCaixa->CaixaDoDia();
                 <!-- /. ROW  -->
                 <hr />
                 <form action="movimento_caixa.php" method="post">
-                <input type="text" name="dataCaixa" value="<?= $dataCaixa?>">    
+                <input type="hidden" name="dataCaixa" value="<?= $dataCaixa?>">    
                 <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">

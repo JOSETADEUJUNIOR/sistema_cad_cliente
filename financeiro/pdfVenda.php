@@ -47,14 +47,14 @@ UtilDAO::VerLogado();
         $html .= '<tr><td>' .$vendas[$i]['cod_produto']."</td>";
 		$html .= '<td >' .$vendas[$i]['nome_produto']."</td>";
         $html .= '<td >' .$vendas[$i]['qtd_produto']."</td>";
-        $html .= '<td >' .explode('.',$vendas[$i]['item_valor'])[0].',00'."</td>";
+        $html .= '<td >' .explode('.',$vendas[$i]['item_valor'])[0].','.explode('.',$vendas[$i]['item_valor'])[1]."</td>";
         $html .= '</tbody>';
         $html .= '</hr>';
     }
     
     
     $html .= '<p>------------------------------------------------------------------------------------</p>';
-    $html .= '<p style="text-align: right"> Valor Total: R$ ' .explode('.',$valorTotVenda[0]['valorTotal'])[0].',00'.'</p>';
+    $html .= '<p style="text-align: right"> Valor Total: R$ ' .explode('.',$valorTotVenda[0]['valorTotal'])[0].','.explode('.',$valorTotVenda[0]['valorTotal'])[1].'</p>';
     //tb_venda.id_venda as id_venda, data_venda, nome_cliente, nome_produto, item_valor
 
 	$html .= '</table>';

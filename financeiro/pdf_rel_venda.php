@@ -57,14 +57,14 @@ UtilDAO::VerLogado();
 		$html .= '<td >' .$vendas[$i]['nome_cliente']."</td>";
         $html .= '<td >' .$vendas[$i]['nome_produto']."</td>";
         $html .= '<td >' .$vendas[$i]['qtd_produto']."</td>";
-        $html .= '<td >' .explode('.',$vendas[$i]['item_valor'])[0].',00'."</td>";
+        $html .= '<td >' .explode('.',$vendas[$i]['item_valor'])[0].','.explode('.',$vendas[$i]['item_valor'])[1]."</td>";
         $html .= '</tbody>';
         $html .= '</hr>';
     }
     
     
     $html .= '<div class="col-md-6">';
-    $html .= '<p style="text-align: right"> <strong>Valor Total:</strong> '.$total.',00'.'</p>';
+    $html .= '<p style="text-align: right"> <strong>Valor Total:</strong> '.explode('.',$total)[0].','.explode('.',$total)[1].'</p>';
     $html .= '</div>';
     $html .= '<div class="col-md-6">';
     $html .= '<p style="text-align: left"> <strong>Data do Relatório:</strong> '.UtilDAO::ExibirDataBr(date('Y-m-d')).'</p>';

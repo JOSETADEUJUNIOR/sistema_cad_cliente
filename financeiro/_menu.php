@@ -78,6 +78,27 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                 </ul>
             </li>
             <li>
+                <a href="#"><i class="fa fa-file fa-2x"></i> Financeiro<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="consultar_categoria_conta.php">Categorias</a>
+                    </li>
+                    <li>
+                        <a href="consultar_empresa_conta.php">Empresa</a>
+                    </li>
+                    <li>
+                        <a href="consultar_conta.php">Conta</a>
+                    </li>
+                    <li>
+                        <a href="realizar_movimento.php">Realizar Movimento</a>
+                    </li>
+                    <li>
+                        <a href="consultar_movimento.php">Consultar Movimento</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
                 <a href="#"><i class="fa fa-file fa-2x"></i> Relatorios<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
