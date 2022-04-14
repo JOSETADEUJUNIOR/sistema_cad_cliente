@@ -16,7 +16,7 @@ class ContaDAO extends Conexao{
 
          //Passo 2 = Comando SQL
  
-         $comando_sql = ('Insert into tb_conta (banco_conta, agencia_conta, numero_conta, saldo_conta, id_usuario) values (?,?,?,?,?)');
+         $comando_sql = ('Insert into tb_conta (banco_conta, agencia_conta, numero_conta, saldo_conta, id_funcionario) values (?,?,?,?,?)');
  
          // Passo 3 = sql recebe conexão preparando a conexçaão
  
@@ -47,7 +47,7 @@ class ContaDAO extends Conexao{
     public function ConsultarConta(){
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select id_conta, banco_conta, agencia_conta, numero_conta, saldo_conta from tb_conta where id_usuario = ?';
+        $comando_sql = 'Select id_conta, banco_conta, agencia_conta, numero_conta, saldo_conta from tb_conta where id_funcionario = ?';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, UtilDAO::CodigoLogado());
         
@@ -57,7 +57,7 @@ class ContaDAO extends Conexao{
 
     public function DetalharConta($id_cont){
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select id_conta, banco_conta, agencia_conta, numero_conta, saldo_conta from tb_conta where id_conta = ? and id_usuario = ?';
+        $comando_sql = 'Select id_conta, banco_conta, agencia_conta, numero_conta, saldo_conta from tb_conta where id_conta = ? and id_funcionario = ?';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $id_cont);
         $sql->bindValue(2, UtilDAO::CodigoLogado());
@@ -74,7 +74,7 @@ class ContaDAO extends Conexao{
         }
         $conexao = parent::retornaConexao();
         $comando_sql = 'update tb_conta set banco_conta = ?, agencia_conta = ?, numero_conta = ?, 
-                            saldo_conta = ? where id_conta = ? and id_usuario = ?';
+                            saldo_conta = ? where id_conta = ? and id_funcionario = ?';
 
         $sql = $conexao->prepare($comando_sql);
 
@@ -102,7 +102,7 @@ class ContaDAO extends Conexao{
         }
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'delete from tb_conta where id_conta = ? and id_usuario = ?';
+        $comando_sql = 'delete from tb_conta where id_conta = ? and id_funcionario = ?';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $idConta);
         $sql->bindValue(2, UtilDAO::CodigoLogado());

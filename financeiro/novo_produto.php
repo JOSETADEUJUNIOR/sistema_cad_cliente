@@ -28,8 +28,30 @@ if (isset($_POST['btn_cadastrar'])) {
     $cat = trim($_POST['cat']);
     $subcat = trim($_POST['subcat']);
     $fornecedor = trim($_POST['fornecedor']);
+    $arquivo = $_FILES['arquivo'];
+    
+    if ($arquivo['error']) 
+        die("Falha ao enviar arquivo");
+    
+    if ($arquivo['size'] > 2097152) 
+        die("Arquivo muito grande !! Max: 2MB");
 
-    $ret = $objProd->CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat);
+    $pasta = "arquivos/";
+    @mkdir($pasta);
+    $nomeDoArquivo = $arquivo['name'];
+    $novoNomeDoArquivo = uniqid();
+    $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
+    if ($extensao != "jpg" && $extensao != "png") 
+        die("Tipo de arquivo não aceito");
+    
+    $path = $pasta . $novoNomeDoArquivo. ".". $extensao;
+    $deu_certo = move_uploaded_file($arquivo["tmp_name"], $path);
+
+
+
+
+
+    $ret = $objProd->CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $nomeDoArquivo, $path);
 }
 ?>
 
@@ -56,7 +78,7 @@ if (isset($_POST['btn_cadastrar'])) {
                 </div>
                 <!-- /. ROW  -->
                 <hr />
-                <form action="novo_produto.php" method="post">
+                <form action="novo_produto.php" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
@@ -78,7 +100,7 @@ if (isset($_POST['btn_cadastrar'])) {
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group" id="divProdCad">
-                                            <label>Data do Cadastro</label>
+                                             <label>Data do Cadastro</label>
                                             <input name="dataCad" id="dataCad" type="date" placeholder="Digite o nome digite a data de cadastro do produto" class="form-control" onfocusout="SinalizaCampo('divProdCad','dataCad')">
                                         </div>
                                     </div>
@@ -148,6 +170,13 @@ if (isset($_POST['btn_cadastrar'])) {
                                             <label>Descrição do produto</label>
                                             <textarea name="descProd" id="descProd" type="text" placeholder="Digite a descrição do produto" class="form-control" onfocusout="SinalizaCampo('divProdDesc','descProd')"></textarea>
                                         </div>
+                                        
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Escolha uma imagem para o produto</label>
+                                            <input type="file" require id="arquivo" name="arquivo" title="Escolha uma imagem para a marca">
+                                        </div>  
                                     </div>
                                     <div class="col-md-12">
                                         <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarProduto()">Cadastrar</button>

@@ -1,10 +1,13 @@
 <?php
-    require_once '../DAO/UtilDAO.php';
-    UtilDAO::VerLogado();
-    require_once '../DAO/EmpresaContaDAO.php';
-    $objEmpresa = new EmpresaContaDAO();
-    $empresas = $objEmpresa->ConsultarEmpresa();
+require_once '../DAO/UtilDAO.php';
+UtilDAO::VerLogado();
+require_once '../DAO/ContaDAO.php';
+
+$objConta = new ContaDAO();
+$contas = $objConta->ConsultarConta();
 ?>
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -19,9 +22,8 @@
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <?php include_once ('_msg.php');?>
-                        <h2>Consultar Empresa</h2>
-                        <h5>Aqui você poderá consultar suas empresas. </h5>
+                        <h2>Consultar Conta</h2>
+                        <h5>Aqui você poderá consultar suas contas. </h5>
 
                     </div>
                 </div>
@@ -33,34 +35,38 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                             Empresas Cadastradas <span> <a href="nova_conta_empresa.php"><i title="Criar Nova Empresa" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
+                             Contas Cadastradas  <span> <a href="nova_conta.php"><i title="Criar Nova Conta" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></a></span>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Nome Empresa</th>
-                                            <th>Endereço</th>
-                                            <th>Telefone</th>
-                                            <th>E-mail</th>
+                                            <th>Nome do Banco</th>
+                                            <th>Agencia</th>
+                                            <th>Numero da Conta</th>
+                                            <th>Saldo</th>
+                                           
                                             <th>Ação</th>
                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php for ($i=0; $i<count($empresas) ; $i++) { ?> 
+                                        <?php for ($i=0; $i<count($contas) ; $i++) { ?> 
+                                        
                                         <tr class="odd gradeX">
-                                            <td><?= $empresas[$i]['nome_empresa']?></td>
-                                            <td><?= $empresas[$i]['endereco_empresa']?></td>
-                                            <td><?= $empresas[$i]['telefone_empresa']?></td>
-                                            <td><?= $empresas[$i]['email_empresa']?></td>
+                                            <td><?= $contas[$i]['banco_conta']?></td>
+                                            <td><?= $contas[$i]['agencia_conta']?></td>
+                                            <td><?= $contas[$i]['numero_conta']?></td>
+                                            <td><?= $contas[$i]['saldo_conta']?></td>
+                                            
                                             <td>
-                                                <a class="btn btn-warning btn-xs" href="alterar_conta_empresa.php?cod=<?=$empresas[$i]['id_empresa']?>">alterar</a>
+                                                <a class="btn btn-warning btn-xs" href="alterar_conta.php?cod=<?=$contas[$i]['id_conta']?>">alterar</a>
                                             </td>
                                             
                                         </tr>
-                                      <?php } ?>  
+                                        <?php } ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>

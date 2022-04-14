@@ -3,7 +3,7 @@
 require_once 'Conexao.php';
 require_once 'UtilDAO.php';
 
-class  MovimentoDAO extends Conexao{
+class  MovimentoContaDAO extends Conexao{
 
     public function CadastrarMovimento($tipo, $data, $valor, $obs, $categoria, $empresa, $conta){
 
@@ -16,7 +16,7 @@ class  MovimentoDAO extends Conexao{
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'insert into tb_movimento (tipo_movimento, data_movimento, valor_movimento, observacao_movimento,
-                                                    id_empresa, id_conta, id_categoria, id_usuario) values (?,?,?,?,?,?,?,?)';
+                                                    id_fornecedor, id_conta, id_cat_conta, id_funcionario) values (?,?,?,?,?,?,?,?)';
 
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $tipo);
@@ -36,9 +36,9 @@ class  MovimentoDAO extends Conexao{
 
             if ($tipo == 1) {
             
-                $comando_sql = 'update tb_conta set saldo_conta = saldo_conta + ? where id_conta = ? and id_usuario = ?';
+                $comando_sql = 'update tb_conta set saldo_conta = saldo_conta + ? where id_conta = ? and id_funcionario = ?';
             }else if ($tipo == 2) {
-                $comando_sql = 'update tb_conta set saldo_conta = saldo_conta - ? where id_conta = ? and id_usuario = ?';
+                $comando_sql = 'update tb_conta set saldo_conta = saldo_conta - ? where id_conta = ? and id_funcionario = ?';
             }
             
             $sql = $conexao->prepare($comando_sql);
@@ -151,18 +151,18 @@ public function ConsultarMovimento($dtInicial, $dtFinal, $tipo){
 
     $conexao = parent::retornaConexao();
 
-    $comando_sql = 'select id_movimento, data_movimento, valor_movimento, nome_categoria, nome_empresa,
+    $comando_sql = 'select id_movimento, data_movimento, valor_movimento, nome_categoria, nome_fornecedor,
     banco_conta, agencia_conta,numero_conta, tipo_movimento, observacao_movimento
     from tb_movimento
-    inner join tb_categoria on
-        tb_movimento.id_categoria = tb_categoria.id_categoria
-    inner join tb_empresa on
-        tb_movimento.id_empresa = tb_empresa.id_empresa
+    inner join tb_categoria_conta on
+        tb_movimento.id_cat_conta = tb_categoria_conta.id_cat_conta
+    inner join tb_fornecedor on
+        tb_movimento.id_fornecedor = tb_fornecedor.id_fornecedor
     inner join tb_conta on
         tb_movimento.id_conta = tb_conta.id_conta
-    inner join tb_usuario on
-        tb_movimento.id_usuario = tb_usuario.id_usuario
-        where data_movimento between ? and ? and tb_usuario.id_usuario = ? ';
+    inner join tb_funcionario on
+        tb_movimento.id_funcionario = tb_funcionario.id_funcionario
+        where data_movimento between ? and ? and tb_funcionario.id_funcionario = ? ';
 
 
         if ($tipo != 3) {
@@ -190,18 +190,18 @@ public function ConsultarMovimento($dtInicial, $dtFinal, $tipo){
 public function DetalharMovimento($idMov){
 
     $conexao = parent::retornaConexao();
-    $comando_sql = 'select id_movimento, data_movimento, valor_movimento, nome_categoria, nome_empresa,
+    $comando_sql = 'select id_movimento, data_movimento, valor_movimento, nome_categoria, nome_fornecedor,
     banco_conta, tipo_movimento, observacao_movimento, tb_movimento.id_conta as id_conta
     from tb_movimento
-    inner join tb_categoria on
-        tb_movimento.id_categoria = tb_categoria.id_categoria
-    inner join tb_empresa on
-        tb_movimento.id_empresa = tb_empresa.id_empresa
+    inner join tb_categoria_conta on
+        tb_movimento.id_cat_conta = tb_categoria.id_cat_conta
+    inner join tb_fornecedor on
+        tb_movimento.id_fornecedor = tb_fornecedor.id_fornecedor
     inner join tb_conta on
         tb_movimento.id_conta = tb_conta.id_conta
-    inner join tb_usuario on
-        tb_movimento.id_usuario = tb_usuario.id_usuario
-        where id_movimento = ? and tb_movimento.id_usuario = ? ';
+    inner join tb_funcionario on
+        tb_movimento.id_funcionario = tb_funcionario.id_funcionario
+        where id_movimento = ? and tb_movimento.id_funcionario = ? ';
 
     $sql = $conexao->prepare($comando_sql);
     $sql->bindValue(1, $idMov);
@@ -233,7 +233,7 @@ public function ExcluirMovimento($idMov){
 
     try {
         
-        $comando_sql = 'delete from tb_movimento where id_movimento = ? and id_usuario = ?';
+        $comando_sql = 'delete from tb_movimento where id_movimento = ? and id_funcionario = ?';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $idMov);
         $sql->bindValue(2, UtilDAO::CodigoLogado());

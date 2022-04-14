@@ -2,7 +2,7 @@
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
 require_once '../DAO/CategoriaContaDAO.php';
-$pag_ret= "consultar_conta_categoria.php";
+$pag_ret = "consultar_conta_categoria.php";
 if (isset($_POST['btn_cadastrar'])) {
 
     $nome_categoria = trim($_POST['nomeCategoria']);
@@ -37,12 +37,21 @@ if (isset($_POST['btn_cadastrar'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="nova_conta_categoria.php" method="post">
-                    <div class="form-group" id="divNomeCat">
-                        <label>Nome da Categoria</label>
-                        <input name="nomeCategoria" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divNomeCat','nomeCategoria')">
-                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Categoria para as Contas
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group" id="divNomeCat">
+                                    <label>Nome da Categoria</label>
+                                    <input name="nomeCategoria" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divNomeCat','nomeCategoria')">
+                                </div>
 
-                    <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarCategoria()">Cadastrar</button>
+                                <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarCategoria()">Cadastrar</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <!-- /. PAGE INNER  -->
@@ -52,7 +61,7 @@ if (isset($_POST['btn_cadastrar'])) {
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    
+
 </body>
 
 </html>

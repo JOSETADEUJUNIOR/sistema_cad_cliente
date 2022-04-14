@@ -51,7 +51,7 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-group fa-2x"></i> Fornecedor<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-group fa-2x"></i> Fornecedor/Empresa<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="novo_fornecedor.php">Cadastrar Fornecedor</a>
@@ -78,13 +78,13 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-file fa-2x"></i> Financeiro<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-refresh fa-2x"></i> Financeiro<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="consultar_categoria_conta.php">Categorias</a>
+                        <a href="consultar_conta_categoria.php">Categorias</a>
                     </li>
                     <li>
-                        <a href="consultar_empresa_conta.php">Empresa</a>
+                        <a href="consultar_fornecedor.php">Empresa</a>
                     </li>
                     <li>
                         <a href="consultar_conta.php">Conta</a>

@@ -1,7 +1,7 @@
 <?php
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
-require_once '../DAO/MovimentoDAO.php';
+require_once '../DAO/MovimentoContaDAO.php';
 $dtIncial = '';
 $dtFinal = '';
 $tipo = '';
@@ -10,7 +10,7 @@ $pag_ret = 'consultar_movimento.php';
 
 if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
     
-    $objMov = new MovimentoDAO();
+    $objMov = new MovimentoContaDAO();
     $idMov = $_GET['idExcluir'];
     $ret = $objMov->ExcluirMovimento($idMov);
 }
@@ -21,7 +21,7 @@ if (isset($_POST['btnFiltrar'])) {
     $dtFinal = trim($_POST['dtFinal']);
     $tipo = trim($_POST['tipo']);
 
-    $objMov = new MovimentoDAO();
+    $objMov = new MovimentoContaDAO();
     $movimentos = $objMov->ConsultarMovimento($dtIncial, $dtFinal, $tipo);
 
     if (!is_array($movimentos)) {
@@ -122,9 +122,9 @@ if (isset($_POST['btnFiltrar'])) {
 
                                                     <tr class="odd gradeX">
                                                         <td><?= UtilDAO::ExibirDataBr($mov['data_movimento']) ?></td>
-                                                        <td><?= $mov['valor_movimento'] ?></td>
+                                                        <td><?= explode('.',$mov['valor_movimento'])[0].','.explode('.',$mov['valor_movimento'])[1] ?></td>
                                                         <td><?= $mov['nome_categoria'] ?></td>
-                                                        <td><?= $mov['nome_empresa'] ?></td>
+                                                        <td><?= $mov['nome_fornecedor'] ?></td>
                                                         <td><?= $mov['banco_conta'] ?></td>
                                                         <td><?= ($mov['tipo_movimento'] == 1 ? "Entrada" : "Saída") ?></td>
                                                         <td><?= $mov['observacao_movimento'] ?></td>
@@ -144,7 +144,7 @@ if (isset($_POST['btnFiltrar'])) {
                                                                             <label>Data: <?= UtilDAO::ExibirDataBr($mov['data_movimento']) ?> </label><br>
                                                                             <label>Valor: <?= $mov['valor_movimento'] ?></label><br>
                                                                             <label>Categoria: <?= $mov['nome_categoria'] ?></label><br>
-                                                                            <label>Empresa: <?= $mov['nome_empresa'] ?></label></br>
+                                                                            <label>Empresa: <?= $mov['nome_fornecedor'] ?></label></br>
                                                                             <label>Conta: <?= $mov['banco_conta'] . ' / ' . $mov['agencia_conta'] . ' / ' . $mov['numero_conta'] ?></label>
                                                                         </div>
                                                                         <div class="modal-footer">

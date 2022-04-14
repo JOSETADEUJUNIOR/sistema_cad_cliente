@@ -37,8 +37,8 @@ if (isset($_POST['btn_cadastrar'])) {
                 <div class="row">
                     <div class="col-md-12">
                         <?php include_once('_msg.php') ?>
-                        <h2>Novo Fornecedor</h2>
-                        <h5>Aqui você poderá cadastrar todos os Fornecedores. </h5>
+                        <h2>Nova Empresa</h2>
+                        <h5>Aqui você poderá cadastrar todos os Fornecedores/Empresas'. </h5>
 
                     </div>
                 </div>
@@ -93,7 +93,7 @@ if (isset($_POST['btn_cadastrar'])) {
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    Informações do Fornecedor
+                                    Informações da Empresa
                                 </div>
                                 <div class="panel-body">
 
@@ -105,8 +105,8 @@ if (isset($_POST['btn_cadastrar'])) {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group" id="divFornNome">
-                                            <label>Nome do Fornecedor</label>
-                                            <input name="nomeFornecedor" id="nomeFornecedor" type="text" placeholder="Digite o nome do fornecedor" class="form-control" onfocusout="SinalizaCampo('divFornNome','nomeFornecedor')">
+                                            <label>Nome da Empresa</label>
+                                            <input name="nomeFornecedor" id="nomeFornecedor" type="text" placeholder="Digite o nome da empresa" class="form-control" onfocusout="SinalizaCampo('divFornNome','nomeFornecedor')">
                                         </div>
                                     </div>
                                     <div class="col-md-4">

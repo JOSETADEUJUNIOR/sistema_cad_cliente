@@ -512,16 +512,7 @@ function ValidarMovimento(){
     }
     
     else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
-          return false;
+          return true;
     }
 }
 
@@ -585,16 +576,7 @@ function ValidarConta(){
         return false;
     
     }else{
-        Swal.fire({
-            
-            icon: 'success',
-            title: 'Sucesso',
-            width: 'auto',
-            html: '<h3>Dados Salvos com sucesso!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-          })
-          return false;
+         return true;
     }
 
 
@@ -680,7 +662,7 @@ function ValidarProduto(){
             icon: 'warning',
             title: 'Oops...',
             width: 'auto',
-            html: '<h3>Selecione o fornecedor corretamente!</h3>',
+            html: '<h3>Selecione  a Empresa corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
             

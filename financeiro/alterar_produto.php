@@ -32,8 +32,31 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     $subcat = trim($_POST['subcat']);
     $fornecedor = trim($_POST['fornecedor']);
     $cod = trim($_POST['cod']);
+    $arquivo = $_FILES['arquivo'];
+    
+    if ($arquivo['error']) 
+        die("Falha ao enviar arquivo");
+    
+    if ($arquivo['size'] > 2097152){   //2097152 
+        $ret = -11;
+    }else {
+        
+    
+    $pasta = "arquivos/";
+    @mkdir($pasta);
+    $nomeDoArquivo = $arquivo['name'];
+    $novoNomeDoArquivo = uniqid();
+    $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
+    
+    if ($extensao != "jpg" && $extensao != "png" && $extensao != "jpeg") 
+        die("Tipo de arquivo não aceito");
+    
+    $path = $pasta . $novoNomeDoArquivo. ".". $extensao;
+    $deu_certo = move_uploaded_file($arquivo["tmp_name"], $path);
 
-    $ret = $objProd->AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $cod);
+    $ret = $objProd->AlterarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $nomeDoArquivo, $path, $cod);
+
+    }   
 } else {
     header('location: consultar_produto.php');
     exit;
@@ -64,7 +87,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 </div>
                 <!-- /. ROW  -->
                 <hr />
-                <form action="alterar_produto.php" method="post">
+                <form action="alterar_produto.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="cod" value="<?= $dados[0]['id_produto'] ?>">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
@@ -168,6 +191,19 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                                             <textarea name="descProd" id="descProd" type="text" placeholder="Digite a descrição do produto" class="form-control" onfocusout="SinalizaCampo('divProdDesc','descProd')"><?= $dados[0]['descricao_produto'] ?></textarea>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Imagem</label>
+                                                <img height="50" src="<?= $dados[0]['path'] ?>">
+                                            </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Escolha uma imagem para o produto</label>
+                                            <input type="file" require id="arquivo" name="arquivo"  title="Escolha uma imagem para a marca">
+                                        </div>  
+                                    </div>
+                                    
                                     <div class="col-md-12">
                                         <button name="btn_alterar" class="btn btn-success " onclick="return ValidarProduto()">Alterar</button>
                                         <a href="consultar_produto.php" class="btn btn-warning ">Voltar</a>

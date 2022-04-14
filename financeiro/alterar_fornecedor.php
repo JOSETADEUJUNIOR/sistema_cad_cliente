@@ -45,8 +45,8 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 <div class="row">
                     <div class="col-md-12">
                         <?php include_once('_msg.php') ?>
-                        <h2>Alterar Fornecedor</h2>
-                        <h5>Aqui você poderá alterar todos os Fornecedores. </h5>
+                        <h2>Alterar Empresa</h2>
+                        <h5>Aqui você poderá alterar todos os Fornecedores/Empresa. </h5>
 
                     </div>
                 </div>
@@ -104,7 +104,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    Informações do Fornecedor
+                                    Informações da Empresa
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-md-4">
@@ -115,8 +115,8 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group" id="divFornNome">
-                                            <label>Nome do Fornecedor</label>
-                                            <input name="nomeFornecedor" id="nomeFornecedor" value="<?= $dados[0]['nome_fornecedor'] ?>" type="text" placeholder="Digite o nome do fornecedor" class="form-control" onfocusout="SinalizaCampo('divFornNome','nomeFornecedor')">
+                                            <label>Nome da Empresa</label>
+                                            <input name="nomeFornecedor" id="nomeFornecedor" value="<?= $dados[0]['nome_fornecedor'] ?>" type="text" placeholder="Digite o nome da empresa" class="form-control" onfocusout="SinalizaCampo('divFornNome','nomeFornecedor')">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
