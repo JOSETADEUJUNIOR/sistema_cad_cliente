@@ -13,6 +13,9 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="assets/js/sweetalert2.min.css">
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    
+    <link href="select2/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="select2/dist/js/select2.min.js"></script>
 
     <script src="assets/js/jquery-1.10.2.js"></script>
     <!-- BOOTSTRAP SCRIPTS -->

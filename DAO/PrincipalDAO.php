@@ -103,6 +103,34 @@ public function GetFuncionario(){
 
 }
 
+public function GetMovimento(){
+
+    $conexao = parent::retornaConexao();
+
+    $comando_sql = 'select id_movimento, data_movimento, valor_movimento, nome_categoria, nome_fornecedor,
+    banco_conta, agencia_conta,numero_conta, tipo_movimento, observacao_movimento
+    from tb_movimento
+    inner join tb_categoria_conta on
+        tb_movimento.id_cat_conta = tb_categoria_conta.id_cat_conta
+    inner join tb_fornecedor on
+        tb_movimento.id_fornecedor = tb_fornecedor.id_fornecedor
+    inner join tb_conta on
+        tb_movimento.id_conta = tb_conta.id_conta
+    inner join tb_funcionario on
+        tb_movimento.id_funcionario = tb_funcionario.id_funcionario';
+
+    $sql = $conexao->prepare($comando_sql);
+
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
+
+
+
+
 
 
 }

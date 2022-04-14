@@ -432,6 +432,7 @@ function ValidarFuncionario(){
 function ValidarMovimento(){
 
     if ($("#tipo").val().trim() == ""){
+        $("#tipo").focus();
        
         Swal.fire({
             icon: 'warning',
@@ -446,7 +447,7 @@ function ValidarMovimento(){
     
     }
     if ($("#dtMovimento").val().trim() == ""){
-       
+        $("#dtMovimento").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -459,7 +460,7 @@ function ValidarMovimento(){
         return false;
     }
     if ($("#valor").val().trim() == ""){
-
+        $("#valor").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -472,7 +473,7 @@ function ValidarMovimento(){
         return false;
     }
     if ($("#cat").val().trim() == ""){
-
+        $("#cat").focus();
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
@@ -485,7 +486,7 @@ function ValidarMovimento(){
             return false;
     }
     if ($("#emp").val().trim() == ""){
-
+        $("#emp").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -498,7 +499,7 @@ function ValidarMovimento(){
         return false;
     }
     if ($("#conta").val().trim() == ""){
-
+        $("#conta").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -521,7 +522,7 @@ function ValidarMovimento(){
 function ValidarConta(){
 
     if ($("#nomeBanco").val().trim() == "") {
-       
+        $("#nomeBanco").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -535,7 +536,7 @@ function ValidarConta(){
     
     }
     if ($("#agencia").val().trim() == "") {
-       
+        $("#agencia").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -549,7 +550,7 @@ function ValidarConta(){
     
     }
     if ($("#numConta").val().trim() == "") {
-       
+        $("#numConta").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -563,7 +564,7 @@ function ValidarConta(){
     
     }
     if ($("#saldo").val().trim() == "") {
-       
+        $("#saldo").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',

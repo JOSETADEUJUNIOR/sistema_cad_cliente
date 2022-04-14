@@ -69,7 +69,7 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                             
                                          
                                                 <tr class="odd gradeX">
-                                                    <td><a target="_blank" href="<?= $prod['path'] ?>"><img height="50" src="<?= $prod['path'] ?>" alt=""></a></td>
+                                                    <td><a target="_blank" href="<?= $prod['path'] ?>"><img height="50" width="50" src="<?= $prod['path'] ?>" alt=""></a></td>
                                                     <td><?= $prod['cod_produto'] ?></td>
                                                     <td><?= $prod['nome_produto'] ?></td>
                                                     <td><?= $prod['estoque'] ?></td>

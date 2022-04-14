@@ -10,7 +10,6 @@ UtilDAO::VerLogado();
        $cliente = $_GET['cliente'];
 
        $vendas = $objVenda->ResultadoVendaDt($dtInicial, $dtFinal, $cliente);
- 
        
     }
 
@@ -18,13 +17,11 @@ UtilDAO::VerLogado();
         
         $vendas = $objVenda->ResultadoVendaDia();
     }
-    
-   
-
     for ($i=0; $i<count($vendas) ; $i++) { 
         $total = $total + $vendas[$i]['item_valor'];
 
     }
+    $valorTotal = explode('.',$total);
 
     $html .= '<head>';
     $html .= '<style>';
@@ -41,9 +38,10 @@ UtilDAO::VerLogado();
 	$html .= '<thead>';
 	$html .= '<tr>';
     $html .= '<td style="width:20px;text-align:center"><b>Venda</b></td>';
+    $html .= '<td style="width:80px;text-align:center"><b>Dt Venda</b></td>';
 	$html .= '<td style="width:80px;text-align:center"><b>COD</b></td>';
     $html .= '<td style="width:210px;text-align:center"><b>CLIENTE</b></td>';
-	$html .= '<td style="width:280px;text-align:center"><b>PRODUTO</b></td>';
+	$html .= '<td style="width:220px;text-align:center"><b>PRODUTO</b></td>';
     $html .= '<td style="width:30px;text-align:center"><b>QTD</b></td>';
     $html .= '<td style="width:80px;text-align:center"><b>VALOR</b></td>';
     $html .= '</tr>';
@@ -53,6 +51,7 @@ UtilDAO::VerLogado();
     for ($i=0; $i<count($vendas) ; $i++) { 
         $html .= '<tbody>';
         $html .= '<tr><td>' .$vendas[$i]['id_venda']."</td>";
+        $html .= '<td>' .UtilDao::ExibirDataBr($vendas[$i]['data_venda'])."</td>";
         $html .= '<td>' .$vendas[$i]['cod_produto']."</td>";
 		$html .= '<td >' .$vendas[$i]['nome_cliente']."</td>";
         $html .= '<td >' .$vendas[$i]['nome_produto']."</td>";
@@ -64,7 +63,7 @@ UtilDAO::VerLogado();
     
     
     $html .= '<div class="col-md-6">';
-    $html .= '<p style="text-align: right"> <strong>Valor Total:</strong> '.explode('.',$total)[0].','.explode('.',$total)[1].'</p>';
+    $html .= '<p style="text-align: right"> <strong>Valor Total:</strong> '.$valorTotal[0].','.($valorTotal[1]!=''?$valorTotal[1]:'00').'</p>';
     $html .= '</div>';
     $html .= '<div class="col-md-6">';
     $html .= '<p style="text-align: left"> <strong>Data do Relatório:</strong> '.UtilDAO::ExibirDataBr(date('Y-m-d')).'</p>';
@@ -90,7 +89,7 @@ UtilDAO::VerLogado();
 
 	//Exibibir a página
 	$dompdf->stream(
-		"relatorio_produtos.pdf", 
+		"relatorio_venda.pdf", 
 		array(
 			"Attachment" => false //Para realizar o download somente alterar para true
 		)

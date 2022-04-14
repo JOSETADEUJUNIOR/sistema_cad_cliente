@@ -142,7 +142,9 @@ $contas = $objConta->ConsultarConta();
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-
+<script>
+    $("#tipo").focus();
+</script>
 </body>
 
 </html>
