@@ -12,9 +12,6 @@ $objProd = new ProdutoDAO();
 $vendaMes = $objVenda->VendaMes();
 
 
-
-
-
 $retCliente = $objResult->GetClientes();
 $retEmpresa = $objResult->GetEmpresa();
 $produto = $objResult->GetProduto();
@@ -22,14 +19,6 @@ $fornecedores = $objResult->GetFornecedor();
 $produtos = $objProd->TopProduto();
 $movimentos = $objResult->GetMovimento();
 $vendaDia = $objResult->GetVendaDia();
-
-for ($i = 0; $i < count($movimentos); $i++) {
-
-    if ($movimentos[$i]['data_movimento'] == UtilDao::DataAtual()) {
-        # code...
-        $contavencer = $movimentos[$i]['data_movimento'];
-    }
-}
 
 
 ?>
@@ -43,7 +32,9 @@ for ($i = 0; $i < count($movimentos); $i++) {
         border-color: #D3D3D3;
         border-style: solid 1px;
         color: black;
+
     }
+
 
     #PainelAdmin:hover {
         background-color: #D3D3D3;
@@ -59,11 +50,19 @@ for ($i = 0; $i < count($movimentos); $i++) {
     a:hover {
         text-decoration: none;
     }
-    .main-text{
-        font-size:16px;
+
+    .main-text {
+        font-size: 14px;
     }
-    .text-box{
-        padding:2px 2px 2px 2px";
+
+    .text-box {
+        padding: 2px 2px 2px 2px";
+
+    }
+
+    i {
+        width: 30px;
+        height: 30px;
     }
 </style>
 
@@ -156,15 +155,15 @@ for ($i = 0; $i < count($movimentos); $i++) {
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                <div class="col-md-3 col-xs-12">
+                    <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
                             <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-shopping-cart"></i>
                             </span>
                             <div class="text-box" style="padding:2px 2px 2px 2px">
-                                <?php foreach ($vendaDia as $key=> $venda) { ?>
+                                <?php foreach ($vendaDia as $key => $venda) { ?>
                                     <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
-                                        <p class="main-text"><b>R$: <?= ($venda['item_valor']==0?"0":$venda['item_valor'])?></b></p>
+                                        <p class="main-text"><b><?= ($venda['item_valor'] == 0 ? "0" : $venda['item_valor']) ?> </b></p>
                                         <p> Venda dia </p>
                                     </a>
                                 <?php } ?>
@@ -178,35 +177,34 @@ for ($i = 0; $i < count($movimentos); $i++) {
                                 <i class="fa fa-shopping-cart"></i>
                             </span>
                             <div class="text-box" style="padding:2px 2px 2px 2px">
-                            <?php    foreach ($vendaMes as $vm) {
-                                    $mes = date('m',$vendaMes['data_venda']);
 
-                                    if ($mes == date('m')) {
-                                        $valorTotal = $valorTotal + $vm['item_valor'];
-                                    }
-                            ?>
-                                        <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
-                                        <p class="main-text"><b>R$: <?= $vm['item_valor']?></b></p>
-                                        <p> Venda Mês</p>
-                                    </a>
+                                <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
+                               
+
+                                <?php foreach ($vendaMes as $vm) { ?>
+                                    <?php if ($vm['Mes'] == date('m')) { ?>
+                                        <p class="main-text"><b> <?= ($vm['Mes'] != date('m') ? "0" : $vm['TotalVenda']) ?></b></p>
+                                    <?php } ?>
                                 <?php } ?>
+                                <p> Venda Mes </p>
+                                </a>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            
-                            <span  class="icon-box bg-color-red set-icon">
+
+                            <span class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-list"></i>
-                                </span>
+                            </span>
                             <div class="text-box">
-                                <?php foreach ($retCliente as $key => $value) { ?>
-                                    <a style="color:black;text-decoration-line: none;" href="consultar_cliente.php">
-                                        <p class="main-text">Clientes</p>
-                                       
-                                    </a>
+                            <a style="color:black;text-decoration-line: none;" href="consultar_cliente.php">   
+                           
+                            <?php foreach ($retCliente as $key => $value) { ?>
+                                <p class="main-text"><?= $value['total']?></p>
                                 <?php } ?>
+                                <p> Clientes</p>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -219,30 +217,17 @@ for ($i = 0; $i < count($movimentos); $i++) {
                                 <i class="fa fa-archive"></i>
                             </span>
                             <div class="text-box">
+                                <a style="color:black;text-decoration-line: none;" href="consultar_produto.php">
+                              
                                 <?php foreach ($produto as $prod) { ?>
-                                    <a style="color:black;text-decoration-line: none;" href="consultar_produto.php">
-                                        <p class="main-text">Produtos</p>
-                                    </a>
+                                        <p class="main-text"><?= $prod['id_produto']?></p>
                                 <?php } ?>
+                                <p>Produtos</p>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 col-xs-12">
-                        <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: yellowgreen;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-group"></i>
-                            </span>
-                            <div class="text-box">
-                                <?php foreach ($fornecedores as $forn) { ?>
-                                    <a style="color:black;text-decoration-line: none;" href="consultar_fornecedor.php">
-                                        <p style="font-size:15px" class="main-text">Empresa(s)</p>
-                                    </a>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    
                 </div>
 
 
@@ -290,7 +275,7 @@ for ($i = 0; $i < count($movimentos); $i++) {
                         <!--  end  Context Classes  -->
                     </div>
                 </div>
-
+                <hr />
                 <div class="row">
                     <div class="col-md-12 col-xs-12" style="display:inline">
                         <!--    Context Classes  -->

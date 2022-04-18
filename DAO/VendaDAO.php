@@ -488,12 +488,12 @@ class VendaDAO extends Conexao
     {
         $conexao = parent::retornaConexao();
 
-        $comando_sql = 'Select item_valor, data_venda
-                            from tb_venda 
-                                inner join tb_item_venda on
-                                    tb_venda.id_venda = tb_item_venda.id_venda
-                                
-                                    ';
+        $comando_sql = ' select
+                            extract(month from(data_venda)) as Mes,
+                            format(sum(tb_item_venda.item_valor),2,\'de_DE\') as TotalVenda 
+                            from tb_venda, tb_item_venda
+                            where tb_venda.id_venda = tb_item_venda.id_venda
+                            group by Mes';
 
         $sql = $conexao->prepare($comando_sql);
         $sql->execute();
