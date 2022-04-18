@@ -107,7 +107,7 @@ public function GetVendaDia()
 
         $conexao = parent::retornaConexao();
 
-        $comando_sql = 'Select Sum(item_valor) as item_valor
+        $comando_sql = 'Select format(Sum(item_valor),2,\'de_DE\') as item_valor
         from tb_item_venda 
             inner join tb_venda on
                 tb_item_venda.id_venda = tb_venda.id_venda

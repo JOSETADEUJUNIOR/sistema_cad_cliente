@@ -29,9 +29,10 @@ $vendaDia = $objResult->GetVendaDia();
 <?php include_once('_head.php'); ?>
 <style>
     #PainelAdmin {
-        border-color: #D3D3D3;
+        border-color: #B0C4DE;
         border-style: solid 1px;
         color: black;
+        background-color: #a8b3bfcf;
 
     }
 
@@ -186,7 +187,7 @@ $vendaDia = $objResult->GetVendaDia();
                                         <p class="main-text"><b> <?= ($vm['Mes'] != date('m') ? "0" : $vm['TotalVenda']) ?></b></p>
                                     <?php } ?>
                                 <?php } ?>
-                                <p> Venda Mes </p>
+                                <p> Venda Mês </p>
                                 </a>
                             </div>
                         </div>
@@ -201,7 +202,7 @@ $vendaDia = $objResult->GetVendaDia();
                             <a style="color:black;text-decoration-line: none;" href="consultar_cliente.php">   
                            
                             <?php foreach ($retCliente as $key => $value) { ?>
-                                <p class="main-text"><?= $value['total']?></p>
+                                <p style="font-size:20px" class="main-text"><?= $value['total']?></p>
                                 <?php } ?>
                                 <p> Clientes</p>
                                 </a>
@@ -220,7 +221,7 @@ $vendaDia = $objResult->GetVendaDia();
                                 <a style="color:black;text-decoration-line: none;" href="consultar_produto.php">
                               
                                 <?php foreach ($produto as $prod) { ?>
-                                        <p class="main-text"><?= $prod['id_produto']?></p>
+                                        <p style="font-size:20px" class="main-text"><?= $prod['id_produto']?></p>
                                 <?php } ?>
                                 <p>Produtos</p>
                                 </a>

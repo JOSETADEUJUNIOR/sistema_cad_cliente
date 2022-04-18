@@ -78,7 +78,7 @@ UtilDAO::VerLogado();
 
 	//Exibibir a página
 	$dompdf->stream(
-		"relatorio_produtos.pdf", 
+		"relatorio_venda.pdf", 
 		array(
 			"Attachment" => false //Para realizar o download somente alterar para true
 		)
