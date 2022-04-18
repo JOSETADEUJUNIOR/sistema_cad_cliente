@@ -34,9 +34,6 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     $cod = trim($_POST['cod']);
     $arquivo = $_FILES['arquivo'];
     
-    if ($arquivo['error']) 
-        die("Falha ao enviar arquivo");
-    
     if ($arquivo['size'] > 2097152){   //2097152 
         $ret = -11;
     }else {
@@ -48,7 +45,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
     $novoNomeDoArquivo = uniqid();
     $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
     
-    if ($extensao != "jpg" && $extensao != "png" && $extensao != "jpeg") 
+    if ($extensao != "jpg" && $extensao != "png" && $extensao != "jpeg" && $extensao!='') 
         die("Tipo de arquivo não aceito");
     
     $path = $pasta . $novoNomeDoArquivo. ".". $extensao;
@@ -200,7 +197,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Escolha uma imagem para o produto</label>
-                                            <input type="file" require id="arquivo" name="arquivo"  title="Escolha uma imagem para a marca">
+                                            <input type="file" id="arquivo" name="arquivo" value="<?= $dados[0]['nome_arquivo'] ?>"  title="Escolha uma imagem para a marca">
                                         </div>  
                                     </div>
                                     

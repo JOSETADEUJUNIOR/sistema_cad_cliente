@@ -14,8 +14,11 @@ $clientes = $objcliente->ConsultarCliente();
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <?php include_once('_head.php'); ?>
+<link href="select2/dist/css/select2.min.css" rel="stylesheet" />
+<script src="select2/dist/js/select2.min.js"></script>
+<script src="select2/dist/js/select2.js"></script>
 
-<body>
+    <body>
     <div id="wrapper">
         <?php include_once('_topo.php'); ?>
         <?php include_once('_menu.php'); ?>
@@ -27,6 +30,8 @@ $clientes = $objcliente->ConsultarCliente();
                         <?php include_once('_msg.php'); ?>
                         <h2>Consultar Clientes</h2>
                         <h5>Aqui você poderá consultar seus clientes. </h5>
+
+                       
 
                     </div>
                 </div>
@@ -74,14 +79,6 @@ $clientes = $objcliente->ConsultarCliente();
                                         </div>
                                     </div>
 
-                                    <div class="col-md-10">
-                                    <select class="js-example-basic-single" name="state">
-                                        <option value="AL">Alabama</option>
-                                            ...
-                                        <option value="WY">Wyoming</option>
-                                    </select>
-                                    </div>
-
                                     <div class="col-md-2" style="display:block; padding: 24px 10px">
                                         <button id="btnFiltrar" name="btnCpf" class="btn btn-info" onclick="return ValidarConsultaMov()">Pesquisar</button>
                                     </div>
@@ -91,51 +88,35 @@ $clientes = $objcliente->ConsultarCliente();
 
                         </div>
                     </div>
-
                 </form>
-
-
-
                 <hr>
-
-            </div>
-
-            <!-- /. PAGE INNER  -->
-        </div>
-
-
-
-
-
+       
         <!-- /. PAGE WRAPPER  -->
     </div>
+
+   
+    
+
     <!-- /. WRAPPER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script type="text/javascript">
         // $("#tel").mask("(00) 0000-00009");
 
         $("#cpfCliente").mask("000.000.000-00");
-    </script>
-
-
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#dataTables-example').dataTable();
-        });
-        
-    </script>
-
-<script>
-    $(document).ready(function() {
-              $('.js-example-basic-single').select2();
-        });
-</script>
+   </script>
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js" defer></script>
+   
+        <script>
+      $(function() {
+       $('#cliente').select2({
+           placeholder: 'selecione'
+       });
+   });
+   </script>
 </body>
-
+   
 </html>

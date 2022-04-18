@@ -14,9 +14,7 @@
     <link rel="stylesheet" href="assets/js/sweetalert2.min.css">
     <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
     
-    <link href="select2/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="select2/dist/js/select2.min.js"></script>
-
+    
     <script src="assets/js/jquery-1.10.2.js"></script>
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
@@ -27,7 +25,6 @@
     <script src="assets/js/validar.js"></script>
     <script src="assets/js/sweetalert.js"></script>
     <script src="assets/js/sweetalert2.all.min.js"></script>
-    
 </head>
 
 

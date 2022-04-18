@@ -177,9 +177,18 @@ if (isset($ret)) {
             break;
 
         case '0':
-            echo '<div class="alert alert-warning">
-            Preencher (os) campos obrigatório(os);
-            </div>';
+            echo "<script>
+              Swal.fire({
+      
+                  icon: 'warning',
+                  title: 'Alerta',
+                  width: 'auto',
+                  html: '<h3>Preencha os campos obrigatórios!</h3>',
+                  showConfirmButton: false,
+                  timer: 2000,
+              })
+
+          </script>";
             break;
         case '1':
             //echo '<div class="alert alert-success">

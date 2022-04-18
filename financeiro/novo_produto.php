@@ -30,8 +30,6 @@ if (isset($_POST['btn_cadastrar'])) {
     $fornecedor = trim($_POST['fornecedor']);
     $arquivo = $_FILES['arquivo'];
     
-    if ($arquivo['error']) 
-        die("Falha ao enviar arquivo");
     
     if ($arquivo['size'] > 2097152) 
         die("Arquivo muito grande !! Max: 2MB");
@@ -41,16 +39,11 @@ if (isset($_POST['btn_cadastrar'])) {
     $nomeDoArquivo = $arquivo['name'];
     $novoNomeDoArquivo = uniqid();
     $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
-    if ($extensao != "jpg" && $extensao != "png") 
+    if ($extensao != "jpg" && $extensao != "png" && $extensao !="jpeg" && $extensao!='') 
         die("Tipo de arquivo não aceito");
     
     $path = $pasta . $novoNomeDoArquivo. ".". $extensao;
     $deu_certo = move_uploaded_file($arquivo["tmp_name"], $path);
-
-
-
-
-
     $ret = $objProd->CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $nomeDoArquivo, $path);
 }
 ?>
@@ -175,7 +168,7 @@ if (isset($_POST['btn_cadastrar'])) {
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Escolha uma imagem para o produto</label>
-                                            <input type="file" require id="arquivo" name="arquivo" title="Escolha uma imagem para a marca">
+                                            <input type="file" id="arquivo" name="arquivo" title="Escolha uma imagem para a marca">
                                         </div>  
                                     </div>
                                     <div class="col-md-12">

@@ -64,7 +64,7 @@ if (isset($_GET['cod']) && is_numeric($_GET['cod'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="alterar_cliente.php" method="post">
-                    <input type="text" name="cod" value="<?= $dados[0]['id_cliente'] ?>">
+                    <input type="hidden" name="cod" value="<?= $dados[0]['id_cliente'] ?>">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">

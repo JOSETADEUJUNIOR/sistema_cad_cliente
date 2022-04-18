@@ -483,4 +483,24 @@ class VendaDAO extends Conexao
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function VendaMes()
+    {
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'Select item_valor, data_venda
+                            from tb_venda 
+                                inner join tb_item_venda on
+                                    tb_venda.id_venda = tb_item_venda.id_venda
+                                
+                                    ';
+
+        $sql = $conexao->prepare($comando_sql);
+        $sql->execute();
+        
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+           
+        }
+        
+
 }

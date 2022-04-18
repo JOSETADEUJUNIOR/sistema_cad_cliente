@@ -102,6 +102,23 @@ public function GetFuncionario(){
     return $ret;
 
 }
+public function GetVendaDia()
+    {
+
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'Select Sum(item_valor) as item_valor
+        from tb_item_venda 
+            inner join tb_venda on
+                tb_item_venda.id_venda = tb_venda.id_venda
+                    Where data_venda = ?
+                        ';
+
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, Date('Y-m-d'));
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 public function GetMovimento(){
 
@@ -117,7 +134,8 @@ public function GetMovimento(){
     inner join tb_conta on
         tb_movimento.id_conta = tb_conta.id_conta
     inner join tb_funcionario on
-        tb_movimento.id_funcionario = tb_funcionario.id_funcionario';
+        tb_movimento.id_funcionario = tb_funcionario.id_funcionario
+        where tipo_movimento = 2';
 
     $sql = $conexao->prepare($comando_sql);
 

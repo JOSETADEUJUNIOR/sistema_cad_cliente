@@ -583,8 +583,40 @@ function ValidarConta(){
 
 }
 
+function ValidarCaixa(){
 
-
+    if ($("#produto").val().trim() == "") {
+        $("#produto").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',cli
+            width: 'auto',
+            html: '<h3>Selecione o produto corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    if ($("#qtd").val().trim() == "") {
+        $("#qtd").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Quantidade obrigatória!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
+    else{
+         return true;
+    }
+}
 function ValidarProduto(){
 
     if ($("#codBarras").val().trim() == "") {

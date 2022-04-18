@@ -67,10 +67,9 @@ class ClienteDAO extends Conexao
                           ,obs_cliente 
                           ,cpf_cliente 
                           ,restricao
-                             from tb_cliente where id_funcionario = ? ';
+                             from tb_cliente ';
     
         $sql = $conexao->prepare($comando_sql);
-        $sql->bindValue(1, UtilDAO::CodigoLogado());
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -138,10 +137,10 @@ class ClienteDAO extends Conexao
         $conexao = parent::retornaConexao();
         $comando_sql = 'Select id_cliente, nome_cliente, rua_cliente, bairro_cliente,
                                cep_cliente, cidade_cliente, estado_cliente, data_nascimento,
-                               obs_cliente, cpf_cliente, restricao from tb_cliente where id_cliente = ? and id_funcionario = ? ';
+                               obs_cliente, cpf_cliente, restricao from tb_cliente where id_cliente = ? 
+                               ';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $id_cliente);
-        $sql->bindValue(2, UtilDAO::CodigoLogado());
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -187,11 +186,10 @@ class ClienteDAO extends Conexao
         }
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'delete from tb_cliente where id_cliente = ? and id_funcionario = ?';
+        $comando_sql = 'delete from tb_cliente where id_cliente = ?';
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $id_client);
-        $sql->bindValue(2, UtilDAO::CodigoLogado());
-
+        
         try {
             $sql->execute();
             return 1;

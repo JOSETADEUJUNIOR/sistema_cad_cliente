@@ -9,11 +9,28 @@ require_once '../DAO/ProdutoDAO.php';
 $objResult = new PrincipalDAO();
 $objProd = new ProdutoDAO();
 
+$vendaMes = $objVenda->VendaMes();
+
+
+
+
+
 $retCliente = $objResult->GetClientes();
 $retEmpresa = $objResult->GetEmpresa();
 $produto = $objResult->GetProduto();
 $fornecedores = $objResult->GetFornecedor();
 $produtos = $objProd->TopProduto();
+$movimentos = $objResult->GetMovimento();
+$vendaDia = $objResult->GetVendaDia();
+
+for ($i = 0; $i < count($movimentos); $i++) {
+
+    if ($movimentos[$i]['data_movimento'] == UtilDao::DataAtual()) {
+        # code...
+        $contavencer = $movimentos[$i]['data_movimento'];
+    }
+}
+
 
 ?>
 
@@ -42,6 +59,12 @@ $produtos = $objProd->TopProduto();
     a:hover {
         text-decoration: none;
     }
+    .main-text{
+        font-size:16px;
+    }
+    .text-box{
+        padding:2px 2px 2px 2px";
+    }
 </style>
 
 <body>
@@ -56,7 +79,25 @@ $produtos = $objProd->TopProduto();
                         <?php foreach ($retEmpresa as $key => $value) { ?>
                             <h2>Painel Administrativo</h2>
                             <h5>Seja bem vindo <strong><?= $value['nome_empresa'] ?></strong></h5>
+
                         <?php } ?>
+                        <?php foreach ($movimentos as $cv) {
+
+                            if ($cv['data_movimento'] == UtilDao::DataAtual()) {
+                                echo  "<script>
+                                Swal.fire({
+                        
+                                    icon: 'warning',
+                                    title: 'Alerta',
+                                    width: 'auto',
+                                    html: '<h3>Existem boletos com vencimento para data de hoje!</h3>',
+                                    showConfirmButton: true,
+                                    
+                                })
+                  
+                            </script>";
+                            }
+                        } ?>
                     </div>
                 </div>
                 <div class="row">
@@ -115,16 +156,55 @@ $produtos = $objProd->TopProduto();
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                    <div class="col-md-4 col-xs-12">
+                <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
                             <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
+                                <i class="fa fa-shopping-cart"></i>
                             </span>
+                            <div class="text-box" style="padding:2px 2px 2px 2px">
+                                <?php foreach ($vendaDia as $key=> $venda) { ?>
+                                    <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
+                                        <p class="main-text"><b>R$: <?= ($venda['item_valor']==0?"0":$venda['item_valor'])?></b></p>
+                                        <p> Venda dia </p>
+                                    </a>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-12">
+                        <div id="PainelAdmin" class="panel panel-back noti-box">
+                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-shopping-cart"></i>
+                            </span>
+                            <div class="text-box" style="padding:2px 2px 2px 2px">
+                            <?php    foreach ($vendaMes as $vm) {
+                                    $mes = date('m',$vendaMes['data_venda']);
+
+                                    if ($mes == date('m')) {
+                                        $valorTotal = $valorTotal + $vm['item_valor'];
+                                    }
+                            ?>
+                                        <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
+                                        <p class="main-text"><b>R$: <?= $vm['item_valor']?></b></p>
+                                        <p> Venda Mês</p>
+                                    </a>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-xs-12">
+                        <div id="PainelAdmin" class="panel panel-back noti-box">
+                            
+                            <span  class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-list"></i>
+                                </span>
                             <div class="text-box">
                                 <?php foreach ($retCliente as $key => $value) { ?>
                                     <a style="color:black;text-decoration-line: none;" href="consultar_cliente.php">
-                                        <p class="main-text"><?= $value['total'] . " Cliente(s)" ?></p>
-                                        <p class="text-muted">Cadastrados</p>
+                                        <p class="main-text">Clientes</p>
+                                       
                                     </a>
                                 <?php } ?>
                             </div>
@@ -133,31 +213,29 @@ $produtos = $objProd->TopProduto();
 
 
 
-                    <div class="col-md-4 col-xs-12">
+                    <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
+                            <span style="background-color: green;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-archive"></i>
                             </span>
                             <div class="text-box">
                                 <?php foreach ($produto as $prod) { ?>
                                     <a style="color:black;text-decoration-line: none;" href="consultar_produto.php">
-                                        <p class="main-text"><?= $prod['id_produto'] . " Produto(s)" ?></p>
-                                        <p class="text-muted">Cadastrados</p>
+                                        <p class="main-text">Produtos</p>
                                     </a>
                                 <?php } ?>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-xs-12">
+                    <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
+                            <span style="background-color: yellowgreen;" class="icon-box bg-color-red set-icon">
                                 <i class="fa fa-group"></i>
                             </span>
                             <div class="text-box">
                                 <?php foreach ($fornecedores as $forn) { ?>
                                     <a style="color:black;text-decoration-line: none;" href="consultar_fornecedor.php">
-                                        <p style="font-size:23px" class="main-text"><?= $forn['id_fornecedor'] . " Fornecedor(es)" ?></p>
-                                        <p class="text-muted">Cadastrados</p>
+                                        <p style="font-size:15px" class="main-text">Empresa(s)</p>
                                     </a>
                                 <?php } ?>
                             </div>
@@ -171,180 +249,184 @@ $produtos = $objProd->TopProduto();
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                        <div class="col-md-12 col-xs-12">
-                            <!--    Context Classes  -->
-                            <div class="panel panel-danger">
+                    <div class="col-md-12 col-xs-12">
+                        <!--    Context Classes  -->
+                        <div class="panel panel-primary">
 
-                                <div class="panel-heading">
-                                    Contas a pagar perto do Vencimento
-                                </div>
+                            <div class="panel-heading" style="color:white">
+                                Contas a pagar perto do Vencimento
+                            </div>
 
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
 
-                                                    <th>Conta</th>
-                                                    <th>Valor</th>
-                                                    <th>Data vencimento</th>
+                                                <th>Conta</th>
+                                                <th>Valor</th>
+                                                <th>Data vencimento</th>
+                                                <th>Observação</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($movimentos as $mov) { ?>
+                                                <tr class="">
+                                                    <td><?= $mov['banco_conta'] ?></td>
+                                                    <td><?= explode('.', $mov['valor_movimento'])[0] . ',' . explode('.', $mov['valor_movimento'])[1] ?></td>
+                                                    <td><?= UtilDao::ExibirDataBr($mov['data_movimento']) ?></td>
+                                                    <td><?= $mov['observacao_movimento'] ?></td>
+                                                    <td><a href="consultar_movimento.php"><?= $mov['data_movimento'] < UtilDao::DataAtual() ? "<span class=\"btn btn-danger btn-xs\">vencida</span>" : ($mov['data_movimento'] == UtilDao::DataAtual() ? "<span class=\"btn btn-success btn-xs\">Vence Hoje</span>" : ($mov['data_movimento'] > UtilDao::DataAtual() ? "<span class=\"btn btn-info btn-xs\">Á vencer</span>" : "asdasd")) ?></a></td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($produtos as $prod) { ?>
-                                                    <tr class="info">
-                                                        <td><?= $prod['nome_produto'] ?></td>
-                                                        <td><?= $prod['valor_produto'] ?></td>
-                                                        <td><?= $prod['estoque'] ?></td>
-                                                    </tr>
 
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <!--  end  Context Classes  -->
                         </div>
-                    </div>
-                
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12" style="display:inline">
-                            <!--    Context Classes  -->
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading">
-                                    Ultimos Produtos cadastrados
-                                </div>
-
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-
-                                                    <th>Nome</th>
-                                                    <th>Valor</th>
-                                                    <th>Estoque</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($produtos as $prod) { ?>
-                                                    <tr class="info">
-                                                        <td><?= $prod['nome_produto'] ?></td>
-                                                        <td><?= $prod['valor_produto'] ?></td>
-                                                        <td><?= $prod['estoque'] ?></td>
-                                                    </tr>
-
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--  end  Context Classes  -->
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12">
-                            <!--    Context Classes  -->
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading">
-                                    Produtos Mais Vendidos
-                                </div>
-
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-
-                                                    <th>Nome</th>
-                                                    <th>Valor</th>
-                                                    <th>Estoque</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($produtos as $prod) { ?>
-                                                    <tr class="info">
-                                                        <td><?= $prod['nome_produto'] ?></td>
-                                                        <td><?= $prod['valor_produto'] ?></td>
-                                                        <td><?= $prod['estoque'] ?></td>
-                                                    </tr>
-
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--  end  Context Classes  -->
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col-xs-12" style="float:right">
-                            <!--    Context Classes  -->
-                            <div class="panel panel-default">
-
-                                <div class="panel-heading">
-                                    Ultimas Vendas Realizadas
-                                </div>
-
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-
-                                                    <th>Cod Venda</th>
-                                                    <th>Data Venda</th>
-                                                    <th>Cliente</th>
-                                                    <th>Produto</th>
-                                                    <th>Valor</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($dadosVenda as $venda) { ?>
-                                                    <tr class="info">
-                                                        <td><?= $venda['codVenda'] ?></td>
-                                                        <td><?= UtilDAO::ExibirDataBr($venda['data_venda']) ?></td>
-                                                        <td><?= $venda['nome_cliente'] ?></td>
-                                                        <td><?= $venda['nome_produto'] ?></td>
-                                                        <td><?= $venda['item_valor'] ?></td>
-                                                    </tr>
-
-                                                    </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--  end  Context Classes  -->
-                        </div>
+                        <!--  end  Context Classes  -->
                     </div>
                 </div>
 
-                <!-- /. PAGE INNER  -->
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" style="display:inline">
+                        <!--    Context Classes  -->
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                Ultimos Produtos cadastrados
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Nome</th>
+                                                <th>Valor</th>
+                                                <th>Estoque</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($produtos as $prod) { ?>
+                                                <tr class="info">
+                                                    <td><?= $prod['nome_produto'] ?></td>
+                                                    <td><?= $prod['valor_produto'] ?></td>
+                                                    <td><?= $prod['estoque'] ?></td>
+                                                </tr>
+
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  end  Context Classes  -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <!--    Context Classes  -->
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                Produtos Mais Vendidos
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Nome</th>
+                                                <th>Valor</th>
+                                                <th>Estoque</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($produtos as $prod) { ?>
+                                                <tr class="info">
+                                                    <td><?= $prod['nome_produto'] ?></td>
+                                                    <td><?= $prod['valor_produto'] ?></td>
+                                                    <td><?= $prod['estoque'] ?></td>
+                                                </tr>
+
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  end  Context Classes  -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" style="float:right">
+                        <!--    Context Classes  -->
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                Ultimas Vendas Realizadas
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+
+                                                <th>Cod Venda</th>
+                                                <th>Data Venda</th>
+                                                <th>Cliente</th>
+                                                <th>Produto</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($dadosVenda as $venda) { ?>
+                                                <tr class="info">
+                                                    <td><?= $venda['codVenda'] ?></td>
+                                                    <td><?= UtilDAO::ExibirDataBr($venda['data_venda']) ?></td>
+                                                    <td><?= $venda['nome_cliente'] ?></td>
+                                                    <td><?= $venda['nome_produto'] ?></td>
+                                                    <td><?= $venda['item_valor'] ?></td>
+                                                </tr>
+
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  end  Context Classes  -->
+                    </div>
+                </div>
             </div>
 
+            <!-- /. PAGE INNER  -->
         </div>
-       
-        <!-- BOOTSTRAP SCRIPTS -->
-        <!-- METISMENU SCRIPTS -->
-  
-        <!-- MORRIS CHART SCRIPTS -->
-        <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-        <script src="assets/js/morris/morris.js"></script>
-        <!-- CUSTOM SCRIPTS -->
-       
-        <script>
-            /*=============================================================
+
+    </div>
+
+    <!-- BOOTSTRAP SCRIPTS -->
+    <!-- METISMENU SCRIPTS -->
+
+    <!-- MORRIS CHART SCRIPTS -->
+    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+
+    <script>
+        /*=============================================================
     Authour URI: www.binarycart.com
     Version: 1.1
     License: MIT
@@ -355,209 +437,209 @@ $produtos = $objProd->TopProduto();
    
     ========================================================  */
 
-            (function($) {
-                "use strict";
-                var mainApp = {
+        (function($) {
+            "use strict";
+            var mainApp = {
 
-                    main_fun: function() {
-                        /*====================================
-                        METIS MENU 
-                        ======================================*/
-                        $('#main-menu').metisMenu();
+                main_fun: function() {
+                    /*====================================
+                    METIS MENU 
+                    ======================================*/
+                    $('#main-menu').metisMenu();
 
-                        /*====================================
+                    /*====================================
               LOAD APPROPRIATE MENU BAR
            ======================================*/
-                        $(window).bind("load resize", function() {
-                            if ($(this).width() < 768) {
-                                $('div.sidebar-collapse').addClass('collapse')
-                            } else {
-                                $('div.sidebar-collapse').removeClass('collapse')
-                            }
-                        });
+                    $(window).bind("load resize", function() {
+                        if ($(this).width() < 768) {
+                            $('div.sidebar-collapse').addClass('collapse')
+                        } else {
+                            $('div.sidebar-collapse').removeClass('collapse')
+                        }
+                    });
 
-                        /*====================================
+                    /*====================================
             MORRIS BAR CHART
          ======================================*/
-                        Morris.Bar({
-                            element: 'morris-bar-chart',
-                            data: [{
-                                y: '2021',
-                                a: 150.00,
-                                b: 90
-                            }, {
-                                y: '2007',
-                                a: 75,
-                                b: 65
-                            }, {
-                                y: '2008',
-                                a: 50,
-                                b: 40
-                            }, {
-                                y: '2009',
-                                a: 75,
-                                b: 65
-                            }, {
-                                y: '2010',
-                                a: 50,
-                                b: 40
-                            }, {
-                                y: '2011',
-                                a: 75,
-                                b: 65
-                            }, {
-                                y: '2012',
-                                a: 100,
-                                b: 90
-                            }],
-                            xkey: 'y',
-                            ykeys: ['a', 'b'],
-                            labels: ['Series A', 'Series B'],
-                            hideHover: 'auto',
-                            resize: true
-                        });
+                    Morris.Bar({
+                        element: 'morris-bar-chart',
+                        data: [{
+                            y: '2021',
+                            a: 150.00,
+                            b: 90
+                        }, {
+                            y: '2007',
+                            a: 75,
+                            b: 65
+                        }, {
+                            y: '2008',
+                            a: 50,
+                            b: 40
+                        }, {
+                            y: '2009',
+                            a: 75,
+                            b: 65
+                        }, {
+                            y: '2010',
+                            a: 50,
+                            b: 40
+                        }, {
+                            y: '2011',
+                            a: 75,
+                            b: 65
+                        }, {
+                            y: '2012',
+                            a: 100,
+                            b: 90
+                        }],
+                        xkey: 'y',
+                        ykeys: ['a', 'b'],
+                        labels: ['Series A', 'Series B'],
+                        hideHover: 'auto',
+                        resize: true
+                    });
 
-                        /*====================================
+                    /*====================================
           MORRIS DONUT CHART
        ======================================*/
-                        Morris.Donut({
-                            element: 'morris-donut-chart',
-                            data: [{
-                                label: "Download Sales",
-                                value: 12
-                            }, {
-                                label: "In-Store Sales",
-                                value: 30
-                            }, {
-                                label: "Mail-Order Sales",
-                                value: 20
-                            }],
-                            resize: true
-                        });
+                    Morris.Donut({
+                        element: 'morris-donut-chart',
+                        data: [{
+                            label: "Download Sales",
+                            value: 12
+                        }, {
+                            label: "In-Store Sales",
+                            value: 30
+                        }, {
+                            label: "Mail-Order Sales",
+                            value: 20
+                        }],
+                        resize: true
+                    });
 
-                        /*====================================
+                    /*====================================
          MORRIS AREA CHART
       ======================================*/
 
-                        Morris.Area({
-                            element: 'morris-area-chart',
-                            data: [{
-                                period: '2010 Q1',
-                                iphone: 2666,
-                                ipad: null,
-                                itouch: 2647
-                            }, {
-                                period: '2010 Q2',
-                                iphone: 2778,
-                                ipad: 2294,
-                                itouch: 2441
-                            }, {
-                                period: '2010 Q3',
-                                iphone: 4912,
-                                ipad: 1969,
-                                itouch: 2501
-                            }, {
-                                period: '2010 Q4',
-                                iphone: 3767,
-                                ipad: 3597,
-                                itouch: 5689
-                            }, {
-                                period: '2011 Q1',
-                                iphone: 6810,
-                                ipad: 1914,
-                                itouch: 2293
-                            }, {
-                                period: '2011 Q2',
-                                iphone: 5670,
-                                ipad: 4293,
-                                itouch: 1881
-                            }, {
-                                period: '2011 Q3',
-                                iphone: 4820,
-                                ipad: 3795,
-                                itouch: 1588
-                            }, {
-                                period: '2011 Q4',
-                                iphone: 15073,
-                                ipad: 5967,
-                                itouch: 5175
-                            }, {
-                                period: '2012 Q1',
-                                iphone: 10687,
-                                ipad: 4460,
-                                itouch: 2028
-                            }, {
-                                period: '2012 Q2',
-                                iphone: 8432,
-                                ipad: 5713,
-                                itouch: 1791
-                            }],
-                            xkey: 'period',
-                            ykeys: ['iphone', 'ipad', 'itouch'],
-                            labels: ['iPhone', 'iPad', 'iPod Touch'],
-                            pointSize: 2,
-                            hideHover: 'auto',
-                            resize: true
-                        });
+                    Morris.Area({
+                        element: 'morris-area-chart',
+                        data: [{
+                            period: '2010 Q1',
+                            iphone: 2666,
+                            ipad: null,
+                            itouch: 2647
+                        }, {
+                            period: '2010 Q2',
+                            iphone: 2778,
+                            ipad: 2294,
+                            itouch: 2441
+                        }, {
+                            period: '2010 Q3',
+                            iphone: 4912,
+                            ipad: 1969,
+                            itouch: 2501
+                        }, {
+                            period: '2010 Q4',
+                            iphone: 3767,
+                            ipad: 3597,
+                            itouch: 5689
+                        }, {
+                            period: '2011 Q1',
+                            iphone: 6810,
+                            ipad: 1914,
+                            itouch: 2293
+                        }, {
+                            period: '2011 Q2',
+                            iphone: 5670,
+                            ipad: 4293,
+                            itouch: 1881
+                        }, {
+                            period: '2011 Q3',
+                            iphone: 4820,
+                            ipad: 3795,
+                            itouch: 1588
+                        }, {
+                            period: '2011 Q4',
+                            iphone: 15073,
+                            ipad: 5967,
+                            itouch: 5175
+                        }, {
+                            period: '2012 Q1',
+                            iphone: 10687,
+                            ipad: 4460,
+                            itouch: 2028
+                        }, {
+                            period: '2012 Q2',
+                            iphone: 8432,
+                            ipad: 5713,
+                            itouch: 1791
+                        }],
+                        xkey: 'period',
+                        ykeys: ['iphone', 'ipad', 'itouch'],
+                        labels: ['iPhone', 'iPad', 'iPod Touch'],
+                        pointSize: 2,
+                        hideHover: 'auto',
+                        resize: true
+                    });
 
-                        /*====================================
+                    /*====================================
     MORRIS LINE CHART
  ======================================*/
-                        Morris.Line({
-                            element: 'morris-line-chart',
-                            data: [{
-                                y: '2006',
-                                a: 100,
-                                b: 90
-                            }, {
-                                y: '2007',
-                                a: 75,
-                                b: 65
-                            }, {
-                                y: '2008',
-                                a: 50,
-                                b: 40
-                            }, {
-                                y: '2009',
-                                a: 75,
-                                b: 65
-                            }, {
-                                y: '2010',
-                                a: 50,
-                                b: 40
-                            }, {
-                                y: '2011',
-                                a: 75,
-                                b: 65
-                            }, {
-                                y: '2012',
-                                a: 100,
-                                b: 90
-                            }],
-                            xkey: 'y',
-                            ykeys: ['a', 'b'],
-                            labels: ['Series A', 'Series B'],
-                            hideHover: 'auto',
-                            resize: true
-                        });
+                    Morris.Line({
+                        element: 'morris-line-chart',
+                        data: [{
+                            y: '2006',
+                            a: 100,
+                            b: 90
+                        }, {
+                            y: '2007',
+                            a: 75,
+                            b: 65
+                        }, {
+                            y: '2008',
+                            a: 50,
+                            b: 40
+                        }, {
+                            y: '2009',
+                            a: 75,
+                            b: 65
+                        }, {
+                            y: '2010',
+                            a: 50,
+                            b: 40
+                        }, {
+                            y: '2011',
+                            a: 75,
+                            b: 65
+                        }, {
+                            y: '2012',
+                            a: 100,
+                            b: 90
+                        }],
+                        xkey: 'y',
+                        ykeys: ['a', 'b'],
+                        labels: ['Series A', 'Series B'],
+                        hideHover: 'auto',
+                        resize: true
+                    });
 
 
-                    },
+                },
 
-                    initialization: function() {
-                        mainApp.main_fun();
-
-                    }
+                initialization: function() {
+                    mainApp.main_fun();
 
                 }
-                // Initializing ///
 
-                $(document).ready(function() {
-                    mainApp.main_fun();
-                });
+            }
+            // Initializing ///
 
-            }(jQuery));
-        </script>
+            $(document).ready(function() {
+                mainApp.main_fun();
+            });
+
+        }(jQuery));
+    </script>
 
 
 </body>
