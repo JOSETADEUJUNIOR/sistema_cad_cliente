@@ -78,17 +78,16 @@ if (isset($ret)) {
                  //Ação realizada com sucesso!
                   //  </div>';
                   echo "<script>
-                  Swal.fire({
-          
+                
+                Swal.fire({
                       icon: 'warning',
                       title: 'Alerta',
                       width: 'auto',
                       html: '<h3>Item Sem saldo no estoque!</h3>',
                       showConfirmButton: false,
                       timer: 2000,
-                  })
-    
-              </script>";
+                    })
+                    </script>";
                 break;
             case '-3':
                 //echo '<div class="alert alert-success">

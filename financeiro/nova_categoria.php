@@ -37,27 +37,28 @@ if (isset($_POST['btn_gravar'])) {
                 <!-- /. ROW  -->
                 <hr />
                 <form action="nova_categoria.php" method="post">
-                <div class="row">
-                <div class="col-md-12 col-sm-12">
-                     <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Campo de cadastro
-                        </div>
-                    <div class="panel-body">
-                    
-                <div class="col-md-12">
-                        <div class="form-group" id="divDadosNome">
-                            <label>Nome</label>
-                            <input name="nome" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divDadosNome','nomeCategoria')">
-                        </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Campo de cadastro
+                                </div>
+                                <div class="panel-body">
 
-                        <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarCategoria()">Cadastrar</button>
-                        <a href="consultar_categoria.php" class="btn btn-warning">Voltar</a>
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="divDadosNome">
+                                            <label>Nome</label>
+                                            <input name="nome" id="nomeCategoria" type="text" placeholder="Digite o nome da categoria" class="form-control" onfocusout="SinalizaCampo('divDadosNome','nomeCategoria')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xs-12">
+                                            <button name="btn_gravar" class="btn btn-success col-md-2 col-xs-12 " onclick=" return ValidarCategoria()">Cadastrar</button>
+                                            <a href="consultar_categoria.php" class="btn btn-warning col-md-2 col-xs-12">Voltar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
-                </div>
-                </div>
                 </form>
             </div>
             <!-- /. PAGE INNER  -->

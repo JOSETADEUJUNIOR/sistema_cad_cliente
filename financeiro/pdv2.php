@@ -54,7 +54,7 @@ if (isset($_POST['btn_adicionar'])) {
         $objProd = new ProdutoDAO();
         $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
 
-        
+
         if ($VerSaldo[0]['estoque'] < $qtdVenda) {
             $idVendaRet = $idVenda;
             $ret = -6;
@@ -95,6 +95,7 @@ $ValorVendaDia = $objVenda->VendasDia();
 <?php include_once('_head.php'); ?>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <body>
     <div id="wrapper">
         <?php include_once('_topo.php'); ?>
@@ -105,9 +106,9 @@ $ValorVendaDia = $objVenda->VendasDia();
                 <div class="row">
                     <div class="col-md-12">
                         <?php include('_msg.php') ?>
-                        <h2>CHECKOUT</h2><span><a href="movimento_caixa.php?idCaixa= <?=$caixaDia[0]['id_caixa']?>" class="btn btn-warning">Realizar Sangria</a></span>
+                        <h2>CHECKOUT</h2><span><a href="movimento_caixa.php?idCaixa= <?= $caixaDia[0]['id_caixa'] ?>" class="btn btn-warning">Realizar Sangria</a></span>
                     </div>
-                   
+
                 </div>
 
                 <!-- /. ROW  -->
@@ -122,18 +123,18 @@ $ValorVendaDia = $objVenda->VendasDia();
                                 </div>
                                 <div class="panel-body">
 
-                                   <!-- <div class="col-md-12">
+                                    <!-- <div class="col-md-12">
                                         <div class="form-group" id="divSubNome">
                                             <label>Data da Venda</label>
                                             <input name="dtvenda" id="dtvenda" type="date" placeholder="Digite a data da venda" class="form-control" onfocusout="SinalizaCampo('divSubNome','SubNome')">
                                         </div>
                                     </div>-->
-                                     <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="form-group" id="divSubNome">
                                             <label>Venda do Dia:</label>
-                                            <input disabled value="<?= 'R$: '.explode('.',(@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']))[0].','.explode('.',(@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']))[1] ?>" class="form-control">
+                                            <input disabled value="<?= 'R$: ' . explode('.', (@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']))[0] . ',' . explode('.', (@$ValorVendaDia[0]['item_valor'] == '' ? '' : $ValorVendaDia[0]['item_valor']))[1] ?>" class="form-control">
                                         </div>
-                                     </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="form-group" id="divCliente">
                                             <label>Selecione o Cliente</label>
@@ -147,13 +148,13 @@ $ValorVendaDia = $objVenda->VendasDia();
                                     </div>
                                 </div>
                                 <div class="panel-footer">
-                                      <span ><b>Data do Caixa:</b> <?= UtilDAO::ExibirDataBr(@$caixaDia[0]['data_caixa'])?></span></br>
-                                      <span ><b>Valor em Caixa:</b>  <?=explode('.', $caixaDia[0]['valor_caixa'])[0].','.explode('.', $caixaDia[0]['valor_caixa'])[1]?> </span></br>        
-                                      <span ><b>Atendente:</b> <?=UtilDao::NomeLogado()?></span>
-                                    </div>
+                                    <span><b>Data do Caixa:</b> <?= UtilDAO::ExibirDataBr(@$caixaDia[0]['data_caixa']) ?></span></br>
+                                    <span><b>Valor em Caixa:</b> <?= explode('.', $caixaDia[0]['valor_caixa'])[0] . ',' . explode('.', $caixaDia[0]['valor_caixa'])[1] ?> </span></br>
+                                    <span><b>Atendente:</b> <?= UtilDao::NomeLogado() ?></span>
+                                </div>
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6 ">
                             <div class="panel panel-warning">
                                 <div class="panel-heading">
@@ -186,17 +187,17 @@ $ValorVendaDia = $objVenda->VendasDia();
                                 </div>
                                 <div class="panel-footer">
 
-                                    <label style="text-align:right; margin-top:0px">Valor Total: <?= explode('.',$valorTotVenda[0]['valorTotal'])[0].','.explode('.',$valorTotVenda[0]['valorTotal'])[1] ?> </label>
+                                    <label style="text-align:right; margin-top:0px">Valor Total: <?= explode('.', $valorTotVenda[0]['valorTotal'])[0] . ',' . explode('.', $valorTotVenda[0]['valorTotal'])[1] ?> </label>
                                 </div>
                             </div>
                         </div>
-                    
+
                     </div>
 
 
 
                     <div class="row">
-                        <div class="col-md-12 col-sm-12">
+                        <div class="col-md-12 col-xs-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     Itens da Venda
@@ -234,7 +235,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 Deseja excluir o item: <br>
-                                                                                <label>Nome do item: <?= $itens[$i]['id_item_venda'] ?></label><br>
+                                                                                <label>Nome do item: <?= $itens[$i]['id_item_venda'].'-'.$itens[$i]['nome_produto'] ?></label><br>
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -244,50 +245,42 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                     </div>
                                                                 </div>
                                                             </td>
-
-
                                                         </tr>
+
                                                     <?php } ?>
 
                                                 <?php endif ?>
 
                                             </tbody>
                                         </table>
-
-
-
-
-
-
-                                        <div class="col-md-8">
+                                        <div class="col-md-8 col-xs-12">
                                             <input type="hidden" name="idvenda" id="idvenda" value="<?= @$idVendaRet ?>">
                                             <div class="form-group" id="divProd">
                                                 <label>Selecione o Produto</label>
                                                 <select name="produto" id="produto" class="produto form-control" onfocusout="SinalizaCampo('divProd','produto')">
                                                     <option value="">Escolha o produto</option>
                                                     <?php foreach ($produtos as $prod) { ?>
-                                                        <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] . ' | estoque: ' . $prod['estoque'] . 'qtd'.'| R$: '.$prod['valor_produto'] ?></option>
+                                                        <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] . ' | estoque: ' . $prod['estoque'] . 'qtd' . '| R$: ' . $prod['valor_produto'] ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-xs-12">
                                             <div class="form-group" id="divQtd">
                                                 <label>Quantidade</label>
-                                                <input name="qtd" id="qtd" type="text" placeholder="Digite a quantidade" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
+                                                <input name="qtd" id="qtd" type="text" placeholder="Digite a qtd" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
                                             </div>
-
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 col-xs-12">
                                             <div class="form-group" id="divSubNome">
-                                                <label>Adicionar item</label>
-                                                <button name="btn_adicionar" class="btn btn-success" onclick="return ValidarCaixa()">Adicionar</button>
+                                                <label>Add Item</label></br>
+                                                <button name="btn_adicionar" class="btn btn-success " onclick="return ValidarCaixa()"><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 ">
-                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning ">Emitir Cupom</a>
-                                            <button name="btn_finalizar_Venda" class="btn btn-success ">Finalizar Venda</button>
+                                        <div class="col-md-12 col-xs-12 ">
+                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
+                                            <button name="btn_finalizar_Venda" class="btn btn-success col-md-2 col-xs-12 ">Finalizar Venda</button>
                                         </div>
                                     </div>
                                 </div>
@@ -313,27 +306,25 @@ $ValorVendaDia = $objVenda->VendasDia();
 
     <!-- JQUERY SCRIPTS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-     
+
     <script src="select2/dist/js/select2.min.js" defer></script>
     <script type="text/javascript">
-   
- $(function() {
-  $('#produto').select2({
-    
-    
-  });
-});
-</script>
+        $(function() {
+            $('#produto').select2({
 
 
-<script>
-    $("#dtvenda").focus();
+            });
+        });
+    </script>
 
-if ($("#idvenda").val() > 0) {
-    $("#produto").focus();
-}
 
-</script>
+    <script>
+        $("#dtvenda").focus();
+
+        if ($("#idvenda").val() > 0) {
+            $("#produto").focus();
+        }
+    </script>
 
 
 </body>

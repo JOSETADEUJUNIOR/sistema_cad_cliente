@@ -62,9 +62,9 @@ if (isset($_POST['btn_gravar'])) {
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarSubCat()">Cadastrar</button>
-                                        <a href="consultar_sub_categoria.php" class="btn btn-warning">Voltar</a>
+                                    <div class="col-md-12 col-xs-12">
+                                        <button name="btn_gravar" class="btn btn-success col-md-2 col-xs-12" onclick=" return ValidarSubCat()">Cadastrar</button>
+                                        <a href="consultar_sub_categoria.php" class="btn btn-warning col-md-2 col-xs-12">Voltar</a>
                                     </div>
                                 </div>
                             </div>

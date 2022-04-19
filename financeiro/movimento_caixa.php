@@ -58,7 +58,7 @@ $caixaDia = $objCaixa->CaixaDoDia();
                 <!-- /. ROW  -->
                 <hr />
                 <form action="movimento_caixa.php" method="post">
-                <input type="text" name="dataCaixa" value="<?= $dataCaixa?>">    
+                <input type="hidden" name="dataCaixa" value="<?= $dataCaixa?>">    
                 <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
@@ -85,10 +85,10 @@ $caixaDia = $objCaixa->CaixaDoDia();
                                     </div>
                                     
                                     
-                                    <div class="col-md-12">
-                                        <div class="form-group col-md-4" id="divCaixa">
-                                            <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarCaixa()">Realizar Movimento</button>
-                                            <a href="abrir_caixa.php" class="btn btn-warning">Voltar</a>
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="form-group col-md-12" id="divCaixa">
+                                            <button name="btn_gravar" class="btn btn-success col-md-2 col-xs-12 " onclick=" return ValidarCaixa()">Realizar Movimento</button>
+                                            <a href="abrir_caixa.php" class="btn btn-warning col-md-2 col-xs-12">Voltar</a>
                                         </div>
                                     </div>
                                 </div>

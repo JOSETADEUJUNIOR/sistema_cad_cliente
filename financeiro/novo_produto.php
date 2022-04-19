@@ -172,7 +172,8 @@ if (isset($_POST['btn_cadastrar'])) {
                                         </div>  
                                     </div>
                                     <div class="col-md-12">
-                                        <button name="btn_cadastrar" class="btn btn-success " onclick="return ValidarProduto()">Cadastrar</button>
+                                        <button name="btn_cadastrar" class="btn btn-success col-md-2 col-xs-12 " onclick="return ValidarProduto()">Cadastrar</button>
+                                        <a href="consultar_produto.php" class="btn btn-warning col-md-2 col-xs-12  ">Voltar</a>
                                     </div>
                                 </div>
                             </div>

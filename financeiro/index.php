@@ -31,14 +31,14 @@ $vendaDia = $objResult->GetVendaDia();
     #PainelAdmin {
         border-color: #B0C4DE;
         border-style: solid 1px;
-        color: black;
-        background-color: #a8b3bfcf;
+        color: white;
+        background-color: #023e66;
 
     }
 
 
     #PainelAdmin:hover {
-        background-color: #D3D3D3;
+        background-color: #4682B4;
         transform: scale(1.02);
         box-shadow: 0 5px 15px rgba(red, green, blue, alpha);
         color: white;
@@ -158,12 +158,12 @@ $vendaDia = $objResult->GetVendaDia();
                 <div class="row">
                     <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-shopping-cart"></i>
+                            <span style="background-color: white;" class="icon-box bg-color-red set-icon">
+                                <i style="color:#023e66" class="fa fa-shopping-cart"></i>
                             </span>
                             <div class="text-box" style="padding:2px 2px 2px 2px">
                                 <?php foreach ($vendaDia as $key => $venda) { ?>
-                                    <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
+                                    <a style="color:white;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
                                         <p class="main-text"><b><?= ($venda['item_valor'] == 0 ? "0" : $venda['item_valor']) ?> </b></p>
                                         <p> Venda dia </p>
                                     </a>
@@ -174,12 +174,12 @@ $vendaDia = $objResult->GetVendaDia();
 
                     <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: #023e66;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-shopping-cart"></i>
+                            <span style="background-color: white;" class="icon-box bg-color-red set-icon">
+                                <i style="color:#023e66" class="fa fa-shopping-cart"></i>
                             </span>
                             <div class="text-box" style="padding:2px 2px 2px 2px">
 
-                                <a style="color:black;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
+                                <a style="color:white;text-decoration-line: none;" title="Venda do Dia" href="emitir_venda.php">
                                
 
                                 <?php foreach ($vendaMes as $vm) { ?>
@@ -195,11 +195,11 @@ $vendaDia = $objResult->GetVendaDia();
                     <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
 
-                            <span class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-list"></i>
+                            <span style="background-color: white;"  class="icon-box bg-color-red set-icon">
+                                <i style="color:#023e66" class="fa fa-list"></i>
                             </span>
                             <div class="text-box">
-                            <a style="color:black;text-decoration-line: none;" href="consultar_cliente.php">   
+                            <a style="color:white;text-decoration-line: none;" href="consultar_cliente.php">   
                            
                             <?php foreach ($retCliente as $key => $value) { ?>
                                 <p style="font-size:20px" class="main-text"><?= $value['total']?></p>
@@ -214,11 +214,11 @@ $vendaDia = $objResult->GetVendaDia();
 
                     <div class="col-md-3 col-xs-12">
                         <div id="PainelAdmin" class="panel panel-back noti-box">
-                            <span style="background-color: green;" class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-archive"></i>
+                            <span style="background-color: white;" class="icon-box bg-color-red set-icon">
+                                <i style="color:#023e66" class="fa fa-archive"></i>
                             </span>
                             <div class="text-box">
-                                <a style="color:black;text-decoration-line: none;" href="consultar_produto.php">
+                                <a style="color:white;text-decoration-line: none;" href="consultar_produto.php">
                               
                                 <?php foreach ($produto as $prod) { ?>
                                         <p style="font-size:20px" class="main-text"><?= $prod['id_produto']?></p>

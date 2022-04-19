@@ -585,11 +585,25 @@ function ValidarConta(){
 
 function ValidarCaixa(){
 
+    if ($("#valorCaixa").val().trim() == "") {
+        $("#valorCaixa").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Selecione o valor corretamente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+            
+          })
+        return false;
+    
+    }
     if ($("#produto").val().trim() == "") {
         $("#produto").focus();
         Swal.fire({
             icon: 'warning',
-            title: 'Oops...',cli
+            title: 'Oops...',
             width: 'auto',
             html: '<h3>Selecione o produto corretamente!</h3>',
             showConfirmButton: false,
@@ -875,8 +889,6 @@ function ValidarFornecedor(){
 
 }
 function SinalizaCampo(div,nome){
-    console.log(nome);//dadosNome
-
     if ($("#"+nome).val().trim()== "") {
         $("#" + div).addClass("has-error");
            
