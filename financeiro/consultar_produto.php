@@ -78,6 +78,8 @@ if (isset($_GET['idExcluir']) && is_numeric($_GET['idExcluir'])) {
                                                     <td style="padding: 1px 1px 1px 1px;">
                                                         <a href="alterar_produto.php?cod=<?= $prod['id_produto'] ?>"><i title="Alterar Produto" style=" color:#c09046; font-size:14px;margin-left:2px; margin-right:2px" class="fa fa-pencil"></i></a>
                                                         <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $prod['id_produto'] ?>"><i title="Excluir Produto" style=" color:red; font-size:14px; margin-left:1px" class="fa fa-trash"></i></a>
+                                                        <a href="relProdutoBarras.php?codbarras=<?= $prod['cod_produto'].'&nomeProduto='.$prod['nome_produto']?>"target="_blank"><i title="Emitir Codigo de Barras" style=" color:red; font-size:14px; margin-left:1px" class="fa fa-barcode"></i></a>
+                                                        
                                                         <div class="modal fade" id="modalExcluir<?= $prod['id_produto'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">

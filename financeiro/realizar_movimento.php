@@ -13,8 +13,6 @@ $objConta = new ContaDAO();
 
 if (isset($_POST['btn_gravar'])) {
 
-    echo 'passou aqui';
-
     $tipo = trim($_POST['tipo']);
     $data = trim($_POST['data']);
     $valor = trim($_POST['valor']);

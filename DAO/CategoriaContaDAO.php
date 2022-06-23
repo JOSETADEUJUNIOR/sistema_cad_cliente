@@ -36,6 +36,7 @@ class CategoriaContaDAO extends Conexao{
             return 1;
 
         } catch (Exception $ex) {
+             echo $ex->getMessage();
             return -1;
         }
 
@@ -91,6 +92,7 @@ class CategoriaContaDAO extends Conexao{
             $sql->execute();
             return 1;
         } catch (Exception $ex) {
+           
             return -1;
         }
      
