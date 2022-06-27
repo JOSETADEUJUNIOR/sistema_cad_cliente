@@ -615,6 +615,7 @@ function ValidarCaixa(){
     }
     if ($("#qtd").val().trim() == "") {
         $("#qtd").focus();
+        
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',

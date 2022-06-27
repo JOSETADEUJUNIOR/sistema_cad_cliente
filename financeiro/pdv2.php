@@ -79,6 +79,7 @@ if (isset($_GET['idExcluir'])) {
 }
 
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
+var_dump($dadosVenda);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
 
 $objProduto = new ProdutoDAO();
@@ -139,9 +140,9 @@ $ValorVendaDia = $objVenda->VendasDia();
                                         <div class="form-group" id="divCliente">
                                             <label>Selecione o Cliente</label>
                                             <select name="cliente" id="cliente" class="form-control" onfocusout="SinalizaCampo('divCliente','cliente')">
-                                                <option value="">Escolher cliente</option>
+                                                <option value="<?= (@$dadosVenda[0]['id_cliente'] == '' ? '': $dadosVenda[0]['id_cliente'])?>"><?= (@$dadosVenda[0]['nome_cliente'] == '' ? 'Escolher Cliente': $dadosVenda[0]['nome_cliente']) ?></option>
                                                 <?php for ($i = 0; $i < count($clientes); $i++) { ?>
-                                                    <option value="<?= $clientes[$i]['id_cliente'] ?>"><?= $clientes[$i]['nome_cliente'] ?></option>
+                                                    <option value="<?= $clientes[$i]['id_cliente']?>"><?= $clientes[$i]['nome_cliente'] ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -195,100 +196,105 @@ $ValorVendaDia = $objVenda->VendasDia();
                     </div>
 
 
-
-                    <div class="row">
+                    <div class="row" id="itensVenda">
                         <div class="col-md-12 col-xs-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    Itens da Venda
+                                    Itens da Venda <?php if (@$caixaDia[0]['data_caixa'] == '') { ?>
+                                        <span style="color:red"> para efetura venda , <a class="btn btn-warning btn-xs" href="abrir_caixa.php">abrir caixa</span></a>
+
+                                    <?php } ?>
+
                                 </div>
-                                <div class="panel-body">
+                                <?php if (@$caixaDia[0]['data_caixa'] != '') { ?>
+                                    <div class="panel-body">
 
 
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                            <thead>
-                                                <tr>
-                                                    <th>Produto</th>
-                                                    <th>Quantidade</th>
-                                                    <th>Valor</th>
-                                                    <th>Excluir item</th>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Produto</th>
+                                                        <th>Quantidade</th>
+                                                        <th>Valor</th>
+                                                        <th>Excluir item</th>
 
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if (is_countable(@$itens) && count($itens) > 0) : ?>
-                                                    <?php for ($i = 0; $i < count($itens); $i++) { ?>
-                                                        <tr class="odd gradeX">
-                                                            <td><?= $itens[$i]['nome_produto'] ?></td>
-                                                            <td><?= $itens[$i]['qtd_produto'] ?></td>
-                                                            <td><?= $itens[$i]['item_valor'] ?></td>
-                                                            <td>
-                                                                <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
-                                                                <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                Deseja excluir o item: <br>
-                                                                                <label>Nome do item: <?= $itens[$i]['id_item_venda'].'-'.$itens[$i]['nome_produto'] ?></label><br>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                                                <a href="pdv2.php?idExcluir=<?= $itens[$i]['id_item_venda'] . '-' . $itens[$i]['id_venda'] ?>" class="btn btn-primary">Sim</a>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php if (is_countable(@$itens) && count($itens) > 0) : ?>
+                                                        <?php for ($i = 0; $i < count($itens); $i++) { ?>
+                                                            <tr class="odd gradeX">
+                                                                <td><?= $itens[$i]['nome_produto'] ?></td>
+                                                                <td><?= $itens[$i]['qtd_produto'] ?></td>
+                                                                <td><?= $itens[$i]['item_valor'] ?></td>
+                                                                <td>
+                                                                    <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
+                                                                    <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                    <h4 class="modal-title" id="myModalLabel">Confirmação de exclusão</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    Deseja excluir o item: <br>
+                                                                                    <label>Nome do item: <?= $itens[$i]['id_item_venda'] . '-' . $itens[$i]['nome_produto'] ?></label><br>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                                                    <a href="pdv2.php?idExcluir=<?= $itens[$i]['id_item_venda'] . '-' . $itens[$i]['id_venda'] ?>" class="btn btn-primary">Sim</a>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
 
-                                                    <?php } ?>
+                                                        <?php } ?>
 
-                                                <?php endif ?>
+                                                    <?php endif ?>
 
-                                            </tbody>
-                                        </table>
-                                        <div class="col-md-8 col-xs-12">
-                                            <input type="hidden" name="idvenda" id="idvenda" value="<?= @$idVendaRet ?>">
-                                            <div class="form-group" id="divProd">
-                                                <label>Selecione o Produto</label>
-                                                <select name="produto" id="produto" class="produto form-control" onfocusout="SinalizaCampo('divProd','produto')">
-                                                    <option value="">Escolha o produto</option>
-                                                    <?php foreach ($produtos as $prod) { ?>
-                                                        <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] ?>"><?= $prod['nome_produto'] . ' | estoque: ' . $prod['estoque'] . 'qtd' . '| R$: ' . $prod['valor_produto'] ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                </tbody>
+                                            </table>
+                                            <div class="col-md-8 col-xs-12">
+                                                <input type="hidden" name="idvenda" id="idvenda" value="<?= @$idVendaRet ?>">
+                                                <div class="form-group" id="divProd">
+                                                    <label>Selecione o Produto</label>
+                                                    <select name="produto" id="produto" class="produto form-control" onfocusout="SinalizaCampo('divProd','produto')">
+                                                        <option value="">Escolha o produto</option>
+                                                        <?php foreach ($produtos as $prod) { ?>
+                                                            <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] . ' + ' . $prod['estoque'] ?>"><?= $prod['nome_produto'] . ' | estoque: ' . $prod['estoque'] . 'qtd' . '| R$: ' . $prod['valor_produto'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-2 col-xs-12">
-                                            <div class="form-group" id="divQtd">
-                                                <label>Quantidade</label>
-                                                <input name="qtd" id="qtd" type="text" placeholder="Digite a qtd" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
+                                            <div class="col-md-2 col-xs-12">
+                                                <div class="form-group" id="divQtd">
+                                                    <label>Quantidade</label>
+                                                    <input name="qtd" id="qtd" type="text" placeholder="Digite a qtd" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-2 col-xs-12">
-                                            <div class="form-group" id="divSubNome">
-                                                <label>Add Item</label></br>
-                                                <button name="btn_adicionar" class="btn btn-success " onclick="return ValidarCaixa()"><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
+                                            <div class="col-md-2 col-xs-12">
+                                                <div class="form-group" id="divSubNome">
+                                                    <label>Add Item</label></br>
+                                                    <button onclick="return ValidarCaixa()" name="btn_adicionar" class="btn btn-success "><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-12 col-xs-12 ">
-                                            <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
-                                            <button name="btn_finalizar_Venda" class="btn btn-success col-md-2 col-xs-12 ">Finalizar Venda</button>
+                                            <div class="col-md-12 col-xs-12 ">
+                                                <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
+                                                <button name="btn_finalizar_Venda" class="btn btn-success col-md-2 col-xs-12 ">Finalizar Venda</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="panel-footer">
-                                </div>
+                                    <div class="panel-footer">
+                                    </div>
                             </div>
                         </div>
                     </div>
+                <?php } ?>
 
 
                 </form>

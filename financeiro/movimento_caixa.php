@@ -8,9 +8,8 @@ $pag_ret = 'abrir_caixa.php';
 $objCaixa = new VendaDAO();
 
 if (isset($_GET['dataCaixa'])) {
-    
-    $dataCaixa = $_GET['dataCaixa'];
 
+    $dataCaixa = $_GET['dataCaixa'];
 }
 
 if (isset($_POST['btn_gravar'])) {
@@ -19,17 +18,11 @@ if (isset($_POST['btn_gravar'])) {
     $valorCaixa = trim($_POST['valorCaixa']);
     $tipoMov = trim($_POST['tipoMov']);
     $dataCaixa = trim($_POST['dataCaixa']);
-    
-    var_dump($VerSaldo[0]['valor_caixa']);
-    var_dump($valorCaixa);
-    if ($VerSaldo[0]['valor_caixa'] < $valorCaixa && $tipoMov == 1 ) {
+    if ($VerSaldo[0]['valor_caixa'] < $valorCaixa && $tipoMov == 1) {
         $ret = -9;
-        
-    }else {
+    } else {
         $ret = $objCaixa->MovimentarCaixa($valorCaixa, $dataCaixa, $tipoMov);
-        
     }
-    
 }
 
 $caixaDia = $objCaixa->CaixaDoDia();
@@ -58,8 +51,8 @@ $caixaDia = $objCaixa->CaixaDoDia();
                 <!-- /. ROW  -->
                 <hr />
                 <form action="movimento_caixa.php" method="post">
-                <input type="hidden" name="dataCaixa" value="<?= $dataCaixa?>">    
-                <div class="row">
+                    <input type="hidden" name="dataCaixa" value="<?= $dataCaixa ?>">
+                    <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
@@ -78,16 +71,16 @@ $caixaDia = $objCaixa->CaixaDoDia();
                                             <label>Selecione o movimento</label>
                                             <select name="tipoMov" id="tipoMov" class="form-control" onfocusout="SinalizaCampo('divCat','cat')">
                                                 <option value="">Selecione o tipo</option>
-                                                    <option value="1">Sangria do Caixa</option>
-                                                    <option value="2">Lançar Valor</option>
+                                                <option value="1">Sangria do Caixa</option>
+                                                <option value="2">Lançar Valor</option>
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                    
+
+
                                     <div class="col-md-12 col-xs-12">
                                         <div class="form-group col-md-12" id="divCaixa">
-                                            <button name="btn_gravar" class="btn btn-success col-md-2 col-xs-12 " onclick=" return ValidarCaixa()">Realizar Movimento</button>
+                                            <button name="btn_gravar" class="btn btn-success col-md-2 col-xs-12 ">Realizar Movimento</button>
                                             <a href="abrir_caixa.php" class="btn btn-warning col-md-2 col-xs-12">Voltar</a>
                                         </div>
                                     </div>
@@ -96,13 +89,13 @@ $caixaDia = $objCaixa->CaixaDoDia();
                         </div>
                     </div>
                 </form>
-            
+
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Movimento do Caixa 
+                                Movimento do Caixa
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -112,7 +105,7 @@ $caixaDia = $objCaixa->CaixaDoDia();
                                                 <th>Valor Incial</th>
                                                 <th>Valor em Caixa</th>
                                                 <th>Data Movimento</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -122,7 +115,7 @@ $caixaDia = $objCaixa->CaixaDoDia();
                                                     <td><?= $cx['valor_inicial'] ?></td>
                                                     <td><?= $cx['valor_caixa'] ?></td>
                                                     <td><?= UtilDAO::ExibirDataBr($cx['data_caixa']) ?></td>
-                                                   
+
                                                 </tr>
                                             <?php } ?>
                                         </tbody>
@@ -135,7 +128,7 @@ $caixaDia = $objCaixa->CaixaDoDia();
                     </div>
                 </div>
 
-                
+
             </div>
             <!-- /. PAGE INNER  -->
         </div>

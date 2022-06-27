@@ -1,9 +1,9 @@
 
 
-function ValidarLogin(){
+function ValidarLogin() {
 
-    if ($("#emailLogin").val().trim() == ""){
-        
+    if ($("#emailLogin").val().trim() == "") {
+
         $("#emailLogin").focus();
         Swal.fire({
             icon: 'warning',
@@ -12,10 +12,10 @@ function ValidarLogin(){
             html: '<h3>Preencha o campo e-mail corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-          })
+        })
         return false;
-    
-    }else if ($("#senhaLogin").val().trim() == ""){
+
+    } else if ($("#senhaLogin").val().trim() == "") {
         $("#senhaLogin").focus();
         Swal.fire({
             icon: 'warning',
@@ -24,21 +24,21 @@ function ValidarLogin(){
             html: '<h3>Preencha o campo Senha corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else{
-        
-          return true;
+
+    } else {
+
+        return true;
     }
 }
 
 
-function ValidarCategoria(){
+function ValidarCategoria() {
 
     if ($("#nomeCategoria").val().trim() == "") {
-       $("#nomeCategoria").focus();
+        $("#nomeCategoria").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -46,40 +46,18 @@ function ValidarCategoria(){
             html: '<h3>Preencha o Nome Corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else{
-          return true;
+
+    } else {
+        return true;
     }
 
 
 }
 
-function ValidarCaixa(){
-
-    if ($("#valorCaixa").val().trim() == "") {
-       $("#valorCaixa").focus();
-        Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            width: 'auto',
-            html: '<h3>Digite o valor do movimento!</h3>',
-            showConfirmButton: false,
-            timer: 2000,
-            
-          })
-        return false;
-    
-    }else{
-          return true;
-    }
-
-
-}
-
-function ValidarSubCat(){
+function ValidarSubCat() {
     if ($("#SubNome").val().trim() == "") {
         $("#SubNome").focus();
         Swal.fire({
@@ -89,11 +67,11 @@ function ValidarSubCat(){
             html: '<h3>Preencha o Nome Corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }if ($("#cat").val().trim() == "") {
+
+    } if ($("#cat").val().trim() == "") {
         $("#cat").focus();
         Swal.fire({
             icon: 'warning',
@@ -102,22 +80,22 @@ function ValidarSubCat(){
             html: '<h3>Selecione a Categoria!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else{
-        
-          return true;
+
+    } else {
+
+        return true;
     }
 
 }
 
 
-function ValidarMeusDados(){
+function ValidarMeusDados() {
 
-    if ($("#dadosNome").val().trim() == ""){
-       
+    if ($("#dadosNome").val().trim() == "") {
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -125,12 +103,12 @@ function ValidarMeusDados(){
             html: '<h3>Preencha o campo Nome corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else if ($("#dadosEmail").val().trim() == ""){
-       
+
+    } else if ($("#dadosEmail").val().trim() == "") {
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -138,28 +116,28 @@ function ValidarMeusDados(){
             html: '<h3>Preencha o campo E-mail corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    
-    }else{
+
+
+    } else {
         Swal.fire({
-            
+
             icon: 'success',
             title: 'Sucesso',
             width: 'auto',
             html: '<h3>Dados Salvos com sucesso!</h3>',
             showConfirmButton: false,
             timer: 2000,
-          })
-          return true;
+        })
+        return true;
     }
 
 
 }
 
-function ValidarCliente(){
+function ValidarCliente() {
 
     if ($("#clienteCep").val().trim() == "") {
         $("#clienteCep").focus();
@@ -170,8 +148,8 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo cep corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
@@ -184,8 +162,8 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo rua corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
@@ -198,12 +176,12 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo bairro corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
-    
+
     if ($("#clienteCidade").val().trim() == "") {
         $("#clienteCidade").focus();
         Swal.fire({
@@ -213,8 +191,8 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo cidade corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
@@ -227,8 +205,8 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo estado corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
@@ -241,8 +219,8 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo nome do cliente corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
@@ -255,11 +233,11 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo data de nascimento corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
-    }if ($("#clienteNascimento").val().trim() == "") {
+    } if ($("#clienteNascimento").val().trim() == "") {
         $("#clienteNascimento").focus();
         Swal.fire({
             icon: 'warning',
@@ -268,16 +246,16 @@ function ValidarCliente(){
             html: '<h3>Preencha o campo data de nascimento corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
-    }else{
-          return true;
+    } else {
+        return true;
     }
 }
 
-function ValidarCargo(){
+function ValidarCargo() {
     if ($("#nomeCargo").val().trim() == "") {
         Swal.fire({
             icon: 'warning',
@@ -302,17 +280,17 @@ function ValidarCargo(){
         })
         return false;
     }
-    else{
+    else {
         Swal.fire({
-            
+
             icon: 'success',
             title: 'Sucesso',
             width: 'auto',
             html: '<h3>Dados Salvos com sucesso!</h3>',
             showConfirmButton: false,
             timer: 2000,
-          })
-          return true;
+        })
+        return true;
     }
 
 
@@ -320,10 +298,10 @@ function ValidarCargo(){
 }
 
 
-function ValidarFuncionario(){
+function ValidarFuncionario() {
 
     if ($("#nomeFuncionario").val().trim() == "") {
-        
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -331,13 +309,13 @@ function ValidarFuncionario(){
             html: '<h3>Preencha o campo nome corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
     if ($("#loginFuncionario").val().trim() == "") {
-        
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -345,13 +323,13 @@ function ValidarFuncionario(){
             html: '<h3>Preencha o campo login corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
     if ($("#senhaFuncionario").val().trim() == "") {
-        
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -359,12 +337,12 @@ function ValidarFuncionario(){
             html: '<h3>Preencha o campo senha corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
-          return false;
 
-    }else if ($("#senhaFuncionario").val().length < 6){
-       
+        })
+        return false;
+
+    } else if ($("#senhaFuncionario").val().length < 6) {
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -372,13 +350,13 @@ function ValidarFuncionario(){
             html: '<h3>Preencha o campo senha com no mínimo 6 caracteres</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
     if ($("#dataAdmissao").val().trim() == "") {
-        
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -386,15 +364,15 @@ function ValidarFuncionario(){
             html: '<h3>Preencha o campo data admissão corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
-    
-    
+
+
     if ($("#Cargo").val().trim() == "") {
-        
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -402,23 +380,23 @@ function ValidarFuncionario(){
             html: '<h3>Preencha o campo cargo corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
 
     }
 
-    else{
+    else {
         Swal.fire({
-            
+
             icon: 'success',
             title: 'Sucesso',
             width: 'auto',
             html: '<h3>Dados Salvos com sucesso!</h3>',
             showConfirmButton: false,
             timer: 2000,
-          })
-          return true;
+        })
+        return true;
     }
 
 
@@ -429,11 +407,11 @@ function ValidarFuncionario(){
 
 
 
-function ValidarMovimento(){
+function ValidarMovimento() {
 
-    if ($("#tipo").val().trim() == ""){
+    if ($("#tipo").val().trim() == "") {
         $("#tipo").focus();
-       
+
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -441,12 +419,12 @@ function ValidarMovimento(){
             html: '<h3>Preencha o campo tipo corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
-    if ($("#dtMovimento").val().trim() == ""){
+    if ($("#dtMovimento").val().trim() == "") {
         $("#dtMovimento").focus();
         Swal.fire({
             icon: 'warning',
@@ -455,11 +433,11 @@ function ValidarMovimento(){
             html: '<h3>Preencha o campo Data do Movimento corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
     }
-    if ($("#valor").val().trim() == ""){
+    if ($("#valor").val().trim() == "") {
         $("#valor").focus();
         Swal.fire({
             icon: 'warning',
@@ -468,24 +446,24 @@ function ValidarMovimento(){
             html: '<h3>Preencha o campo Valor corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-            })
+
+        })
         return false;
     }
-    if ($("#cat").val().trim() == ""){
+    if ($("#cat").val().trim() == "") {
         $("#cat").focus();
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                width: 'auto',
-                html: '<h3>Preencha o campo Categoria corretamente</h3>',
-                showConfirmButton: false,
-                timer: 2000,
-                
-                })
-            return false;
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo Categoria corretamente</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+
+        })
+        return false;
     }
-    if ($("#emp").val().trim() == ""){
+    if ($("#emp").val().trim() == "") {
         $("#emp").focus();
         Swal.fire({
             icon: 'warning',
@@ -494,11 +472,11 @@ function ValidarMovimento(){
             html: '<h3>Preencha o campo Empresa corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-            })
+
+        })
         return false;
     }
-    if ($("#conta").val().trim() == ""){
+    if ($("#conta").val().trim() == "") {
         $("#conta").focus();
         Swal.fire({
             icon: 'warning',
@@ -507,19 +485,19 @@ function ValidarMovimento(){
             html: '<h3>Preencha o campo Conta corretamente</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-            })
+
+        })
         return false;
     }
-    
-    else{
-          return true;
+
+    else {
+        return true;
     }
 }
 
 
 
-function ValidarConta(){
+function ValidarConta() {
 
     if ($("#nomeBanco").val().trim() == "") {
         $("#nomeBanco").focus();
@@ -530,10 +508,10 @@ function ValidarConta(){
             html: '<h3>Preencha o campo nome do banco Corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#agencia").val().trim() == "") {
         $("#agencia").focus();
@@ -544,10 +522,10 @@ function ValidarConta(){
             html: '<h3>Preencha o campo agencia corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#numConta").val().trim() == "") {
         $("#numConta").focus();
@@ -558,10 +536,10 @@ function ValidarConta(){
             html: '<h3>Preencha o campo numero da conta corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#saldo").val().trim() == "") {
         $("#saldo").focus();
@@ -572,19 +550,33 @@ function ValidarConta(){
             html: '<h3>Preencha o campo saldo corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else{
-         return true;
+
+    } else {
+        return true;
     }
 
 
 }
 
-function ValidarCaixa(){
+function ValidarCaixa() {
 
+    if ($("#cliente").val().trim() == "" || $("#cliente").val().trim() == "") {
+        $("#cliente").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Selecione o cliente!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+
+        })
+        return false;
+
+    }
     if ($("#produto").val().trim() == "") {
         $("#produto").focus();
         Swal.fire({
@@ -594,10 +586,10 @@ function ValidarCaixa(){
             html: '<h3>Selecione o produto corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#qtd").val().trim() == "") {
         $("#qtd").focus();
@@ -608,16 +600,17 @@ function ValidarCaixa(){
             html: '<h3>Quantidade obrigatória!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
-    else{
-         return true;
+    else {
+        return true;
     }
+
 }
-function ValidarProduto(){
+function ValidarProduto() {
 
     if ($("#codBarras").val().trim() == "") {
         $("#codBarras").focus();
@@ -628,10 +621,10 @@ function ValidarProduto(){
             html: '<h3>Preencha o campo codigo do produto corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#nomeProduto").val().trim() == "") {
         $("#nomeProduto").focus();
@@ -642,10 +635,10 @@ function ValidarProduto(){
             html: '<h3>Preencha o campo nome do produto corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#dataCad").val().trim() == "") {
         $("#dataCad").focus();
@@ -656,10 +649,10 @@ function ValidarProduto(){
             html: '<h3>Preencha o campo data do cadastro corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#cat").val().trim() == "") {
         $("#cat").focus();
@@ -670,10 +663,10 @@ function ValidarProduto(){
             html: '<h3>Selecione a categoria corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#subcat").val().trim() == "") {
         $("#subcat").focus();
@@ -684,10 +677,10 @@ function ValidarProduto(){
             html: '<h3>Selecione a sub Categoria corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#fornecedor").val().trim() == "") {
         $("#fornecedor").focus();
@@ -698,12 +691,12 @@ function ValidarProduto(){
             html: '<h3>Selecione  a Empresa corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
-    
+
     if ($("#estoque").val().trim() == "") {
         $("#estoque").focus();
         Swal.fire({
@@ -713,10 +706,10 @@ function ValidarProduto(){
             html: '<h3>Selecione o estoque corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#valor").val().trim() == "") {
         $("#valor").focus();
@@ -727,13 +720,13 @@ function ValidarProduto(){
             html: '<h3>Preencha o campo valor do produto corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else{
-        
-          return true;
+
+    } else {
+
+        return true;
     }
 
 
@@ -741,10 +734,10 @@ function ValidarProduto(){
 
 
 
-function ValidarFornecedor(){
+function ValidarFornecedor() {
 
     if ($("#cnpj").val().trim() == "") {
-       $("#cnpj").focus();
+        $("#cnpj").focus();
         Swal.fire({
             icon: 'warning',
             title: 'Oops...',
@@ -752,10 +745,10 @@ function ValidarFornecedor(){
             html: '<h3>Preencha o campo cnpj corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
-          return false;
-    
+
+        })
+        return false;
+
     }
     if ($("#nomeFornecedor").val().trim() == "") {
         $("#nomeFornecedor").focus();
@@ -766,10 +759,10 @@ function ValidarFornecedor(){
             html: '<h3>Preencha o campo nome corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#tel").val().trim() == "") {
         $("#tel").focus()
@@ -780,10 +773,10 @@ function ValidarFornecedor(){
             html: '<h3>Preencha o campo telefone corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#email").val().trim() == "") {
         $("#email").focus();
@@ -794,10 +787,10 @@ function ValidarFornecedor(){
             html: '<h3>Preencha o campo e-mail corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
 
     if ($("#cep").val().trim() == "") {
@@ -809,10 +802,10 @@ function ValidarFornecedor(){
             html: '<h3>Preencha o campo cep corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#rua").val().trim() == "") {
         $("#rua").focus();
@@ -823,10 +816,10 @@ function ValidarFornecedor(){
             html: '<h3>Selecione a rua corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#bairro").val().trim() == "") {
         $("#bairro").focus();
@@ -837,10 +830,10 @@ function ValidarFornecedor(){
             html: '<h3>Selecione o bairro corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#cidade").val().trim() == "") {
         $("#cidade").focus();
@@ -851,10 +844,10 @@ function ValidarFornecedor(){
             html: '<h3>Selecione a cidade corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
+
     }
     if ($("#estado").val().trim() == "") {
         $("#estado").focus();
@@ -865,25 +858,25 @@ function ValidarFornecedor(){
             html: '<h3>Selecione o estado corretamente!</h3>',
             showConfirmButton: false,
             timer: 2000,
-            
-          })
+
+        })
         return false;
-    
-    }else{
-          return true;
+
+    } else {
+        return true;
     }
 
 }
-function SinalizaCampo(div,nome){
+function SinalizaCampo(div, nome) {
     console.log(nome);//dadosNome
 
-    if ($("#"+nome).val().trim()== "") {
+    if ($("#" + nome).val().trim() == "") {
         $("#" + div).addClass("has-error");
-           
 
-    }else{
+
+    } else {
         $("#" + div).removeClass("has-error").addClass("has-success");
-        
+
     }
 
 }

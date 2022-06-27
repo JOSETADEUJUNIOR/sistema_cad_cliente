@@ -7,9 +7,9 @@ if (isset($ret)) {
     switch ($ret) {
         case '-11':
             //echo '<div class="alert alert-success">
-             //Ação realizada com sucesso!
-              //  </div>';
-              echo "<script>
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
               Swal.fire({
       
                   icon: 'warning',
@@ -23,9 +23,9 @@ if (isset($ret)) {
             break;
         case '-10':
             //echo '<div class="alert alert-success">
-             //Ação realizada com sucesso!
-              //  </div>';
-              echo "<script>
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
               Swal.fire({
       
                   icon: 'warning',
@@ -37,11 +37,11 @@ if (isset($ret)) {
               })
           </script>";
             break;
-            case '-9':
-                //echo '<div class="alert alert-success">
-                 //Ação realizada com sucesso!
-                  //  </div>';
-                  echo "<script>
+        case '-9':
+            //echo '<div class="alert alert-success">
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
                   Swal.fire({
           
                       icon: 'warning',
@@ -52,12 +52,12 @@ if (isset($ret)) {
                       timer: 5000,
                   })
               </script>";
-                break;
+            break;
         case '-7':
             //echo '<div class="alert alert-success">
-             //Ação realizada com sucesso!
-              //  </div>';
-              echo "<script>
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
               Swal.fire({
       
                   icon: 'success',
@@ -69,31 +69,31 @@ if (isset($ret)) {
               })
 
               setTimeout(function(){
-                 window.location='".$pag_ret."';
+                 window.location='" . $pag_ret . "';
               }, 2000);
           </script>";
             break;
-            case '-6':
-                //echo '<div class="alert alert-success">
-                 //Ação realizada com sucesso!
-                  //  </div>';
-                  echo "<script>
+        case '-6':
+            //echo '<div class="alert alert-success">
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
                 
                 Swal.fire({
                       icon: 'warning',
                       title: 'Alerta',
                       width: 'auto',
-                      html: '<h3>Item Sem saldo no estoque!</h3>',
+                      html: '<h3>Item Sem saldo no estoque/Quantidade Maior que estoque!</h3>',
                       showConfirmButton: false,
                       timer: 2000,
                     })
                     </script>";
-                break;
-            case '-3':
-                //echo '<div class="alert alert-success">
-                 //Ação realizada com sucesso!
-                  //  </div>';
-                  echo "<script>
+            break;
+        case '-3':
+            //echo '<div class="alert alert-success">
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
                   Swal.fire({
           
                       icon: 'Warning',
@@ -105,15 +105,15 @@ if (isset($ret)) {
                   })
     
                   setTimeout(function(){
-                     window.location='".$pag_ret."';
+                     window.location='" . $pag_ret . "';
                   }, 2000);
               </script>";
-                break;
+            break;
         case '-5':
             //echo '<div class="alert alert-success">
-             //Ação realizada com sucesso!
-              //  </div>';
-              echo "<script>
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
               Swal.fire({
       
                   icon: 'error',
@@ -125,15 +125,15 @@ if (isset($ret)) {
               })
 
               setTimeout(function(){
-                 window.location='".$pag_ret."';
+                 window.location='" . $pag_ret . "';
               }, 2000);
           </script>";
             break;
-            case '-4':
-                //echo '<div class="alert alert-success">
-                 //Ação realizada com sucesso!
-                  //  </div>';
-                  echo "<script>
+        case '-4':
+            //echo '<div class="alert alert-success">
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
                   Swal.fire({
           
                       icon: 'error',
@@ -145,15 +145,15 @@ if (isset($ret)) {
                   })
     
                   setTimeout(function(){
-                     window.location='".$pag_ret."';
+                     window.location='" . $pag_ret . "';
                   }, 2000);
               </script>";
-                break;
+            break;
         case '-2':
             //echo '<div class="alert alert-success">
-             //Ação realizada com sucesso!
-              //  </div>';
-              echo "<script>
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
               Swal.fire({
       
                   icon: 'warning',
@@ -165,7 +165,7 @@ if (isset($ret)) {
               })
 
               setTimeout(function(){
-                 window.location='".$pag_ret."';
+                 window.location='" . $pag_ret . "';
               }, 2000);
           </script>";
             break;
@@ -191,9 +191,9 @@ if (isset($ret)) {
             break;
         case '1':
             //echo '<div class="alert alert-success">
-             //Ação realizada com sucesso!
-              //  </div>';
-              echo "<script>
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
               Swal.fire({
       
                   icon: 'success',
@@ -205,10 +205,9 @@ if (isset($ret)) {
               })
 
               setTimeout(function(){
-                 window.location='".$pag_ret."';
+                 window.location='" . $pag_ret . "';
               }, 2000);
           </script>";
             break;
     }
-        
 }
