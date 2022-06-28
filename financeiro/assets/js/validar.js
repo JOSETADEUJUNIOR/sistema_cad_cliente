@@ -321,18 +321,12 @@ function ValidarCargo() {
 
 
 function AddCupom() {
-    if ($("#divCupom").hide) {
-        
-        $("#divCupom").show();
-    }else{
+    if ($("#divCupom").toggle()) {
 
-        $("#divCupom").hide(); console.log($cupom);
-    }   
-
-
-
+    }
 
 }
+
 
 
 

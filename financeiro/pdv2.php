@@ -266,7 +266,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                 <input type="hidden" name="idvenda" id="idvenda" value="<?= @$idVendaRet ?>">
                                                 <div class="form-group" id="divProd">
                                                     <label>Selecione o Produto</label>
-                                                    <select name="produto" id="produto" class="produto form-control" >
+                                                    <select name="produto" id="produto" class="produto form-control">
                                                         <option value="">Escolha o produto</option>
                                                         <option value="-1">Cupom de Desconto</option>
                                                         <?php foreach ($produtos as $prod) { ?>
@@ -298,7 +298,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                             <div class="col-md-12 col-xs-12 ">
                                                 <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
                                                 <button name="btn_finalizar_Venda" class="btn btn-success col-md-2 col-xs-12 ">Finalizar Venda</button>
-                                                <button type="button" name="btnCupom" onclick="AddCupom()" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom</button>
+                                                <button type="button" id="btnCupom" name="btnCupom" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom</button>
                                             </div>
                                         </div>
                                     </div>
@@ -327,6 +327,7 @@ $ValorVendaDia = $objVenda->VendasDia();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script src="select2/dist/js/select2.min.js" defer></script>
+
     <script type="text/javascript">
         $(function() {
             $('#produto').select2({
@@ -345,7 +346,13 @@ $ValorVendaDia = $objVenda->VendasDia();
         }
     </script>
 
-
+    <script>
+        $(document).ready(function() {
+            $("#btnCupom").click(function() {
+                $("#divCupom").toggle();
+            });
+        });
+    </script>
 </body>
 
 </html>
