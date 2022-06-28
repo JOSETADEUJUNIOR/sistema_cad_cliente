@@ -140,9 +140,9 @@ $ValorVendaDia = $objVenda->VendasDia();
                                         <div class="form-group" id="divCliente">
                                             <label>Selecione o Cliente</label>
                                             <select name="cliente" id="cliente" class="form-control" onfocusout="SinalizaCampo('divCliente','cliente')">
-                                                <option value="<?= (@$dadosVenda[0]['id_cliente'] == '' ? '': $dadosVenda[0]['id_cliente'])?>"><?= (@$dadosVenda[0]['nome_cliente'] == '' ? 'Escolher Cliente': $dadosVenda[0]['nome_cliente']) ?></option>
+                                                <option value="<?= (@$dadosVenda[0]['id_cliente'] == '' ? '' : $dadosVenda[0]['id_cliente']) ?>"><?= (@$dadosVenda[0]['nome_cliente'] == '' ? 'Escolher Cliente' : $dadosVenda[0]['nome_cliente']) ?></option>
                                                 <?php for ($i = 0; $i < count($clientes); $i++) { ?>
-                                                    <option value="<?= $clientes[$i]['id_cliente']?>"><?= $clientes[$i]['nome_cliente'] ?></option>
+                                                    <option value="<?= $clientes[$i]['id_cliente'] ?>"><?= $clientes[$i]['nome_cliente'] ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -217,6 +217,8 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                         <th>Produto</th>
                                                         <th>Quantidade</th>
                                                         <th>Valor</th>
+                                                        <th>Desconto</th>
+                                                        <th>Total Item</th>
                                                         <th>Excluir item</th>
 
 
@@ -229,6 +231,8 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                 <td><?= $itens[$i]['nome_produto'] ?></td>
                                                                 <td><?= $itens[$i]['qtd_produto'] ?></td>
                                                                 <td><?= $itens[$i]['item_valor'] ?></td>
+                                                                <td><?= $itens[$i]['desconto'] ?></td>
+                                                                <td><?= ($itens[$i]['item_valor'] - $itens[$i]['desconto']) ?></td>
                                                                 <td>
                                                                     <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
                                                                     <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -258,16 +262,23 @@ $ValorVendaDia = $objVenda->VendasDia();
 
                                                 </tbody>
                                             </table>
-                                            <div class="col-md-8 col-xs-12">
+                                            <div class="col-md-6 col-xs-12">
                                                 <input type="hidden" name="idvenda" id="idvenda" value="<?= @$idVendaRet ?>">
                                                 <div class="form-group" id="divProd">
                                                     <label>Selecione o Produto</label>
-                                                    <select name="produto" id="produto" class="produto form-control" onfocusout="SinalizaCampo('divProd','produto')">
+                                                    <select name="produto" id="produto" class="produto form-control" >
                                                         <option value="">Escolha o produto</option>
+                                                        <option value="-1">Cupom de Desconto</option>
                                                         <?php foreach ($produtos as $prod) { ?>
                                                             <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] . ' + ' . $prod['estoque'] ?>"><?= $prod['nome_produto'] . ' | estoque: ' . $prod['estoque'] . 'qtd' . '| R$: ' . $prod['valor_produto'] ?></option>
                                                         <?php } ?>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div id="divCupom" class="col-md-2 col-xs-12" style="display:none;">
+                                                <div class="form-group" id="divCupom">
+                                                    <label>Numero do Cupom</label>
+                                                    <input name="cupom" id="cupom" type="text" placeholder="Digite a qtd" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-xs-12">
@@ -282,22 +293,12 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                     <button onclick="return ValidarCaixa()" name="btn_adicionar" class="btn btn-success "><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
                                                 </div>
                                             </div>
-                                            <div class="col-md-10 col-xs-12">
-                                                <div class="form-group" id="divQtd">
-                                                    <label>Cupom de desconto</label>
-                                                    <input name="qtd" id="qtd" type="text" placeholder="Digite a qtd" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2 col-xs-12">
-                                                <div class="form-group" id="divSubNome">
-                                                    <label>Adicionar</label></br>
-                                                    <button onclick="return ValidarCaixa()" name="btn_adicionar" class="btn btn-success "><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
-                                                </div>
-                                            </div>
+
 
                                             <div class="col-md-12 col-xs-12 ">
                                                 <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
                                                 <button name="btn_finalizar_Venda" class="btn btn-success col-md-2 col-xs-12 ">Finalizar Venda</button>
+                                                <button type="button" name="btnCupom" onclick="AddCupom()" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom</button>
                                             </div>
                                         </div>
                                     </div>

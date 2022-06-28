@@ -320,6 +320,23 @@ function ValidarCargo() {
 }
 
 
+function AddCupom() {
+    if ($("#divCupom").hide) {
+        
+        $("#divCupom").show();
+    }else{
+
+        $("#divCupom").hide(); console.log($cupom);
+    }   
+
+
+
+
+}
+
+
+
+
 function ValidarFuncionario() {
 
     if ($("#nomeFuncionario").val().trim() == "") {
