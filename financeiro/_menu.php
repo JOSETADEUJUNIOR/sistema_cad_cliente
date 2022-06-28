@@ -72,7 +72,7 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                         <a href="pdv2.php">Realizar Venda</a>
                     </li>
                     <li>
-                        <a href="pesquisarVenda.php">Reabrir Venda</a>
+                        <a href="devolucaoProduto.php">Devolução Produto</a>
                     </li>
 
                 </ul>

@@ -5,6 +5,22 @@ if (isset($_GET['ret'])) {
 }
 if (isset($ret)) {
     switch ($ret) {
+        case '-12':
+            //echo '<div class="alert alert-success">
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
+              Swal.fire({
+      
+                  icon: 'warning',
+                  title: 'Alerta',
+                  width: 'auto',
+                  html: '<h3>Não é possivel excluir, codigo ja utilizado</h3>',
+                  showConfirmButton: false,
+                  timer: 5000,
+              })
+          </script>";
+            break;
         case '-11':
             //echo '<div class="alert alert-success">
             //Ação realizada com sucesso!

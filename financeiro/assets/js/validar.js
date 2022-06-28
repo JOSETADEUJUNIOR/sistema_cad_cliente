@@ -57,6 +57,28 @@ function ValidarCategoria() {
 
 }
 
+function Devolucao() {
+
+    if ($("#produtoDevolucao").val().trim() == "") {
+        $("#produtoDevolucao").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Selecione o produto para devolução!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+
+        })
+        return false;
+
+    } else {
+        return true;
+    }
+
+
+}
+
 function ValidarSubCat() {
     if ($("#SubNome").val().trim() == "") {
         $("#SubNome").focus();

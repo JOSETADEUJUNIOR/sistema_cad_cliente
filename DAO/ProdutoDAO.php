@@ -45,6 +45,104 @@ public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $d
 
 }
 
+public function Devolucao($produto, $valor, $cliente, $dataDevolucao, $descricao, $tipo){
+
+    if (trim($produto)=='' || trim($valor)=='' || trim($cliente)=='' 
+    || trim($dataDevolucao)=='' || trim($descricao)==''|| trim($tipo)=='' ) {
+        
+        return 0;
+    }
+    //Passo 1 = Variavel de conexão.
+    $conexao = parent::retornaConexao();
+    //Passo 2 = Comando SQL
+    $comando_sql = 'Insert into tb_devolucao (dvlProdValor, dvlDT, dvlDescricao, id_produto, id_cliente, id_funcionario, dvlTipo) values (?,?,?,?,?,?,?)';
+    // Passo 3 = sql recebe conexão preparando a conexçaão
+    $sql = $conexao->prepare($comando_sql);
+    // Passo 4 = Verifica se no comando sql tem ?. Caso tiver, configura as informações
+    $sql->bindValue(1, $valor);
+    $sql->bindValue(2, $dataDevolucao);
+    $sql->bindValue(3, $descricao);
+    $sql->bindValue(4, $produto);
+    $sql->bindValue(5, $cliente);
+    $sql->bindValue(6, UtilDAO::CodigoLogado());
+    $sql->bindValue(7, $tipo);
+    // passo 5 Tentar executar
+    $conexao->beginTransaction();
+    try {
+        $sql->execute();
+        if ($tipo == 1) {
+            $comando_sql = 'Update tb_produto set estoque = estoque + 1 Where id_produto = ?';
+            $sql = $conexao->prepare($comando_sql);
+            $sql->bindValue(1, $produto);
+            $sql->execute();
+        }
+        $conexao->commit();
+        return 1;
+    } catch (Exception $ex) {
+        echo $ex->getMessage();
+        return -1;
+        
+    }
+
+
+}
+
+public function ConsultaDevolucao(){
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select dvlID, dvlProdValor, dvlDT, dvlDescricao, dvlStatus, nome_produto
+                    from tb_devolucao
+                        inner join tb_produto on
+                            tb_devolucao.id_produto = tb_produto.id_produto';
+
+    $sql = $conexao->prepare($comando_sql);
+    $sql->execute();
+    return $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function ExcluirDevolucao($id){
+
+    if ($id =='') {
+        
+        return 0;
+    }
+    
+
+    $conexao = parent::retornaConexao();
+    $comando_sql = 'Select dvlStatus,id_produto, dvlTipo from tb_devolucao Where dvlID = ?';
+    $sql = $conexao->prepare($comando_sql);
+    $sql->bindValue(1, $id);
+    $sql->execute();
+    $status =  $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($status[0]['dvlStatus']=='L' && $status[0]['dvlTipo']== 1 ) {
+        $comando_sql = 'Update tb_produto set estoque = estoque - 1 Where id_produto = ?';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $status[0]['id_produto']);
+        $sql->execute();
+        $comando_sql = 'delete from tb_devolucao where dvlID = ?';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        
+        
+        return 1;
+    
+    
+    }else if ($status[0]['dvlStatus']=='L' && $status[0]['dvlTipo']== 2 ) {
+        $comando_sql = 'delete from tb_devolucao where dvlID = ?';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        return 1;
+    
+    }else if($status[0]['dvlStatus']=='U'){
+        return -12;
+    }
+   
+    
+}
+
 public function ConsultarProdutoEstoque($itemVenda){
 
     $conexao = parent::retornaConexao();

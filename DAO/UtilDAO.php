@@ -16,6 +16,13 @@ class UtilDAO
         $_SESSION['nome'] = $nome;
     }
 
+    public static function Debug($array){
+        
+        echo '<pre>';
+        print_r($array);
+        echo '</pre>';
+        
+    }
 
 
     public static function CodigoEmpresa()

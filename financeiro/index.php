@@ -234,6 +234,19 @@ $vendaDia = $objResult->GetVendaDia();
 
                 <!-- /. ROW  -->
                 <hr />
+                <div class="row"> 
+                    
+                      
+                               <div class="col-md-12 col-sm-12 col-xs-12">                     
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Bar Chart Example
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-bar-chart"></div>
+                        </div>
+                    </div>            
+                </div>
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <!--    Context Classes  -->
@@ -448,10 +461,10 @@ $vendaDia = $objResult->GetVendaDia();
             MORRIS BAR CHART
          ======================================*/
                     Morris.Bar({
-                        element: 'morris-bar-chart',
+                        element: 'morris-bar-chart1',
                         data: [{
-                            y: '2021',
-                            a: 150.00,
+                            y: '2022',
+                            a: 22222,
                             b: 90
                         }, {
                             y: '2007',

@@ -5,6 +5,8 @@ require_once 'UtilDAO.php';
 
 class ProdutoDAO extends Conexao{
 
+
+
 public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $dataCad, $estoque, $custo, $unidade, $fornecedor, $cat, $subcat, $nomeDoArquivo, $path){
 
     if (trim($codBarras)=='' || trim($nomeProduto)=='' || trim($dataCad)=='' 
@@ -44,6 +46,38 @@ public function CadastrarProduto($codBarras, $nomeProduto, $descProd, $valor, $d
 
 
 }
+
+public function Devolucao($produto, $valor, $cliente, $dataDevolucao, $descricao){
+
+    if (trim($produto)=='' || trim($valor)=='' || trim($cliente)=='' 
+    || trim($dataDevolucao)=='' || trim($descricao)=='' ) {
+        
+        return 0;
+    }
+    //Passo 1 = Variavel de conexão.
+    $conexao = parent::retornaConexao();
+    //Passo 2 = Comando SQL
+    $comando_sql = 'Insert into tb_devolucao (dvlProdValor, dvlDT, dvlDescricao, id_produto, id_cliente, id_funcionario) values (?,?,?,?,?,?)';
+    // Passo 3 = sql recebe conexão preparando a conexçaão
+    $sql = $conexao->prepare($comando_sql);
+    // Passo 4 = Verifica se no comando sql tem ?. Caso tiver, configura as informações
+    $sql->bindValue(1, $valor);
+    $sql->bindValue(2, $dataDevolucao);
+    $sql->bindValue(3, $descricao);
+    $sql->bindValue(4, $produto);
+    $sql->bindValue(5, $cliente);
+    $sql->bindValue(6, UtilDAO::CodigoLogado());
+    // passo 5 Tentar executar
+    try {
+        $sql->execute();
+        return 1;
+    } catch (Exception $ex) {
+        return -1;
+    }
+
+
+}
+
 
 public function ConsultarProdutoEstoque($itemVenda){
 

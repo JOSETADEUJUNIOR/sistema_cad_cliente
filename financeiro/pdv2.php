@@ -282,6 +282,18 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                     <button onclick="return ValidarCaixa()" name="btn_adicionar" class="btn btn-success "><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
                                                 </div>
                                             </div>
+                                            <div class="col-md-10 col-xs-12">
+                                                <div class="form-group" id="divQtd">
+                                                    <label>Cupom de desconto</label>
+                                                    <input name="qtd" id="qtd" type="text" placeholder="Digite a qtd" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 col-xs-12">
+                                                <div class="form-group" id="divSubNome">
+                                                    <label>Adicionar</label></br>
+                                                    <button onclick="return ValidarCaixa()" name="btn_adicionar" class="btn btn-success "><i title="Adicionar Item" style="font-size: 22px;float: right;" class="fa fa-plus-circle"></i></button>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-12 col-xs-12 ">
                                                 <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
