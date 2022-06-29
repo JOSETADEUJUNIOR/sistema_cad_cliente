@@ -5,7 +5,7 @@ require_once 'UtilDAO.php';
 class VendaDAO extends Conexao
 {
 
-    public function CadastrarVenda($clienteVenda, $idProduto, $qtdVenda, $valor)
+    public function CadastrarVenda($clienteVenda, $idProduto, $qtdVenda, $valor, $cupomID, $cupomValor)
     {
 
         if ($clienteVenda == '' || $idProduto == '' || $qtdVenda == '' || $valor == '') {
@@ -33,13 +33,18 @@ class VendaDAO extends Conexao
             if ($qtdVenda > 1) {
                 $valor = $valor * $qtdVenda;
             }
-
-            $comando_sql = 'insert into tb_item_venda (id_venda, id_produto, qtd_produto, item_valor) values (?,?,?,?)';
+            $valorFim = $valor;
+            if ($cupomID > 0) {
+                $valorFim = $valor - $cupomValor;
+            }
+            $comando_sql = 'insert into tb_item_venda (id_venda, id_produto, qtd_produto, item_valor, desconto, item_valor_fim) values (?,?,?,?,?,?)';
             $sql = $conexao->prepare($comando_sql);
             $sql->bindValue(1, $idVenda);
             $sql->bindValue(2, $idProduto);
             $sql->bindValue(3, $qtdVenda);
             $sql->bindValue(4, $valor);
+            $sql->bindValue(5, $cupomValor);
+            $sql->bindValue(6, $valorFim);
 
             $sql->execute();
 
@@ -55,6 +60,15 @@ class VendaDAO extends Conexao
             $sql->bindValue(1, $valor);
             $sql->bindValue(2, UtilDAO::DataAtual());
             $sql->execute();
+
+            if ($cupomID > 0) {
+                $comando_sql = 'update tb_devolcao set dvlStatus = U where dvlID = ? ';
+                $sql = $conexao->prepare($comando_sql);
+                $sql->bindValue(1, $cupomID);
+                $sql->execute();
+            }
+
+
 
             //COMMIT TRASACTION
 
@@ -414,7 +428,6 @@ class VendaDAO extends Conexao
 
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
-        
     }
 
     public function ResultadoVendaDia()
@@ -497,10 +510,7 @@ class VendaDAO extends Conexao
 
         $sql = $conexao->prepare($comando_sql);
         $sql->execute();
-        
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
-           
-        }
-        
 
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

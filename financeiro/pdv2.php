@@ -8,6 +8,8 @@ $objVenda = new VendaDAO();
 $objcliente = new ClienteDAO();
 $clientes = $objcliente->ConsultarCliente();
 require_once '../DAO/ProdutoDAO.php';
+$objProduto = new ProdutoDAO();
+$cupom = $objProduto->ConsultaDevolucaoAtiva();
 
 $itemVenda = '';
 $valor = '';
@@ -28,6 +30,8 @@ if (isset($_POST['btn_adicionar'])) {
         $itemVenda = explode('-', $_POST['produto'])[0];
         $valor = explode('-', $_POST['produto'])[1];
         $qtdVenda = trim($_POST['qtd']);
+        $cupomID = explode('-', $_POST['cupom'])[0];
+        $cupomValor = explode('-', $_POST['cupom'])[1];
 
         $objProd = new ProdutoDAO();
         $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
@@ -38,11 +42,12 @@ if (isset($_POST['btn_adicionar'])) {
             $pag_ret = 'pdv2.php';
             $itens = $objVenda->ItensVenda($idVendaRet);
         } else {
-            $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor);
+            $idVendaRet = $objVenda->AddItem($idVenda, $itemVenda, $qtdVenda, $valor, $cupomID, $cupomValor);
             if ($idVendaRet == 0) {
                 $ret = 0;
                 $itens = $objVenda->ItensVenda($idVendaRet);
             }
+            $cupom = $objProduto->ConsultaDevolucaoAtiva();
             $itens = $objVenda->ItensVenda($idVendaRet);
         }
     } else {
@@ -50,7 +55,8 @@ if (isset($_POST['btn_adicionar'])) {
         $itemVenda = explode('-', $_POST['produto'])[0];
         $valor = explode('-', $_POST['produto'])[1];
         $qtdVenda = trim($_POST['qtd']);
-
+        $cupomID = explode('-', $_POST['cupom'])[0];
+        $cupomValor = explode('-', $_POST['cupom'])[1];
         $objProd = new ProdutoDAO();
         $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
 
@@ -61,10 +67,11 @@ if (isset($_POST['btn_adicionar'])) {
             $pag_ret = 'pdv2.php';
             $itens = $objVenda->ItensVenda($idVendaRet);
         } else {
-            $idVendaRet = $objVenda->CadastrarVenda($clienteVenda, $itemVenda, $qtdVenda, $valor);
+            $idVendaRet = $objVenda->CadastrarVenda($clienteVenda, $itemVenda, $qtdVenda, $valor, $cupomID, $cupomValor);
             if ($idVendaRet == 0) {
                 $ret = 0;
             }
+            $cupom = $objProduto->ConsultaDevolucaoAtiva();
             $itens = $objVenda->ItensVenda($idVendaRet);
         }
     }
@@ -79,7 +86,6 @@ if (isset($_GET['idExcluir'])) {
 }
 
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
-var_dump($dadosVenda);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
 
 $objProduto = new ProdutoDAO();
@@ -268,7 +274,6 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                     <label>Selecione o Produto</label>
                                                     <select name="produto" id="produto" class="produto form-control">
                                                         <option value="">Escolha o produto</option>
-                                                        <option value="-1">Cupom de Desconto</option>
                                                         <?php foreach ($produtos as $prod) { ?>
                                                             <option value="<?= $prod['id_produto'] . '-' . $prod['valor_produto'] . ' + ' . $prod['estoque'] ?>"><?= $prod['nome_produto'] . ' | estoque: ' . $prod['estoque'] . 'qtd' . '| R$: ' . $prod['valor_produto'] ?></option>
                                                         <?php } ?>
@@ -276,9 +281,14 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                 </div>
                                             </div>
                                             <div id="divCupom" class="col-md-2 col-xs-12" style="display:none;">
-                                                <div class="form-group" id="divCupom">
-                                                    <label>Numero do Cupom</label>
-                                                    <input name="cupom" id="cupom" type="text" placeholder="Digite a qtd" class="form-control">
+                                                <div class="form-group" id="divProd">
+                                                    <label>Selecione o Cupom</label>
+                                                    <select name="cupom" id="cupom" class="produto form-control">
+                                                        <option value="">Escolha o Cupom...</option>
+                                                        <?php foreach ($cupom as $cp) { ?>
+                                                            <option value="<?= $cp['dvlID'] . '-' . $cp['dvlProdValor'] ?>"><?= 'Cupom: ' . $cp['dvlID'] . ' | Valor: ' . $cp['dvlProdValor'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 col-xs-12">
@@ -298,7 +308,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                             <div class="col-md-12 col-xs-12 ">
                                                 <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-2 col-xs-12 ">Emitir Cupom</a>
                                                 <button name="btn_finalizar_Venda" class="btn btn-success col-md-2 col-xs-12 ">Finalizar Venda</button>
-                                                <button type="button" id="btnCupom" name="btnCupom" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom</button>
+                                                <button type="button" id="btnCupom" name="btnCupom" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom <span class="badge badge-light"><?= count($cupom) ?></span></button>
                                             </div>
                                         </div>
                                     </div>
