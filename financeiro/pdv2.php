@@ -238,7 +238,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                 <td><?= $itens[$i]['qtd_produto'] ?></td>
                                                                 <td><?= $itens[$i]['item_valor'] ?></td>
                                                                 <td><?= $itens[$i]['desconto'] ?></td>
-                                                                <td><?= ($itens[$i]['item_valor'] - $itens[$i]['desconto']) ?></td>
+                                                                <td><?= $itens[$i]['item_valor_fim'] ?></td>
                                                                 <td>
                                                                     <a href="#" data-toggle="modal" data-target="#modalExcluir<?= $itens[$i]['id_item_venda'] ?>"><i title="Excluir Item" style=" color:red; font-size:18px; margin-left:5px" class="fa fa-trash"></i></a>
                                                                     <div class="modal fade" id="modalExcluir<?= $itens[$i]['id_item_venda'] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

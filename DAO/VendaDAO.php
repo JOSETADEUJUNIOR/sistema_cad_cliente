@@ -58,7 +58,7 @@ class VendaDAO extends Conexao
 
             $comando_sql = 'update tb_caixa set valor_caixa = valor_caixa + ? where data_caixa = ?';
             $sql = $conexao->prepare($comando_sql);
-            $sql->bindValue(1, $valor);
+            $sql->bindValue(1, $valorFim);
             $sql->bindValue(2, UtilDAO::DataAtual());
             $sql->execute();
 
@@ -144,7 +144,7 @@ class VendaDAO extends Conexao
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'select id_item_venda, id_venda, tb_item_venda.id_produto as id_produto, qtd_produto, 
-                                item_valor, nome_produto, desconto
+                                item_valor, nome_produto, desconto, item_valor_fim
                             from tb_item_venda
                                 inner join tb_produto on
                                   tb_item_venda.id_produto = tb_produto.id_produto
@@ -181,12 +181,23 @@ class VendaDAO extends Conexao
             if ($qtdVenda > 1) {
                 $valor = $qtdVenda * $valor;
             }
+            if ($cupomID >0){
+                $valorFim = $valor - $cupomValor;
+                $comando_sql = 'update tb_item_venda set qtd_produto = qtd_produto + ?, item_valor = item_valor + ?, desconto = desconto + ?, item_valor_fim = item_valor_fim + ?  where id_produto = ? ';
+                $sql = $conexao->prepare($comando_sql);
+                $sql->bindValue(1, $qtdVenda);
+                $sql->bindValue(2, $valor);
+                $sql->bindValue(3, $cupomValor);
+                $sql->bindValue(4, $valorFim);
+                $sql->bindValue(5, $itemVenda);
+            }
 
-            $comando_sql = 'update tb_item_venda set qtd_produto = qtd_produto + ?, item_valor = item_valor + ?  where id_produto = ? ';
+            $comando_sql = 'update tb_item_venda set qtd_produto = qtd_produto + ?, item_valor = item_valor + ?, item_valor_fim = item_valor_fim + ?  where id_produto = ? ';
             $sql = $conexao->prepare($comando_sql);
             $sql->bindValue(1, $qtdVenda);
             $sql->bindValue(2, $valor);
-            $sql->bindValue(3, $itemVenda);
+            $sql->bindValue(3, $valor);
+            $sql->bindValue(4, $itemVenda);
             try {
                 $sql->execute();
 
@@ -283,7 +294,7 @@ class VendaDAO extends Conexao
     {
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select Sum(item_valor) as valorTotal
+        $comando_sql = 'Select Sum(item_valor_fim) as valorTotal
                         from tb_item_venda 
                             inner join tb_venda on
                                 tb_item_venda.id_venda = tb_venda.id_venda
