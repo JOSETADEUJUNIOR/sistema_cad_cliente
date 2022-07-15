@@ -21,7 +21,7 @@ UtilDAO::VerLogado();
         $total = $total + $vendas[$i]['item_valor'];
 
     }
-    $valorTotal = explode('.',$total);
+    
 
     $html .= '<head>';
     $html .= '<style>';
@@ -56,14 +56,14 @@ UtilDAO::VerLogado();
 		$html .= '<td >' .$vendas[$i]['nome_cliente']."</td>";
         $html .= '<td >' .$vendas[$i]['nome_produto']."</td>";
         $html .= '<td >' .$vendas[$i]['qtd_produto']."</td>";
-        $html .= '<td >' .explode('.',$vendas[$i]['item_valor'])[0].','.explode('.',$vendas[$i]['item_valor'])[1]."</td>";
+        $html .= '<td >' .number_format($vendas[$i]['item_valor'],2,',','.')."</td>";
         $html .= '</tbody>';
         $html .= '</hr>';
     }
     
     
     $html .= '<div class="col-md-6">';
-    $html .= '<p style="text-align: right"> <strong>Valor Total:</strong> '.$valorTotal[0].','.($valorTotal[1]!=''?$valorTotal[1]:'00').'</p>';
+    $html .= '<p style="text-align: right"> <strong>Valor Total:</strong> '.number_format($total,2,',','.').'</p>';
     $html .= '</div>';
     $html .= '<div class="col-md-6">';
     $html .= '<p style="text-align: left"> <strong>Data do Relatório:</strong> '.UtilDAO::ExibirDataBr(date('Y-m-d')).'</p>';

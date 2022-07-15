@@ -3,106 +3,107 @@
 require_once 'Conexao.php';
 require_once 'UtilDAO.php';
 
-class PrincipalDAO extends Conexao{
+class PrincipalDAO extends Conexao
+{
 
 
-public function GetCargos(){
+    public function GetCargos()
+    {
 
-    $conexao = parent::retornaConexao();
+        $conexao = parent::retornaConexao();
 
-    $comando_sql = ("Select Count(*) as total from tb_cargo");
+        $comando_sql = ("Select Count(*) as total from tb_cargo");
 
-    $sql = $conexao->prepare($comando_sql);
+        $sql = $conexao->prepare($comando_sql);
 
-    $sql->execute();
+        $sql->execute();
 
-    $ret = $sql->fetchAll();
+        $ret = $sql->fetchAll();
 
-    return $ret;
+        return $ret;
+    }
 
-}
+    public function GetProduto()
+    {
 
-public function GetProduto(){
+        $conexao = parent::retornaConexao();
 
-    $conexao = parent::retornaConexao();
-
-    $comando_sql = ("Select 
+        $comando_sql = ("Select 
                         count(id_produto) as id_produto from tb_produto");
 
-    $sql = $conexao->prepare($comando_sql);
+        $sql = $conexao->prepare($comando_sql);
 
-    $sql->execute();
+        $sql->execute();
 
-    $ret = $sql->fetchAll();
+        $ret = $sql->fetchAll();
 
-    return $ret;
+        return $ret;
+    }
+    public function GetFornecedor()
+    {
 
-}
-public function GetFornecedor(){
+        $conexao = parent::retornaConexao();
 
-    $conexao = parent::retornaConexao();
-
-    $comando_sql = ("Select 
+        $comando_sql = ("Select 
                         count(id_fornecedor) as id_fornecedor from tb_fornecedor");
 
-    $sql = $conexao->prepare($comando_sql);
+        $sql = $conexao->prepare($comando_sql);
 
-    $sql->execute();
+        $sql->execute();
 
-    $ret = $sql->fetchAll();
+        $ret = $sql->fetchAll();
 
-    return $ret;
+        return $ret;
+    }
 
-}
+    public function GetEmpresa()
+    {
 
-public function GetEmpresa(){
+        $conexao = parent::retornaConexao();
 
-    $conexao = parent::retornaConexao();
-
-    $comando_sql = ("Select 
+        $comando_sql = ("Select 
                         count(id_empresa) as id_empresa, nome_empresa, cnpj_empresa, descricao_empresa, data_abertura                    
                     from tb_empresa");
 
-    $sql = $conexao->prepare($comando_sql);
+        $sql = $conexao->prepare($comando_sql);
 
-    $sql->execute();
+        $sql->execute();
 
-    $ret = $sql->fetchAll();
+        $ret = $sql->fetchAll();
 
-    return $ret;
+        return $ret;
+    }
+    public function GetClientes()
+    {
 
-}
-public function GetClientes(){
+        $conexao = parent::retornaConexao();
 
-    $conexao = parent::retornaConexao();
+        $comando_sql = ("Select Count(*) as total from tb_cliente");
 
-    $comando_sql = ("Select Count(*) as total from tb_cliente");
+        $sql = $conexao->prepare($comando_sql);
 
-    $sql = $conexao->prepare($comando_sql);
+        $sql->execute();
 
-    $sql->execute();
+        $ret = $sql->fetchAll();
 
-    $ret = $sql->fetchAll();
+        return $ret;
+    }
+    public function GetFuncionario()
+    {
 
-    return $ret;
+        $conexao = parent::retornaConexao();
 
-}
-public function GetFuncionario(){
+        $comando_sql = ("Select Count(*) as total from tb_funcionario");
 
-    $conexao = parent::retornaConexao();
+        $sql = $conexao->prepare($comando_sql);
 
-    $comando_sql = ("Select Count(*) as total from tb_funcionario");
+        $sql->execute();
 
-    $sql = $conexao->prepare($comando_sql);
+        $ret = $sql->fetchAll();
 
-    $sql->execute();
-
-    $ret = $sql->fetchAll();
-
-    return $ret;
-
-}
-public function GetVendaDia()
+        return $ret;
+    }
+    public function GetVendaDia()
     {
 
         $conexao = parent::retornaConexao();
@@ -120,35 +121,18 @@ public function GetVendaDia()
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-public function GetMovimento(){
+    public function GetMovimento()
+    {
 
-    $conexao = parent::retornaConexao();
+        $conexao = parent::retornaConexao();
 
-    $comando_sql = 'select id_movimento, data_movimento, valor_movimento, nome_categoria, nome_fornecedor,
-    banco_conta, agencia_conta,numero_conta, tipo_movimento, observacao_movimento
-    from tb_movimento
-    inner join tb_categoria_conta on
-        tb_movimento.id_cat_conta = tb_categoria_conta.id_cat_conta
-    inner join tb_fornecedor on
-        tb_movimento.id_fornecedor = tb_fornecedor.id_fornecedor
-    inner join tb_conta on
-        tb_movimento.id_conta = tb_conta.id_conta
-    inner join tb_funcionario on
-        tb_movimento.id_funcionario = tb_funcionario.id_funcionario
-        where tipo_movimento = 2';
+        $comando_sql = 'select Sum(valor_movimento) as TotalDebito
+                             from tb_movimento
+                                where tipo_movimento = 2 and data_movimento = current_date()';
 
-    $sql = $conexao->prepare($comando_sql);
+        $sql = $conexao->prepare($comando_sql);
 
-    $sql->execute();
-    return $sql->fetchAll(PDO::FETCH_ASSOC);
-
-}
-
-
-
-
-
-
-
-
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
