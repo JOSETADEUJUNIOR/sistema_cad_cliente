@@ -119,7 +119,7 @@ $vendaDia = $objResult->GetVendaDia();
                         <div class="panel panel-primary text-center no-boder bg-color-red">
                             <div class="panel-body">
                                 <i class="fa fa-edit fa-5x"></i>
-                                <h3><?= $movimentos[0]['TotalDebito'] ?> </h3>
+                                <h3><?= ($movimentos[0]['TotalDebito']!=''?$movimentos[0]['TotalDebito']:0) ?> </h3>
                             </div>
                             <div style="background-color:#db0610" class="panel-footer back-footer-red">
                                 Boletos a pagar no Dia

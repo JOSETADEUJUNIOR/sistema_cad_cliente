@@ -66,8 +66,8 @@ $usuario = $objFunc->MeusDados();
                         <input name="senha" type="password" value="<?= $dados[0]['funcionario_senha']?>" id="dadosSenha" type="text" placeholder="Digite a senha" class="form-control" onfocusout="SinalizaCampo('divDadosEmail','dadosEmail')">
                     </div>
                     <div class="col-md-12 col-xs-12" id="divDadosEmail">
-                         <button name="btn_alterar" class="btn btn-success col-md-2 col-xs-12 " onclick=" return ValidarMeusDados()">Alterar</button>
-                         <a style="margin-left:0px" href="meus_dados.php" class="btn btn-warning col-md-2 col-xs-12 " >Voltar</a>
+                         <button name="btn_alterar" class="btn btn-success col-md-6 col-xs-12 " onclick=" return ValidarMeusDados()">Alterar</button>
+                         <a style="margin-left:0px" href="meus_dados.php" class="btn btn-warning col-md-6 col-xs-12 " >Voltar</a>
                     </div>
                        
                 </div>

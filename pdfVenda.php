@@ -49,7 +49,7 @@ UtilDAO::VerLogado();
 		$html .= '<td >' .$vendas[$i]['nome_produto']."</td>";
         $html .= '<td >' .$vendas[$i]['qtd_produto']."</td>";
         $html .= '<td >' .explode('.',$vendas[$i]['desconto'])[0].','.explode('.',$vendas[$i]['desconto'])[1]."</td>";
-        $html .= '<td >' .explode('.',$vendas[$i]['item_valor_fim'])[0].','.explode('.',$vendas[$i]['item_valor_fim'])[1]."</td>";
+        $html .= '<td >' .explode('.',$vendas[$i]['item_valor'])[0].','.explode('.',$vendas[$i]['item_valor'])[1]."</td>";
         $html .= '</tbody>';
         $html .= '</hr>';
     }
