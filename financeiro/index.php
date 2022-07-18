@@ -132,7 +132,7 @@ $vendaDia = $objResult->GetVendaDia();
                 <div class="row">
 
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Dados das vendas
@@ -143,14 +143,14 @@ $vendaDia = $objResult->GetVendaDia();
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Dados das vendas
                             </div>
                             <div class="panel-body">
 
-                                <div id="donutchart" style="width: 900px; height: 500px;"></div>
+                                <div id="donutchart" style="width: 100%; height: 80%;"></div>
 
                             </div>
                         </div>

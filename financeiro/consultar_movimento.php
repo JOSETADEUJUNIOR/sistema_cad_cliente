@@ -66,8 +66,8 @@ if (isset($_POST['btnFiltrar'])) {
                             <label>Tipo*</label>
                             <select name="tipo" id="tipo" class="form-control" onfocusout="SinalizaCampo('divTipo','tipo')">
                                 <option value="3" <?= $tipo == 3 ? 'selected' : '' ?>>Todos</option>
-                                <option value="1" <?= $tipo == 1 ? 'selected' : '' ?>>Entrada</option>
-                                <option value="2" <?= $tipo == 2 ? 'selected' : '' ?>>Saída</option>
+                                <option value="1" <?= $tipo == 1 ? 'selected' : '' ?>>Credito</option>
+                                <option value="2" <?= $tipo == 2 ? 'selected' : '' ?>>Débito</option>
 
 
                             </select>
@@ -126,7 +126,7 @@ if (isset($_POST['btnFiltrar'])) {
                                                         <td><?= $mov['nome_categoria'] ?></td>
                                                         <td><?= $mov['nome_fornecedor'] ?></td>
                                                         <td><?= $mov['banco_conta'] ?></td>
-                                                        <td><?= ($mov['tipo_movimento'] == 1 ? "Entrada" : "Saída") ?></td>
+                                                        <td><?= ($mov['tipo_movimento'] == 1 ? "Credito" : "Débito") ?></td>
                                                         <td><?= $mov['observacao_movimento'] ?></td>
 
                                                         <td>

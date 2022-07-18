@@ -87,7 +87,7 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                         <a href="consultar_fornecedor.php">Empresa</a>
                     </li>
                     <li>
-                        <a href="consultar_conta.php">Conta</a>
+                        <a href="consultar_conta.php">Cadastrar Banco</a>
                     </li>
                     <li>
                         <a href="realizar_movimento.php">Realizar Movimento</a>

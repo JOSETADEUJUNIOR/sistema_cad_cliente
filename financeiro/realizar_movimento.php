@@ -67,8 +67,8 @@ $contas = $objConta->ConsultarConta();
                                         <label>Tipo*</label>
                                         <select name="tipo" id="tipo" class="form-control" onfocusout="SinalizaCampo('divTipo','tipo')">
                                             <option value="">Selecione</option>
-                                            <option value="1">Entrada</option>
-                                            <option value="2">Saída</option>
+                                            <option value="1">Credito</option>
+                                            <option value="2">Débito</option>
 
                                         </select>
                                     </div>

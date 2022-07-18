@@ -66,8 +66,8 @@ if (isset($_POST['btnFiltrar'])) {
                             <label>Tipo*</label>
                             <select name="tipo" id="tipo" class="form-control" onfocusout="SinalizaCampo('divTipo','tipo')">
                                 <option value="3" <?= $tipo == 3 ? 'selected' : '' ?>>Todos</option>
-                                <option value="1" <?= $tipo == 1 ? 'selected' : '' ?>>Entrada</option>
-                                <option value="2" <?= $tipo == 2 ? 'selected' : '' ?>>Saída</option>
+                                <option value="1" <?= $tipo == 1 ? 'selected' : '' ?>>Crédito</option>
+                                <option value="2" <?= $tipo == 2 ? 'selected' : '' ?>>Débito</option>
 
 
                             </select>

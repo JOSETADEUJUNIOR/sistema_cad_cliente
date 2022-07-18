@@ -69,7 +69,8 @@ if (isset($_POST['btn_cadastrar'])) {
                                     <input name="saldo" id="saldo" type="text" placeholder="Digite o saldo da conta" class="form-control" onfocusout="SinalizaCampo('divSaldo','saldo')">
                                 </div>
                                 <div class="col-md-12">
-                                    <button name="btn_cadastrar" class="btn btn-success" onclick="return ValidarConta()">Cadastrar</button>
+                                    <button name="btn_cadastrar" class="btn btn-success col-md-6" onclick="return ValidarConta()">Cadastrar</button>
+                                    <a href="consultar_conta.php"  class="btn btn-warning col-md-6" >Voltar</a>
                                 </div>
                             </div>
                         </div>
