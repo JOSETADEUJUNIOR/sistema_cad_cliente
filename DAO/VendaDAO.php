@@ -239,7 +239,7 @@ class VendaDAO extends Conexao
     {
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select Sum(item_valor_fim) as valorTotal
+        $comando_sql = 'Select format(sum(item_valor_fim),2,\'de_DE\') as valorTotal
                         from tb_item_venda 
                             inner join tb_venda on
                                 tb_item_venda.id_venda = tb_venda.id_venda
