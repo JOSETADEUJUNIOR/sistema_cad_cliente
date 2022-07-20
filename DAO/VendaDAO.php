@@ -239,11 +239,11 @@ class VendaDAO extends Conexao
     {
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select format(sum(item_valor_fim),2,\'de_DE\') as valorTotal
-                        from tb_item_venda 
-                            inner join tb_venda on
-                                tb_item_venda.id_venda = tb_venda.id_venda
-                                where tb_item_venda.id_venda = ?';
+        $comando_sql = "Select Concat('',Replace(Replace(Replace(Format(sum(item_valor_fim),2),'.', '|'), ',', ''), '|', '.')) as valorTotal 
+                                from tb_item_venda 
+                                    inner join tb_venda on
+                                        tb_item_venda.id_venda = tb_venda.id_venda
+                                        where tb_item_venda.id_venda = ?";
         $sql = $conexao->prepare($comando_sql);
         $sql->bindValue(1, $idvenda);
         $sql->execute();

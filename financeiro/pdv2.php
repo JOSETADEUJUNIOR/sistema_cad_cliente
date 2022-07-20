@@ -87,6 +87,8 @@ if (isset($_GET['idExcluir'])) {
 
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
+$valorTotTroco = $valorTotVenda;
+var_dump($valorTotTroco);
 
 $objProduto = new ProdutoDAO();
 $produtos = $objProduto->ConsultarProdutoVenda();
@@ -194,7 +196,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                 </div>
                                 <div class="panel-footer">
 
-                                    <label style="text-align:right; margin-top:0px">Valor Total: <?= $valorTotVenda[0]['valorTotal']?> </label>
+                                    <label style="text-align:right; margin-top:0px">Valor Total: <?= $valorTotVenda[0]['valorTotal'] ?> </label>
                                 </div>
                             </div>
                         </div>
@@ -314,9 +316,10 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                                 <h4 class="modal-title" id="myModalLabel">Finalizar a Venda</h4>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <h3 id="ValorTotal">Valor Total da venda: R$:<strong><?= $valorTotVenda[0]['valorTotal']?></strong></h3> <br>
+                                                            <div  class="modal-body" style="background-color: #799b4d;">
+                                                                <h3 id="ValorTotal">Valor Total da venda: R$:<strong><?= $valorTotVenda[0]['valorTotal'] ?></strong></h3> <br>
                                                             </div>
+                                                        </hr> </br></br>
                                                             <div id="divCupom" class="col-md-06 col-xs-12">
                                                                 <label>Escolha a forma de pagamento:</label><br>
                                                                 <div class="form-group" id="divProd">
@@ -332,22 +335,24 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                 <div class="col-md-6 col-xs-12">
                                                                     <label>Valor Cliente</label><br>
                                                                     <div class="form-group">
+                                                                        <input type="hidden" name="valorTotTroco" id="valorTotTroco" value="<?= $valorTotTroco[0]['valorTotal'] ?>">
                                                                         <input type="text" id="valorCliente" name="valorCliente" class="form-control" onfocusout="ValorTroco()">
+                                                                        <legend style="color:red; font-size:12px" id="msgTroco"></legend>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label>Valor Troco</label>
-                                                                        <input name="valorTroco" id="valorTroco" type="text" class="form-control">
+                                                                        <input name="valorTroco" id="valorTroco" type="text" value="0" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div id="divCupom" class="col-md-12 col-xs-12">
-                                                                <label>Escolha a forma de pagamento:</label><br>
+                                                                <label>Finalize a venda:</label><br>
                                                                 <div class="form-group" id="divProd">
-                                                                    <button type="button" class="btn btn-default col-md-4 col-xs-12" data-dismiss="modal">Cancelar</button>
-                                                                    <button name="btn_finalizar_Venda" class="btn btn-primary col-md-4 col-xs-12">Sim</button>
-                                                                    <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-warning col-md-4 col-xs-12 ">Emitir Cupom</a>
+                                                                    <button type="button" class="btn btn-warning col-md-4 col-xs-12" data-dismiss="modal">Voltar</button>
+                                                                    <button name="btn_finalizar_Venda" class="btn btn-success col-md-4 col-xs-12">Finaliza sem Cupom</button>
+                                                                    <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-danger col-md-4 col-xs-12 ">Emitir Cupom</a>
                                                                 </div>
                                                             </div>
                                                             <script>
@@ -358,17 +363,33 @@ $ValorVendaDia = $objVenda->VendasDia();
 
                                                                         $("#divtroco").show();
 
-                                                                    }else if (valor > 1){
+                                                                    } else if (valor > 1) {
                                                                         $("#divtroco").hide();
                                                                     }
                                                                 }
                                                             </script>
                                                             <script>
                                                                 function ValorTroco() {
-                                                                    var valorTotal = '1.428,00'
-                                                                    var total = $("#valorCliente").val() - valorTotal;
-                                                                    console.log(total);
-                                                                    $("#valorTroco").val(total);
+                                                                    var valorTotal = $("#valorTotTroco").val();
+                                                                    console.log(valorTotal);
+                                                                    var dinheiro = $("#valorCliente").val();
+                                                                    if (dinheiro < valorTotal) {
+                                                                        $("#msgTroco").html('Valor menor que o valor de venda');
+                                                                        $("#valorTroco").hide();
+                                                                        return;
+
+                                                                    } else {
+                                                                        $("#valorTroco").show();
+                                                                        $("#msgTroco").html('');
+                                                                        var total;
+                                                                        total = dinheiro - valorTotal;
+                                                                        valorTroco = total.toLocaleString("pt-BR", {
+                                                                            style: "currency",
+                                                                            currency: "BRL"
+                                                                        });
+                                                                        console.log(valorTroco);
+                                                                        $("#valorTroco").val(valorTroco);
+                                                                    }
                                                                 }
                                                             </script>
                                                             <div class="modal-footer">
@@ -437,14 +458,15 @@ $ValorVendaDia = $objVenda->VendasDia();
         });
     </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script type="text/javascript">
-
-
-      
-             
-</script>
+        $(document).ready(function() {
+            $("#valorCliente").mask('000000.00', {
+                reverse: true
+            });
+        });
+    </script>
 
 
 </body>
