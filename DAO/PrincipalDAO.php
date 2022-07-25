@@ -126,9 +126,21 @@ class PrincipalDAO extends Conexao
 
         $conexao = parent::retornaConexao();
 
-        $comando_sql = 'select Sum(valor_movimento) as TotalDebito
-                             from tb_movimento
-                                where tipo_movimento = 2 and data_movimento = current_date()';
+        $comando_sql = 'SELECT sum(valor_movimento) as Total, data_movimento
+                              FROM cad_cliente.tb_movimento WHERE tipo_movimento = 1';
+
+        $sql = $conexao->prepare($comando_sql);
+
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function GetMovimentoDebito()
+    {
+
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'SELECT sum(valor_movimento) as Total, data_movimento
+                              FROM cad_cliente.tb_movimento WHERE tipo_movimento = 2';
 
         $sql = $conexao->prepare($comando_sql);
 

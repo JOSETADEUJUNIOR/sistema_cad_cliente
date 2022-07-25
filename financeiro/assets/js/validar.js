@@ -594,9 +594,43 @@ function ValidarConta() {
 
 }
 
+function AbreCaixa(){
+    if($("#valorCaixa").val().trim()==''){
+        $("#valorCaixa").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Preencha o campo de valor!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+
+        })
+        return false;
+    }else if ($("#valorCaixa").val()<=0){
+        $("#valorCaixa").val('');
+        $("#valorCaixa").focus();
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Valor precisa ser maior que zero!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+
+        })
+        return false;
+    }else{
+
+        return true;
+    }
+}
+
+
 function ValidarCaixa() {
 
-    if ($("#cliente").val().trim() == "" || $("#cliente").val().trim() == "") {
+    if ($("#cliente").val().trim() == "") {
         $("#cliente").focus();
         Swal.fire({
             icon: 'warning',
@@ -631,6 +665,19 @@ function ValidarCaixa() {
             title: 'Oops...',
             width: 'auto',
             html: '<h3>Quantidade obrigatória!</h3>',
+            showConfirmButton: false,
+            timer: 2000,
+
+        })
+        return false;
+
+    }else if($("#qtd").val() <= 0) {
+        $("#qtd").focus();
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            width: 'auto',
+            html: '<h3>Quantidade precisa ser maior que 0 ou positiva!</h3>',
             showConfirmButton: false,
             timer: 2000,
 

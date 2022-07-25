@@ -65,7 +65,7 @@ $caixaDia = $objCaixa->CaixaDoDia();
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group col-md-4" id="divCaixa">
-                                            <button name="btn_gravar" class="btn btn-success " onclick=" return ValidarCaixa()">Abrir Caixa</button>
+                                            <button name="btn_gravar" class="btn btn-success " onclick=" return AbreCaixa()">Abrir Caixa</button>
                                             <a href="pdv2.php" class="btn btn-warning">Ir para Venda</a>
                                         </div>
                                     </div>

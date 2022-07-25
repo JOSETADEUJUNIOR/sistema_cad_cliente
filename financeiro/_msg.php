@@ -5,6 +5,23 @@ if (isset($_GET['ret'])) {
 }
 if (isset($ret)) {
     switch ($ret) {
+        case '-13':
+            //echo '<div class="alert alert-success">
+            //Ação realizada com sucesso!
+            //  </div>';
+            echo "<script>
+              Swal.fire({
+      
+                  icon: 'warning',
+                  title: 'Alerta',
+                  width: 'auto',
+                  html: '<h3>Valor Inicial precisa ser maior que 0!</h3>',
+                  showConfirmButton: false,
+                  timer: 5000,
+              })
+          </script>";
+            break;
+
         case '-12':
             //echo '<div class="alert alert-success">
             //Ação realizada com sucesso!

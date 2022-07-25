@@ -1,5 +1,4 @@
 <?php
-
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
 require_once '../DAO/ClienteDAO.php';
@@ -10,21 +9,15 @@ $clientes = $objcliente->ConsultarCliente();
 require_once '../DAO/ProdutoDAO.php';
 $objProduto = new ProdutoDAO();
 $cupom = $objProduto->ConsultaDevolucaoAtiva();
-
 $itemVenda = '';
 $valor = '';
-
 require_once '../DAO/VendaDAO.php';
 $objVenda = new VendaDAO();
-
-
 if (isset($_POST['btn_finalizar_Venda'])) {
     $ret = -7;
     $pag_ret = 'pdv2.php';
 }
 if (isset($_POST['btn_adicionar'])) {
-
-
     if (isset($_POST['idvenda']) && $_POST['idvenda'] > 0) {
         $idVenda = $_POST['idvenda'];
         $itemVenda = explode('-', $_POST['produto'])[0];
@@ -59,8 +52,6 @@ if (isset($_POST['btn_adicionar'])) {
         $cupomValor = explode('-', $_POST['cupom'])[1];
         $objProd = new ProdutoDAO();
         $VerSaldo = $objProd->ConsultarProdutoEstoque($itemVenda);
-
-
         if ($VerSaldo[0]['estoque'] < $qtdVenda) {
             $idVendaRet = $idVenda;
             $ret = -6;
@@ -88,23 +79,16 @@ if (isset($_GET['idExcluir'])) {
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
 $valorTotTroco = $valorTotVenda;
-var_dump($valorTotTroco);
-
 $objProduto = new ProdutoDAO();
 $produtos = $objProduto->ConsultarProdutoVenda();
-
 $caixaDia = $objVenda->CaixaDoDia();
 $ValorVendaDia = $objVenda->VendasDia();
-
-
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <?php include_once('_head.php'); ?>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 <body>
     <div id="wrapper">
         <?php include_once('_topo.php'); ?>
@@ -117,7 +101,6 @@ $ValorVendaDia = $objVenda->VendasDia();
                         <?php include('_msg.php') ?>
                         <h2>CHECKOUT</h2><span><a href="movimento_caixa.php?idCaixa= <?= $caixaDia[0]['id_caixa'] ?>" class="btn btn-warning">Realizar Sangria</a></span>
                     </div>
-
                 </div>
 
                 <!-- /. ROW  -->
@@ -317,7 +300,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                 <h4 class="modal-title" id="myModalLabel">Finalizar a Venda</h4>
                                                             </div>
                                                             <div  class="modal-body" style="background-color: #799b4d;">
-                                                                <h3 id="ValorTotal">Valor Total da venda: R$:<strong><?= $valorTotVenda[0]['valorTotal'] ?></strong></h3> <br>
+                                                                <h3 id="ValorTotal">Valor Total:R$:<strong><?= $valorTotVenda[0]['valorTotal'] ?></strong></h3> <br>
                                                             </div>
                                                         </hr> </br></br>
                                                             <div id="divCupom" class="col-md-06 col-xs-12">
@@ -343,7 +326,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                 <div class="col-md-6 col-xs-12">
                                                                     <div class="form-group">
                                                                         <label>Valor Troco</label>
-                                                                        <input name="valorTroco" id="valorTroco" type="text" value="0" class="form-control">
+                                                                        <input disabled name="valorTroco" id="valorTroco" type="text" value="0" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -373,14 +356,8 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                     var valorTotal = $("#valorTotTroco").val();
                                                                     console.log(valorTotal);
                                                                     var dinheiro = $("#valorCliente").val();
-                                                                    if (dinheiro < valorTotal) {
-                                                                        $("#msgTroco").html('Valor menor que o valor de venda');
-                                                                        $("#valorTroco").hide();
-                                                                        return;
-
-                                                                    } else {
-                                                                        $("#valorTroco").show();
-                                                                        $("#msgTroco").html('');
+                                                                    console.log(dinheiro);
+                                                                    
                                                                         var total;
                                                                         total = dinheiro - valorTotal;
                                                                         valorTroco = total.toLocaleString("pt-BR", {
@@ -390,7 +367,7 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                         console.log(valorTroco);
                                                                         $("#valorTroco").val(valorTroco);
                                                                     }
-                                                                }
+                                                                
                                                             </script>
                                                             <div class="modal-footer">
 
@@ -461,11 +438,9 @@ $ValorVendaDia = $objVenda->VendasDia();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#valorCliente").mask('000000.00', {
-                reverse: true
-            });
-        });
+        $(document).ready(function(){
+            $("#valorCliente").mask('000000.00', {reverse: true});
+        }); 
     </script>
 
 

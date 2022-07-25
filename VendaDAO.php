@@ -88,6 +88,9 @@ class VendaDAO extends Conexao
         if ($valorCaixa == '') {
             return 0;
         }
+        if($valorCaixa <= 0){
+            return -13;
+        }
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'insert into tb_caixa (valor_caixa, data_caixa, valor_inicial) values (?,?,?)';

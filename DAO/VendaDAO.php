@@ -490,4 +490,21 @@ class VendaDAO extends Conexao
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function RetornaLucro()
+    {
+        $conexao = parent::retornaConexao();
+
+        $comando_sql = 'SELECT Sum(item_valor) as totalVenda, sum(custo) as TotalCusto 
+        FROM cad_cliente.tb_venda
+inner join cad_cliente.tb_item_venda on
+tb_venda.id_venda = tb_item_venda.id_venda
+inner join tb_produto on
+tb_produto.id_produto = tb_item_venda.id_produto';
+
+        $sql = $conexao->prepare($comando_sql);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    
+}
 }

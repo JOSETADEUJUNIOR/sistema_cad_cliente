@@ -18,12 +18,11 @@ $produto = $objResult->GetProduto();
 $fornecedores = $objResult->GetFornecedor();
 $produtos = $objProd->TopProduto();
 $movimentos = $objResult->GetMovimento();
+$MovDebito = $objResult->GetMovimentoDebito();
+
 $vendaDia = $objResult->GetVendaDia();
-
-
+$lucroMes = $objVenda->RetornaLucro();
 ?>
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -146,7 +145,7 @@ $vendaDia = $objResult->GetVendaDia();
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Dados das vendas
+                                Valores de Credito e Débito
                             </div>
                             <div class="panel-body">
 
@@ -182,16 +181,15 @@ $vendaDia = $objResult->GetVendaDia();
 
             function drawChart() {
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    ['Work', 11],
-                    ['Eat', 2],
-                    ['Commute', 2],
-                    ['Watch TV', 2],
-                    ['Sleep', 7]
+
+                    ['ValorDebito', 'ValorCredito'],
+                    ['Valor Credito', <?php echo $movimentos[0]['Total']?>],
+                    ['Valor Débito', <?php echo $MovDebito[0]['Total']?>]
+                   
                 ]);
 
                 var options = {
-                    title: 'My Daily Activities',
+                    title: 'Valores de Credito e Débito',
                     pieHole: 0.4,
                 };
 
