@@ -6,6 +6,9 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
     UtilDAO::Deslogar();
     
 }
+require_once '../DAO/PrincipalDAO.php';
+$objResult = new PrincipalDAO();
+$mov = $objResult->GetMovimento();
 ?>
 
 <nav class="navbar-default navbar-side" role="navigation">
@@ -78,7 +81,14 @@ if (isset($_GET['close']) && $_GET['close'] == 1)
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-refresh fa-2x"></i> Financeiro<span class="fa arrow"></span></a>
+            <?php $contDebito = 0; foreach ($mov as $cv) {
+                    
+                    if ($cv['data_movimento'] == UtilDao::DataAtual()) {
+                       $contDebito++;
+
+                    }
+                }?>
+                <a href="#"><i class="fa fa-refresh fa-2x"></i> Financeiro<span class="fa arrow"></span><span title="Boletos a vencer hoje." style="background-color:#f0ad4e;" class="badge btn-warning"><?= $contDebito ?></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="consultar_conta_categoria.php">Categorias</a>

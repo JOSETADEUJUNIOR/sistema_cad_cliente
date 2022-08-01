@@ -244,7 +244,7 @@ class ProdutoDAO extends Conexao
 
         $conexao = parent::retornaConexao();
         $comando_sql = 'Select id_produto, cod_produto, nome_produto, descricao_produto,
-                        valor_produto, estoque, custo, nome_categoria,  nome_fornecedor
+                        valor_produto, estoque, custo, nome_categoria,  nome_fornecedor, path
                     from tb_produto 
                     inner join tb_fornecedor on
                         tb_produto.id_fornecedor = tb_fornecedor.id_fornecedor

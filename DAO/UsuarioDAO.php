@@ -78,8 +78,6 @@ class UsuarioDAO extends Conexao{
 
             //Inicio da sessão
             UtilDAO::CriarSessao($nome, $id);
-
-
             header('location: index.php');
             exit;
         }

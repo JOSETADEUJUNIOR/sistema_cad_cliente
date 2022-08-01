@@ -25,7 +25,7 @@ class CategoriaDAO extends Conexao{
 
         // Passo 4 = Verifica se no comando sql tem ?. Caso tiver, configura as informações
 
-        $sql->bindValue(1,$nome_categoria);
+        $sql->bindValue(1,strip_tags(trim($nome_categoria)));
         $sql->bindValue(2, UtilDAO::CodigoLogado());
 
         // passo 5 Tentar executar

@@ -6,6 +6,7 @@ class UtilDAO
     private static function IniciarSessao()
     {
         if (!isset($_SESSION))
+            session_id() ;
             session_start();
     }
 
