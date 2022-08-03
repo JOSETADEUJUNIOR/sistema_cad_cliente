@@ -2,6 +2,9 @@
 require_once '../DAO/UtilDAO.php';
 UtilDAO::VerLogado();
 	require_once '../DAO/VendaDAO.php';
+    require_once '../DAO/PrincipalDAO.php';
+    $empresa = new PrincipalDAO();
+    $getEmpresa = $empresa->GetEmpresa();
     $objVenda = new VendaDAO();
     
     if (isset($_GET['btnFiltrar'])) {
@@ -80,8 +83,9 @@ UtilDAO::VerLogado();
 	//Criando a Instancia
 	$dompdf = new DOMPDF();
 	// Carrega seu HTML
+    $emp = $getEmpresa[0]['nome_empresa'];
 	$dompdf->load_html('
-			<h3 style="text-align: center;">RondonCell</h3>
+			<h3 style="text-align: center;">'.$emp.'</h3>
 			'.$html .'
 		');
 

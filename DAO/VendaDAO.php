@@ -420,7 +420,7 @@ class VendaDAO extends Conexao
     {
 
         $conexao = parent::retornaConexao();
-        $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto
+        $comando_sql = 'Select  tb_venda.id_venda as id_venda, data_venda, nome_cliente, Cpf_cliente, nome_produto, item_valor, cod_produto, qtd_produto, desconto, item_valor_fim
         from tb_venda 
             inner join tb_cliente on
                 tb_venda.id_cliente = tb_cliente.id_cliente
