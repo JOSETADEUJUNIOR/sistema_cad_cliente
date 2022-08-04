@@ -75,6 +75,9 @@ $mov = $objResult->GetMovimento();
                         <a href="pdv2.php">Realizar Venda</a>
                     </li>
                     <li>
+                        <a href="painelvendas.php">Vendas realizadas</a>
+                    </li>
+                    <li>
                         <a href="devolucaoProduto.php">Devolução Produto</a>
                     </li>
 

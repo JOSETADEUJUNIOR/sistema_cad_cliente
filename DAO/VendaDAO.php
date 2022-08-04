@@ -227,7 +227,9 @@ class VendaDAO extends Conexao
                 return -1;
             }
         } else {
-
+            if ($qtdVenda > 1) {
+                $valor = $qtdVenda * $valor;
+            }
             $valorFim = $valor;
             if ($cupomID > 0) {
                 $valorFim = $valor - $cupomValor;
@@ -378,8 +380,24 @@ class VendaDAO extends Conexao
             return -1;
         }
     }
+    public function VendaPrazo($vendaprazo, $dataprazo, $faturado)
+    {
 
-
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'UPDATE tb_venda set faturado = ?, data_prazo = ? WHERE id_venda = ?';
+        $sql = $conexao->prepare($comando_sql);
+        $sql->bindValue(1, $faturado);
+        $sql->bindValue(2, $dataprazo);
+        $sql->bindValue(3, $vendaprazo);
+        $sql->execute();
+        
+        try {
+            return -7;
+        } catch (\Exception $ex) {
+            return -1;
+        }
+    
+    }
     public function ResultadoVenda($idVenda)
     {
 
@@ -415,6 +433,32 @@ class VendaDAO extends Conexao
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+        
+            public function ListagemGeralVenda()
+            {
+        
+                $conexao = parent::retornaConexao();
+                $comando_sql = 'Select  tb_venda.id_venda as id_venda, faturado, data_prazo, data_venda, nome_cliente, sum(item_valor_fim) as Total
+                from tb_venda 
+                    inner join tb_cliente on
+                        tb_venda.id_cliente = tb_cliente.id_cliente
+                    inner join tb_item_venda on
+                        tb_venda.id_venda = tb_item_venda.id_venda
+                    inner join tb_produto on 
+                        tb_item_venda.id_produto = tb_produto.id_produto 
+                        Group by id_venda 
+                            order by data_prazo desc';
+                $sql = $conexao->prepare($comando_sql);
+                $sql->execute();
+                return $sql->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+
+
+
+
+
 
     public function ResultadoVendaDt($dtInicial, $dtFinal, $cliente)
     {

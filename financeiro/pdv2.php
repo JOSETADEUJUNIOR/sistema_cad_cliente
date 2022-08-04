@@ -14,9 +14,15 @@ $valor = '';
 require_once '../DAO/VendaDAO.php';
 $objVenda = new VendaDAO();
 if (isset($_POST['btn_finalizar_Venda'])) {
-    $ret = -7;
+   
+    $vendaprazo = $_POST['idvenda'];
+    $dataprazo = date("Y-m-d");
+    $faturado = 0;
+    $ret = $objVenda->VendaPrazo($vendaprazo, $dataprazo, $faturado);
     $pag_ret = 'pdv2.php';
+   
 }
+
 if (isset($_POST['btn_adicionar'])) {
     if (isset($_POST['idvenda']) && $_POST['idvenda'] > 0) {
         $idVenda = $_POST['idvenda'];
@@ -68,6 +74,13 @@ if (isset($_POST['btn_adicionar'])) {
     }
 }
 
+if (isset($_GET['idVenda'])) {
+
+    $idVendaRet = $_GET['idVenda'];
+    $itens = $objVenda->ItensVenda($idVendaRet);
+}
+
+
 if (isset($_GET['idExcluir'])) {
 
     $idItem = explode('-', $_GET['idExcluir'])[0];
@@ -75,6 +88,16 @@ if (isset($_GET['idExcluir'])) {
     $idVendaRet = $objVenda->RetiraItem($idItem, $idVenda);
     $itens = $objVenda->ItensVenda($idVendaRet);
 }
+
+if (isset($_POST['btn_venda_prazo'])) {
+    $vendaprazo = $_POST['idvenda'];
+    $dataprazo = $_POST['dataprazo'];
+    $faturado = 1;
+    var_dump($dataprazo, $vendaprazo);
+    $ret = $objVenda->VendaPrazo($vendaprazo, $dataprazo, $faturado);
+    $pag_ret = 'pdv2.php';
+}
+
 
 $dadosVenda = $objVenda->DetalhesVenda($idVendaRet);
 $valorTotVenda = $objVenda->ValorTotVenda($idVendaRet);
@@ -89,6 +112,7 @@ $ValorVendaDia = $objVenda->VendasDia();
 <?php include_once('_head.php'); ?>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <body>
     <div id="wrapper">
         <?php include_once('_topo.php'); ?>
@@ -289,75 +313,77 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                 </div>
                                             </div>
 
+                                            <?php if (count($itens) > 0) { ?>
 
-                                            <div class="col-md-12 col-xs-12 ">
-                                                <a href="#" data-toggle="modal" data-target="#FinalizarVenda" class="btn btn-success col-md-2 col-xs-12">Finalizar a venda</a>
-                                                <div class=" modal fade" id="FinalizarVenda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title" id="myModalLabel">Finalizar a Venda</h4>
-                                                            </div>
-                                                            <div  class="modal-body" style="background-color: #799b4d;">
-                                                                <h3 id="ValorTotal">Valor Total:R$:<strong><?= $valorTotVenda[0]['valorTotal'] ?></strong></h3> <br>
-                                                            </div>
-                                                        </hr> </br></br>
-                                                            <div id="divCupom" class="col-md-06 col-xs-12">
-                                                                <label>Escolha a forma de pagamento:</label><br>
-                                                                <div class="form-group" id="divProd">
-                                                                    <select name="pagamento" id="pagamento" class="produto form-control" onchange="CampoTroco(this.value)">
-                                                                        <option value="">Escolha....</option>
-                                                                        <option value="1">Dinheiro</option>
-                                                                        <option value="2">Cartão Crédito</option>
-                                                                        <option value="3">Cartão Débito</option>
-                                                                    </select>
+
+                                                <div class="col-md-12 col-xs-12 ">
+                                                    <a href="#" data-toggle="modal" data-target="#FinalizarVenda" class="btn btn-success col-md-2 col-xs-12">Finalizar a venda</a>
+                                                    <div class=" modal fade" id="FinalizarVenda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Finalizar a Venda</h4>
                                                                 </div>
-                                                            </div>
-                                                            <div id="divtroco" style="display:none">
-                                                                <div class="col-md-6 col-xs-12">
-                                                                    <label>Valor Cliente</label><br>
-                                                                    <div class="form-group">
-                                                                        <input type="hidden" name="valorTotTroco" id="valorTotTroco" value="<?= $valorTotTroco[0]['valorTotal'] ?>">
-                                                                        <input type="text" id="valorCliente" name="valorCliente" class="form-control" onfocusout="ValorTroco()">
-                                                                        <legend style="color:red; font-size:12px" id="msgTroco"></legend>
+                                                                <div class="modal-body" style="background-color: #799b4d;">
+                                                                    <h3 id="ValorTotal">Valor Total:R$:<strong><?= $valorTotVenda[0]['valorTotal'] ?></strong></h3> <br>
+                                                                </div>
+                                                                </hr> </br></br>
+                                                                <div id="divCupom" class="col-md-06 col-xs-12">
+                                                                    <label>Escolha a forma de pagamento:</label><br>
+                                                                    <div class="form-group" id="divProd">
+                                                                        <select name="pagamento" id="pagamento" class="produto form-control" onchange="CampoTroco(this.value)">
+                                                                            <option value="">Escolha....</option>
+                                                                            <option value="1">Dinheiro</option>
+                                                                            <option value="2">Cartão Crédito</option>
+                                                                            <option value="3">Cartão Débito</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6 col-xs-12">
-                                                                    <div class="form-group">
-                                                                        <label>Valor Troco</label>
-                                                                        <input disabled name="valorTroco" id="valorTroco" type="text" value="0" class="form-control">
+                                                                <div id="divtroco" style="display:none">
+                                                                    <div class="col-md-6 col-xs-12">
+                                                                        <label>Valor Cliente</label><br>
+                                                                        <div class="form-group">
+                                                                            <input type="hidden" name="valorTotTroco" id="valorTotTroco" value="<?= $valorTotTroco[0]['valorTotal'] ?>">
+                                                                            <input type="text" id="valorCliente" name="valorCliente" class="form-control" onfocusout="ValorTroco()">
+                                                                            <legend style="color:red; font-size:12px" id="msgTroco"></legend>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-xs-12">
+                                                                        <div class="form-group">
+                                                                            <label>Valor Troco</label>
+                                                                            <input disabled name="valorTroco" id="valorTroco" type="text" value="0" class="form-control">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div id="divCupom" class="col-md-12 col-xs-12">
-                                                                <label>Finalize a venda:</label><br>
-                                                                <div class="form-group" id="divProd">
-                                                                    <button type="button" class="btn btn-warning col-md-4 col-xs-12" data-dismiss="modal">Voltar</button>
-                                                                    <button name="btn_finalizar_Venda" class="btn btn-success col-md-4 col-xs-12">Finaliza sem Cupom</button>
-                                                                    <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-danger col-md-4 col-xs-12 ">Emitir Cupom</a>
+                                                                <div id="divCupom" class="col-md-12 col-xs-12">
+                                                                    <label>Finalize a venda:</label><br>
+                                                                    <div class="form-group" id="divProd">
+                                                                        <button type="button" class="btn btn-warning col-md-4 col-xs-12" data-dismiss="modal">Voltar</button>
+                                                                        <button name="btn_finalizar_Venda" class="btn btn-success col-md-4 col-xs-12">Finaliza sem Cupom</button>
+                                                                        <a href="pdfVenda.php?idVenda=<?= $idVendaRet ?>" target="_blank" class="btn btn-danger col-md-4 col-xs-12 ">Emitir Cupom</a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <script>
-                                                                function CampoTroco(valor) {
-                                                                    console.log(valor);
+                                                                <script>
+                                                                    function CampoTroco(valor) {
+                                                                        console.log(valor);
 
-                                                                    if (valor == '1') {
+                                                                        if (valor == '1') {
 
-                                                                        $("#divtroco").show();
+                                                                            $("#divtroco").show();
 
-                                                                    } else if (valor > 1) {
-                                                                        $("#divtroco").hide();
+                                                                        } else if (valor > 1) {
+                                                                            $("#divtroco").hide();
+                                                                        }
                                                                     }
-                                                                }
-                                                            </script>
-                                                            <script>
-                                                                function ValorTroco() {
-                                                                    var valorTotal = $("#valorTotTroco").val();
-                                                                    console.log(valorTotal);
-                                                                    var dinheiro = $("#valorCliente").val();
-                                                                    console.log(dinheiro);
-                                                                    
+                                                                </script>
+                                                                <script>
+                                                                    function ValorTroco() {
+                                                                        var valorTotal = $("#valorTotTroco").val();
+                                                                        console.log(valorTotal);
+                                                                        var dinheiro = $("#valorCliente").val();
+                                                                        console.log(dinheiro);
+
                                                                         var total;
                                                                         total = dinheiro - valorTotal;
                                                                         valorTroco = total.toLocaleString("pt-BR", {
@@ -367,20 +393,87 @@ $ValorVendaDia = $objVenda->VendasDia();
                                                                         console.log(valorTroco);
                                                                         $("#valorTroco").val(valorTroco);
                                                                     }
-                                                                
-                                                            </script>
-                                                            <div class="modal-footer">
+                                                                </script>
+                                                                <div class="modal-footer">
 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <a href="#" data-toggle="modal" data-target="#vendaprazo" class="btn btn-warning col-md-2 col-xs-12">Venda à prazo</a>
+
+                                                    <div class=" modal fade" id="vendaprazo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    <h4 class="modal-title" id="myModalLabel">Efetuar venda à prazo</h4>
+                                                                </div>
+                                                                <div class="modal-body" style="background-color: #799b4d;">
+                                                                    <h3 id="ValorTotal">Valor Total:R$:<strong><?= $valorTotVenda[0]['valorTotal'] ?></strong></h3> <br>
+                                                                </div>
+                                                                </hr> </br></br>
+                                                                <div class="col-md-12 col-xs-12">
+                                                                    <div class="form-group" id="divQtd">
+                                                                        <label>Data do Pagamento:</label>
+                                                                        <input name="dataprazo" id="dataprazo" type="date" class="form-control" onfocusout="SinalizaCampo('divQtd','qtd')">
+                                                                    </div>
+                                                                </div>
+                                                                <div id="divCupom" class="col-md-12 col-xs-12">
+                                                                    <label>Finalize a venda:</label><br>
+                                                                    <div class="form-group" id="divProd">
+                                                                        <button type="button" class="btn btn-warning col-md-4 col-xs-12" data-dismiss="modal">Voltar</button>
+                                                                        <button name="btn_venda_prazo" class="btn btn-success col-md-4 col-xs-12">Finalizar venda</button>
+                                                                        <a href="painelvendas.php?idVenda=<?= $idVendaRet ?>" class="btn btn-danger col-md-4 col-xs-12 ">Visualizar</a>
+                                                                    </div>
+                                                                </div>
+                                                                <script>
+                                                                    function CampoTroco(valor) {
+                                                                        console.log(valor);
+
+                                                                        if (valor == '1') {
+
+                                                                            $("#divtroco").show();
+
+                                                                        } else if (valor > 1) {
+                                                                            $("#divtroco").hide();
+                                                                        }
+                                                                    }
+                                                                </script>
+                                                                <script>
+                                                                    function ValorTroco() {
+                                                                        var valorTotal = $("#valorTotTroco").val();
+                                                                        console.log(valorTotal);
+                                                                        var dinheiro = $("#valorCliente").val();
+                                                                        console.log(dinheiro);
+
+                                                                        var total;
+                                                                        total = dinheiro - valorTotal;
+                                                                        valorTroco = total.toLocaleString("pt-BR", {
+                                                                            style: "currency",
+                                                                            currency: "BRL"
+                                                                        });
+                                                                        console.log(valorTroco);
+                                                                        $("#valorTroco").val(valorTroco);
+                                                                    }
+                                                                </script>
+                                                                <div class="modal-footer">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+
+                                                    <button type="button" id="btnCupom" name="btnCupom" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom <span class="badge badge-light"><?= count($cupom) ?></span></button>
                                                 </div>
-
-
-
-
-                                                <button type="button" id="btnCupom" name="btnCupom" class="btn btn-info col-md-2 col-xs-12 ">Adicionar Cupom <span class="badge badge-light"><?= count($cupom) ?></span></button>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="panel-footer">
@@ -388,7 +481,8 @@ $ValorVendaDia = $objVenda->VendasDia();
                             </div>
                         </div>
                     </div>
-                <?php } ?>
+            <?php }
+                                        } ?>
 
 
                 </form>
@@ -438,9 +532,11 @@ $ValorVendaDia = $objVenda->VendasDia();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $("#valorCliente").mask('000000.00', {reverse: true});
-        }); 
+        $(document).ready(function() {
+            $("#valorCliente").mask('000000.00', {
+                reverse: true
+            });
+        });
     </script>
 
 
