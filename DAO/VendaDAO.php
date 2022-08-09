@@ -181,7 +181,7 @@ class VendaDAO extends Conexao
             if ($qtdVenda > 1) {
                 $valor = $qtdVenda * $valor;
             }
-            if ($cupomID >0){
+            if ($cupomID > 0) {
                 $valorFim = $valor - $cupomValor;
                 $comando_sql = 'update tb_item_venda set qtd_produto = qtd_produto + ?, item_valor = item_valor + ?, desconto = desconto + ?, item_valor_fim = item_valor_fim + ?  where id_produto = ? ';
                 $sql = $conexao->prepare($comando_sql);
@@ -390,13 +390,12 @@ class VendaDAO extends Conexao
         $sql->bindValue(2, $dataprazo);
         $sql->bindValue(3, $vendaprazo);
         $sql->execute();
-        
+
         try {
             return -7;
         } catch (\Exception $ex) {
             return -1;
         }
-    
     }
     public function ResultadoVenda($idVenda)
     {
@@ -434,12 +433,12 @@ class VendaDAO extends Conexao
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-        
-            public function ListagemGeralVenda()
-            {
-        
-                $conexao = parent::retornaConexao();
-                $comando_sql = 'Select  tb_venda.id_venda as id_venda, faturado, data_prazo, data_venda, nome_cliente, sum(item_valor_fim) as Total
+
+    public function ListagemGeralVenda()
+    {
+
+        $conexao = parent::retornaConexao();
+        $comando_sql = 'Select  tb_venda.id_venda as id_venda, faturado, data_prazo, data_venda, nome_cliente, sum(item_valor_fim) as Total
                 from tb_venda 
                     inner join tb_cliente on
                         tb_venda.id_cliente = tb_cliente.id_cliente
@@ -449,10 +448,10 @@ class VendaDAO extends Conexao
                         tb_item_venda.id_produto = tb_produto.id_produto 
                         Group by id_venda 
                             order by data_prazo desc';
-                $sql = $conexao->prepare($comando_sql);
-                $sql->execute();
-                return $sql->fetchAll(PDO::FETCH_ASSOC);
-            }
+        $sql = $conexao->prepare($comando_sql);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
 

@@ -10,10 +10,10 @@ $vd = new VendaDAO();
 $vendas = $vd->ListagemGeralVenda();
 
 foreach ($vendas as $venda) {
-    if ($venda['faturado']==0) {
-    
+    if ($venda['faturado'] == 0) {
+
         $totalVendas  = $venda['Total'] + $totalVendas;
-    }else{
+    } else {
         $totalPrazo = $venda['Total'] + $totalPrazo;
     }
 }
@@ -40,27 +40,27 @@ foreach ($vendas as $venda) {
                 </div>
                 <!-- /. ROW  -->
                 <hr />
-                
+
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Vendas realizadas <h5 style="color:white; text-align: right;">Vendas realizadas: <?='<strong>R$:'.number_format($totalVendas,2,",",".").'</strong>'?> </br> Vendas a receber: <?='<strong>R$:'.number_format($totalPrazo,2,",",".").'</strong>'?></h5>
-                               
+                                Vendas realizadas <h5 style="color:white; text-align: right;">Vendas realizadas: <?= '<strong>R$:' . number_format($totalVendas, 2, ",", ".") . '</strong>' ?> </br> Vendas a receber: <?= '<strong>R$:' . number_format($totalPrazo, 2, ",", ".") . '</strong>' ?></h5>
+
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                            <th>ID Venda</th>    
-                                            <th>Cliente</th>
-                                            <th>Data Venda</th>
-                                            <th>Valor</th>
-                                            <th>Faturada?</th>
-                                            <th>Data Prazo</th>
-                                            <th>Ação</th>
+                                                <th>ID Venda</th>
+                                                <th>Cliente</th>
+                                                <th>Data Venda</th>
+                                                <th>Valor</th>
+                                                <th>Faturada?</th>
+                                                <th>Data Prazo</th>
+                                                <th>Ação</th>
 
                                             </tr>
                                         </thead>
@@ -72,13 +72,14 @@ foreach ($vendas as $venda) {
                                                     <td><?= $vend['nome_cliente'] ?></td>
                                                     <td><?= UtilDAO::ExibirDataBr($vend['data_venda']) ?></td>
                                                     <td><?= $vend['Total'] ?></td>
-                                                    <td><?= ($vend['faturado']==1?'<span class="btn btn-warning btn-xs">não</span>':'<span class="btn btn-success btn-xs">Sim</span>') ?></td>
-                                                    <td><?= ($vend['data_prazo']!=""?'<span class="btn btn-warning btn-xs">'.UtilDAO::ExibirDataBr($vend['data_prazo']).'</span>':"<span class=\"btn btn-info btn-xs\">Venda à vista</span>") ?></td>
-                                                    <td><?php if ($vend['faturado']>0) {?>
-                                                        <a href="pdv2.php?idVenda=<?= $vend['id_venda'] ?>" class="btn btn-warning btn-xs">Faturar?</a></td>
-                                                    <?php }else { ?>
-                                                        <button name="btn_finalizar_Venda" class="btn btn-success btn-xs">Faturada</button>
-                                                    <?php } ?>
+                                                    <td><?= ($vend['faturado'] == 1 ? '<span class="btn btn-warning btn-xs">não</span>' : '<span class="btn btn-success btn-xs">Sim</span>') ?></td>
+                                                    <td><?= ($vend['data_prazo'] != "" ? '<span class="btn btn-warning btn-xs">' . UtilDAO::ExibirDataBr($vend['data_prazo']) . '</span>' : "<span class=\"btn btn-info btn-xs\">Venda à vista</span>") ?></td>
+                                                    <td><?php if ($vend['faturado'] > 0) { ?>
+                                                            <a href="pdv2.php?idVenda=<?= $vend['id_venda'] ?>" class="btn btn-warning btn-xs">Faturar?</a>
+                                                    </td>
+                                                <?php } else { ?>
+                                                    <button name="btn_finalizar_Venda" class="btn btn-success btn-xs">Faturada</button>
+                                                <?php } ?>
 
                                                 </tr>
                                             <?php } ?>
